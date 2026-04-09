@@ -25,7 +25,7 @@ const themeInitScript = `(function(){try{var k=${JSON.stringify(THEME_STORAGE_KE
 export const metadata: Metadata = {
   title: SITE_TITLE,
   description:
-    "Сайтсозӣ, Android, дизайн ва зиёда — омӯзиши IT бо забони тоҷикӣ. Аз сифр то касбӣ дар платформаи ITomuz.",
+    "Сайтсозӣ, Android, дизайн ва зиёда — омӯзиши IT бо забони тоҷикӣ. Аз сифр то касбӣ дар платформаи ITomuz TJ.",
 };
 
 export default function RootLayout({

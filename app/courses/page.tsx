@@ -5,7 +5,7 @@ import { SITE_TITLE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: SITE_TITLE,
-  description: "Kotlin ва Android, сайтсозӣ бо HTML, CSS ва JavaScript — бо забони тоҷикӣ дар ITomuz.",
+  description: "Kotlin ва Android, сайтсозӣ бо HTML, CSS ва JavaScript — бо забони тоҷикӣ дар ITomuz TJ.",
 };
 
 export default function CoursesPage() {

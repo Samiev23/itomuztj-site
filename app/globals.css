@@ -31,6 +31,8 @@
   --navbar-border: rgba(255, 255, 255, 0.06);
   --logo-it: #22d3ee;
   --logo-omuz: #ffffff;
+  --hero-gradient-from: #22d3ee;
+  --hero-gradient-to: #34d399;
   --grid-line: rgba(34, 211, 238, 0.03);
   --lesson-locked-opacity: 0.9;
   --code-editor-bg: #1e1e1e;
@@ -85,6 +87,8 @@
   --navbar-border: #e8e5e0;
   --logo-it: #0891b2;
   --logo-omuz: #1a1a1a;
+  --hero-gradient-from: #0891b2;
+  --hero-gradient-to: #059669;
   --grid-line: rgba(8, 145, 178, 0.06);
   --lesson-locked-opacity: 0.5;
   --code-editor-bg: #1e1e1e;
@@ -115,12 +119,19 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Hero headline: solid white on dark; solid foreground on light (no gradient) */
-.hero-title {
+/* Hero headline: prefix solid; suffix cyan→teal gradient */
+.hero-title-prefix {
   color: #ffffff;
 }
-[data-theme="light"] .hero-title {
-  color: rgb(var(--rgb-foreground) / 1);
+[data-theme="light"] .hero-title-prefix {
+  color: #1a1a1a;
+}
+.hero-title-gradient {
+  background-image: linear-gradient(105deg, var(--hero-gradient-from), var(--hero-gradient-to));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 body {

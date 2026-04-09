@@ -85,8 +85,9 @@ export default function HomePage() {
           <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan/20 bg-cyan-dim px-4 py-1.5 text-center font-mono text-xs font-medium uppercase tracking-wider text-cyan sm:text-sm">
             Платформаи №1 барои омӯзиши IT дар Тоҷикистон
           </p>
-          <h1 className="hero-title text-balance text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            Аввалин қадамат ба IT аз ин ҷост
+          <h1 className="text-balance text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+            <span className="hero-title-prefix">Аввалин қадамат ба </span>
+            <span className="hero-title-gradient">IT аз ин ҷост</span>
           </h1>
           <p className="mt-6 text-pretty text-lg text-foreground-secondary sm:text-xl">
             Сайтсозӣ, барномасозии мобайл, дизайн ва зиёда — ҳамаро бо забони модарӣ омӯзед. Аз сифр то
@@ -232,7 +233,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
             <div>
-              <h2 className="text-3xl font-bold text-foreground sm:text-4xl">Дар бораи ITomuz</h2>
+              <h2 className="text-3xl font-bold text-foreground sm:text-4xl">Дар бораи ITomuz TJ</h2>
               <p className="mt-6 leading-relaxed text-foreground-secondary">
                 Мо боварӣ дорем, ки дониши техникӣ бояд барои ҳама дастрас бошад.{" "}
                 <BrandLogo className="inline text-base align-baseline" /> барои омӯзгорон, донишҷӯён ва

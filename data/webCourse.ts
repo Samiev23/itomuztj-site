@@ -200,8 +200,8 @@ export const webLessonModules: LessonModule[] = [
 
 Пахш кунед — браузер паёмро мебарорад. Ин ҳамон JavaScript аст, ки дар як лаҳза иҷро мешавад.`,
         starterCode: `<button onclick="alert('Салом!')">Пахш кун!</button>`,
-        task: "Тугмаро тағйир диҳед, ки «Хуш омадед ба ITomuz!» нишон диҳад",
-        expectedOutput: "Алерт бо матни «Хуш омадед ба ITomuz!»",
+        task: "Тугмаро тағйир диҳед, ки «Хуш омадед ба ITomuz TJ!» нишон диҳад",
+        expectedOutput: "Алерт бо матни «Хуш омадед ба ITomuz TJ!»",
         hint: "Дар дохили alert() матнро иваз кунед",
         runtime: "web",
         webChecks: {
