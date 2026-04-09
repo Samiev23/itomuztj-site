@@ -85,7 +85,7 @@ export default function HomePage() {
           <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan/20 bg-cyan-dim px-4 py-1.5 text-center font-mono text-xs font-medium uppercase tracking-wider text-cyan sm:text-sm">
             Платформаи №1 барои омӯзиши IT дар Тоҷикистон
           </p>
-          <h1 className="text-balance text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+          <h1 className="hero-title text-balance text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
             Аввалин қадамат ба IT аз ин ҷост
           </h1>
           <p className="mt-6 text-pretty text-lg text-foreground-secondary sm:text-xl">

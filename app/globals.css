@@ -115,6 +115,14 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Hero headline: solid white on dark; solid foreground on light (no gradient) */
+.hero-title {
+  color: #ffffff;
+}
+[data-theme="light"] .hero-title {
+  color: rgb(var(--rgb-foreground) / 1);
+}
+
 body {
   @apply bg-background font-sans text-foreground-secondary antialiased;
   transition:

@@ -2,33 +2,24 @@
 
 import { useMemo, useState } from "react";
 
-const DEFAULT_HTML = `<!DOCTYPE html>
-<html lang="tg">
-<head>
-  <meta charset="utf-8">
-  <title>Мисол</title>
-  <style>
-    body {
-      font-family: system-ui, sans-serif;
-      padding: 1rem;
-      margin: 0;
-      background: #0f172a;
-      color: #e2e8f0;
-    }
-    h1 { color: #22d3ee; font-size: 1.25rem; margin: 0 0 0.5rem; }
-    p { margin: 0; line-height: 1.5; }
-  </style>
-</head>
-<body>
-  <h1>Хуш омадед ба ITomuz</h1>
-  <p>Ин як саҳифаи HTML-и оддӣ аст — ҳаминро дар пешнамои зер мебинед.</p>
-</body>
-</html>`;
+const DEFAULT_SNIPPET = `<!-- Аввалин сайти шумо! -->
+<h1>Салом, ман IT-мутахассис мешавам!</h1>
+<p>Бо ITomuz TJ ман метавонам:</p>
+<ul>
+<li>Вебсайт созам 🌐</li>
+<li>Барнома созам 📱</li>
+<li>Дизайн кунам 🎨</li>
+</ul>`;
+
+/** Minimal document so the iframe renders the user snippet cleanly. */
+function wrapHeroPreview(fragment: string) {
+  return `<!DOCTYPE html><html lang="tg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{font-family:system-ui,sans-serif;margin:12px;line-height:1.5;color:#1a1a1a;}h1{font-size:1.125rem;margin:0 0 .5rem;}p{margin:0 0 .75rem;}ul{margin:0;padding-left:1.25rem;}li{margin:.25rem 0}</style></head><body>${fragment}</body></html>`;
+}
 
 export function HeroHtmlPreview() {
-  const [source, setSource] = useState(DEFAULT_HTML);
+  const [source, setSource] = useState(DEFAULT_SNIPPET);
 
-  const srcDoc = useMemo(() => source, [source]);
+  const srcDoc = useMemo(() => wrapHeroPreview(source), [source]);
 
   return (
     <div className="mt-14 rounded-2xl border border-theme-medium bg-surface/80 p-6 text-left shadow-2xl backdrop-blur transition-[border-color,background-color,box-shadow] duration-300 sm:p-8" style={{ boxShadow: "0 25px 50px -12px var(--shadow-card)" }}>
