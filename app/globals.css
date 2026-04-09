@@ -2,10 +2,113 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --bg: #080c14;
-  --cyan: #22d3ee;
-  --purple: #a78bfa;
+/* ─── Dark (default) ─── */
+:root,
+[data-theme="dark"] {
+  --rgb-background: 8 12 20;
+  --rgb-surface: 15 22 41;
+  --rgb-surface-elevated: 20 29 51;
+  --rgb-card-hover: 20 29 51;
+  --rgb-foreground: 255 255 255;
+  --rgb-foreground-secondary: 203 213 225;
+  --rgb-foreground-muted: 148 163 184;
+  --rgb-foreground-subtle: 100 116 139;
+  --rgb-cyan: 34 211 238;
+  --rgb-cyan-hover: 6 182 212;
+  --color-cyan-dim: rgba(34, 211, 238, 0.15);
+  --rgb-purple: 167 139 250;
+  --color-purple-dim: rgba(167, 139, 250, 0.12);
+  --rgb-success: 16 185 129;
+  --rgb-warning: 250 204 21;
+  --rgb-line: 255 255 255;
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-medium: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.15);
+  --bg-glass-low: rgba(255, 255, 255, 0.03);
+  --bg-glass-mid: rgba(255, 255, 255, 0.05);
+  --bg-glass-high: rgba(255, 255, 255, 0.08);
+  --navbar-bg: rgba(8, 12, 20, 0.8);
+  --navbar-border: rgba(255, 255, 255, 0.06);
+  --logo-it: #22d3ee;
+  --logo-omuz: #ffffff;
+  --grid-line: rgba(34, 211, 238, 0.03);
+  --lesson-locked-opacity: 0.9;
+  --code-editor-bg: #1e1e1e;
+  --code-editor-text: 226 232 240;
+  --code-block-bg: 13 17 23;
+  --code-block-text: 226 232 240;
+  --preview-bg: #ffffff;
+  --preview-border: rgba(255, 255, 255, 0.1);
+  --rgb-input-bg: 15 22 41;
+  --rgb-input-border: 255 255 255;
+  --progress-track: rgba(255, 255, 255, 0.08);
+  --progress-ring: rgba(255, 255, 255, 0.1);
+  --rgb-ghost-border: 255 255 255;
+  --footer-border: rgba(255, 255, 255, 0.06);
+  --shadow-cyan: rgba(34, 211, 238, 0.3);
+  --shadow-card: rgba(0, 0, 0, 0.4);
+  --warning-border: rgba(234, 179, 8, 0.35);
+  --warning-bg: rgba(234, 179, 8, 0.1);
+  --warning-text: 254 240 138;
+  --success-ring: rgba(16, 185, 129, 0.3);
+  --success-bg: rgba(16, 185, 129, 0.1);
+  --success-text: 110 231 183;
+  --success-link-bg: rgba(5, 150, 105, 0.2);
+  --success-link-text: 167 243 208;
+}
+
+/* ─── Light (warm cream) ─── */
+[data-theme="light"] {
+  --rgb-background: 250 249 246;
+  --rgb-surface: 255 255 255;
+  --rgb-surface-elevated: 255 255 255;
+  --rgb-card-hover: 245 243 239;
+  --rgb-foreground: 26 26 26;
+  --rgb-foreground-secondary: 92 92 92;
+  --rgb-foreground-muted: 140 140 140;
+  --rgb-foreground-subtle: 140 140 140;
+  --rgb-cyan: 8 145 178;
+  --rgb-cyan-hover: 14 116 144;
+  --color-cyan-dim: rgba(8, 145, 178, 0.12);
+  --rgb-purple: 124 58 237;
+  --color-purple-dim: rgba(124, 58, 237, 0.1);
+  --rgb-success: 5 150 105;
+  --rgb-warning: 180 83 9;
+  --rgb-line: 232 229 224;
+  --border-subtle: #e8e5e0;
+  --border-medium: #e8e5e0;
+  --border-strong: #d4d0c8;
+  --bg-glass-low: rgba(255, 255, 255, 0.65);
+  --bg-glass-mid: rgba(245, 243, 239, 0.9);
+  --bg-glass-high: rgba(245, 243, 239, 1);
+  --navbar-bg: rgba(250, 249, 246, 0.9);
+  --navbar-border: #e8e5e0;
+  --logo-it: #0891b2;
+  --logo-omuz: #1a1a1a;
+  --grid-line: rgba(8, 145, 178, 0.06);
+  --lesson-locked-opacity: 0.5;
+  --code-editor-bg: #1e1e1e;
+  --code-editor-text: 226 232 240;
+  --code-block-bg: 240 237 232;
+  --code-block-text: 30 41 59;
+  --preview-bg: #ffffff;
+  --preview-border: #e8e5e0;
+  --rgb-input-bg: 255 255 255;
+  --rgb-input-border: 212 208 200;
+  --progress-track: #e8e5e0;
+  --progress-ring: #e8e5e0;
+  --rgb-ghost-border: 212 208 200;
+  --footer-border: #e8e5e0;
+  --shadow-cyan: rgba(8, 145, 178, 0.2);
+  --shadow-card: rgba(26, 26, 26, 0.06);
+  --warning-border: rgba(180, 83, 9, 0.35);
+  --warning-bg: rgba(180, 83, 9, 0.08);
+  --warning-text: 120 53 15;
+  --success-ring: rgba(5, 150, 105, 0.35);
+  --success-bg: rgba(5, 150, 105, 0.1);
+  --success-text: 5 150 105;
+  --success-link-bg: rgba(5, 150, 105, 0.15);
+  --success-link-text: 4 120 87;
 }
 
 html {
@@ -13,10 +116,49 @@ html {
 }
 
 body {
-  @apply bg-background text-slate-200 antialiased;
+  @apply bg-background font-sans text-foreground-secondary antialiased;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
 }
 
-/* Focus rings for accessibility */
+header.sticky,
+footer {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+/* Focus rings */
 :focus-visible {
   @apply outline-2 outline-offset-2 outline-cyan;
+}
+
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+}
+
+.code-editor-textarea {
+  background-color: var(--code-editor-bg) !important;
+  color: rgb(var(--code-editor-text) / 1) !important;
+}
+
+.lesson-card-locked {
+  opacity: var(--lesson-locked-opacity);
+}
+
+@layer components {
+  .border-theme-subtle {
+    border-color: var(--border-subtle);
+  }
+  .border-theme-medium {
+    border-color: var(--border-medium);
+  }
+  .border-theme-strong {
+    border-color: var(--border-strong);
+  }
 }

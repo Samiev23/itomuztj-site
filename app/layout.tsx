@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { IBM_Plex_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { SITE_TITLE } from "@/lib/site";
+import { THEME_STORAGE_KEY } from "@/lib/theme";
 
 const ibmPlexSans = IBM_Plex_Sans({
   subsets: ["latin", "cyrillic"],
@@ -18,6 +20,8 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const themeInitScript = `(function(){try{var k=${JSON.stringify(THEME_STORAGE_KEY)};var t=localStorage.getItem(k);if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t);}else{document.documentElement.setAttribute("data-theme","dark");}}catch(e){document.documentElement.setAttribute("data-theme","dark");}})();`;
+
 export const metadata: Metadata = {
   title: SITE_TITLE,
   description:
@@ -30,8 +34,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tg" className={`${ibmPlexSans.variable} ${jetbrainsMono.variable}`}>
+    <html lang="tg" suppressHydrationWarning data-theme="dark" className={`${ibmPlexSans.variable} ${jetbrainsMono.variable}`}>
       <body className="font-sans">
+        <Script id="itomuz-theme-init" strategy="beforeInteractive">
+          {themeInitScript}
+        </Script>
         <Navbar />
         {children}
       </body>

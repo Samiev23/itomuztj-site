@@ -26,7 +26,7 @@ export default function CourseLessonsPage({ params }: Props) {
   const isKotlin = course.id === "kotlin";
 
   return (
-    <main className="relative min-h-[calc(100vh-4rem)] overflow-hidden pb-20">
+    <main className="relative min-h-[calc(100vh-4rem)] overflow-hidden pb-20 transition-colors duration-300">
       <div className="pointer-events-none fixed inset-0 bg-grid-pattern bg-grid opacity-30" aria-hidden />
       <div
         className={`pointer-events-none fixed -left-32 top-32 h-72 w-72 rounded-full blur-[100px] ${isKotlin ? "bg-purple/10" : "bg-emerald-500/10"}`}
@@ -40,7 +40,7 @@ export default function CourseLessonsPage({ params }: Props) {
       <div className="relative mx-auto max-w-3xl px-4 pt-12 sm:px-6 lg:max-w-4xl lg:px-8 lg:pt-16">
         <Link
           href="/courses"
-          className="inline-flex items-center gap-2 text-sm font-medium text-slate-400 transition hover:text-cyan"
+          className="inline-flex items-center gap-2 text-sm font-medium text-foreground-secondary transition-colors duration-300 hover:text-cyan"
         >
           <span aria-hidden>←</span>
           Ҳамаи курсҳо
@@ -55,8 +55,8 @@ export default function CourseLessonsPage({ params }: Props) {
           >
             {isKotlin ? "Kotlin & Android" : "Сайтсозӣ"}
           </p>
-          <h1 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">{course.title}</h1>
-          <p className="mx-auto mt-4 max-w-xl text-pretty text-base text-slate-400 sm:text-lg">{course.description}</p>
+          <h1 className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">{course.title}</h1>
+          <p className="mx-auto mt-4 max-w-xl text-pretty text-base text-foreground-secondary sm:text-lg">{course.description}</p>
         </header>
 
         <LessonsModulesClient courseId={course.id} accent={course.accent} />

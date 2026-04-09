@@ -12,7 +12,7 @@ export function EmailSignup() {
 
   if (submitted) {
     return (
-      <p className="rounded-xl border border-cyan/30 bg-cyan-dim px-6 py-4 text-center text-slate-200">
+      <p className="rounded-xl border border-cyan/30 bg-cyan-dim px-6 py-4 text-center text-foreground-secondary transition-colors duration-300">
         Ташаккур! Шумо ба рӯйхати интизорӣ илова шудед. Мо ба зудӣ бо шумо тамос мегирем.
       </p>
     );
@@ -33,11 +33,12 @@ export function EmailSignup() {
         required
         autoComplete="email"
         placeholder="почта@мисол.tj"
-        className="min-h-12 flex-1 rounded-xl border border-white/10 bg-surface-elevated px-4 font-sans text-slate-100 placeholder:text-slate-500 focus:border-cyan focus:ring-1 focus:ring-cyan"
+        className="min-h-12 flex-1 rounded-xl border border-[rgb(var(--rgb-input-border))] bg-[rgb(var(--rgb-input-bg))] px-4 font-sans text-foreground placeholder:text-foreground-muted transition-colors duration-300 focus:border-cyan focus:outline-none focus:ring-1 focus:ring-cyan"
       />
       <button
         type="submit"
-        className="min-h-12 shrink-0 rounded-xl bg-cyan px-8 font-semibold text-background shadow-md shadow-cyan/25 transition hover:bg-cyan/90"
+        className="min-h-12 shrink-0 rounded-xl bg-cyan px-8 font-semibold text-white shadow-md transition-colors duration-300 hover:bg-cyan-hover"
+        style={{ boxShadow: "0 4px 14px var(--shadow-cyan)" }}
       >
         Обуна шавед
       </button>

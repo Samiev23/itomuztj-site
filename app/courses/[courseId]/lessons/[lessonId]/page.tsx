@@ -40,19 +40,19 @@ export default function CourseLessonPage({ params }: Props) {
 
   if (!accessible) {
     return (
-      <main className="relative min-h-[calc(100vh-4rem)] overflow-hidden">
+      <main className="relative min-h-[calc(100vh-4rem)] overflow-hidden transition-colors duration-300">
         <div className="pointer-events-none fixed inset-0 bg-grid-pattern bg-grid opacity-30" aria-hidden />
         <div className="relative mx-auto max-w-lg px-4 py-20 text-center sm:px-6">
           <span className="text-4xl" aria-hidden>
             🔒
           </span>
-          <h1 className="mt-6 text-2xl font-bold text-white">Ин дарс ҳанӯз дастрас нест</h1>
-          <p className="mt-4 text-slate-400">
+          <h1 className="mt-6 text-2xl font-bold text-foreground">Ин дарс ҳанӯз дастрас нест</h1>
+          <p className="mt-4 text-foreground-secondary">
             Дарси «{lesson.title}» ба зудӣ кушода мешавад ё пеш аз он дарсҳои қаблӣро ба анҷом расонед.
           </p>
           <Link
             href={`/courses/${courseId}/lessons`}
-            className="mt-8 inline-flex rounded-full border border-cyan/40 bg-cyan-dim px-6 py-3 font-semibold text-cyan transition hover:bg-cyan/20"
+            className="mt-8 inline-flex rounded-full border border-cyan/40 bg-cyan-dim px-6 py-3 font-semibold text-cyan transition-colors duration-300 hover:bg-cyan/20"
           >
             Бозгашт ба рӯйхати дарсҳо
           </Link>
@@ -65,7 +65,7 @@ export default function CourseLessonPage({ params }: Props) {
   if (!mod) notFound();
 
   return (
-    <main className="relative overflow-hidden">
+    <main className="relative overflow-hidden transition-colors duration-300">
       <div className="pointer-events-none fixed inset-0 bg-grid-pattern bg-grid opacity-30" aria-hidden />
       <div className="relative">
         <LessonAccessGate courseId={courseId} lesson={lesson} module={mod} />

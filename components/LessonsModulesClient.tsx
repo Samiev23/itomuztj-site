@@ -45,12 +45,14 @@ export function LessonsModulesClient({ courseId, accent }: Props) {
       : "bg-gradient-to-r from-cyan to-purple";
 
   if (!modules?.length) {
-    return <p className="mx-auto mt-10 max-w-xl text-center text-sm text-slate-500">Курс ёфт нашуд.</p>;
+    return (
+      <p className="mx-auto mt-10 max-w-xl text-center text-sm text-foreground-muted">Курс ёфт нашуд.</p>
+    );
   }
 
   if (loading) {
     return (
-      <p className="mx-auto mt-10 max-w-xl text-center text-sm text-slate-500">Боргирӣи пешрафт…</p>
+      <p className="mx-auto mt-10 max-w-xl text-center text-sm text-foreground-muted">Боргирӣи пешрафт…</p>
     );
   }
 
@@ -58,15 +60,19 @@ export function LessonsModulesClient({ courseId, accent }: Props) {
     <>
       <section className="mx-auto mt-10 max-w-xl" aria-labelledby="progress-label">
         <div className="flex items-center justify-between gap-4 text-sm">
-          <span id="progress-label" className="text-slate-400">
+          <span id="progress-label" className="text-foreground-secondary">
             Пешрафт
           </span>
-          <span className="font-mono text-slate-300">
+          <span className="font-mono text-foreground-secondary">
             {completed} / {total} дарс · {percent}%
           </span>
         </div>
         <div
-          className="mt-3 h-2.5 overflow-hidden rounded-full bg-white/5 ring-1 ring-white/10"
+          className="mt-3 h-2.5 overflow-hidden rounded-full transition-colors duration-300"
+          style={{
+            backgroundColor: "var(--progress-track)",
+            boxShadow: "inset 0 0 0 1px var(--progress-ring)",
+          }}
           role="progressbar"
           aria-valuenow={percent}
           aria-valuemin={0}
@@ -82,10 +88,10 @@ export function LessonsModulesClient({ courseId, accent }: Props) {
           <section key={mod.id} aria-labelledby={`module-${mod.id}-title`}>
             <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <h2 id={`module-${mod.id}-title`} className="text-xl font-bold text-white sm:text-2xl">
+                <h2 id={`module-${mod.id}-title`} className="text-xl font-bold text-foreground sm:text-2xl">
                   {mod.title}
                 </h2>
-                <p className="mt-1 font-mono text-sm text-slate-500">{mod.titleEn}</p>
+                <p className="mt-1 font-mono text-sm text-foreground-muted">{mod.titleEn}</p>
               </div>
               {mod.locked && (
                 <span className="inline-flex w-fit items-center gap-2 rounded-full border border-purple/30 bg-purple-dim px-3 py-1 text-xs font-semibold uppercase tracking-wide text-purple">

@@ -7,7 +7,7 @@ function StatusIcon({ status, accent }: { status: CardStatus; accent: CourseAcce
   if (status === "completed") {
     return (
       <span
-        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-500/15 text-lg text-emerald-400 ring-1 ring-emerald-400/30"
+        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-success/15 text-lg text-success ring-1 ring-success/30"
         aria-hidden
       >
         ✓
@@ -15,7 +15,10 @@ function StatusIcon({ status, accent }: { status: CardStatus; accent: CourseAcce
     );
   }
   if (status === "available") {
-    const ring = accent === "emerald" ? "ring-[#34d399]/35 bg-[#34d399]/10 text-[#34d399]" : "ring-cyan/35 bg-cyan-dim text-cyan";
+    const ring =
+      accent === "emerald"
+        ? "ring-[#34d399]/35 bg-[#34d399]/10 text-[#34d399]"
+        : "ring-cyan/35 bg-cyan-dim text-cyan";
     return (
       <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-lg ${ring}`} aria-hidden>
         ▶
@@ -24,7 +27,7 @@ function StatusIcon({ status, accent }: { status: CardStatus; accent: CourseAcce
   }
   return (
     <span
-      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/5 text-base text-slate-500 ring-1 ring-white/10"
+      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--bg-glass-mid)] text-base text-foreground-muted ring-1 ring-[color:var(--border-medium)]"
       aria-hidden
     >
       🔒
@@ -56,12 +59,12 @@ export function LessonCard({
       <StatusIcon status={cardStatus} accent={accent} />
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-baseline gap-2">
-          <span className="font-mono text-xs font-medium uppercase tracking-wider text-slate-500">
+          <span className="font-mono text-xs font-medium uppercase tracking-wider text-foreground-muted">
             Дарс {lesson.number}
           </span>
         </div>
-        <h3 className="mt-1 text-lg font-semibold text-white">{lesson.title}</h3>
-        <p className="mt-1 text-sm leading-relaxed text-slate-400">{lesson.description}</p>
+        <h3 className="mt-1 text-lg font-semibold text-foreground">{lesson.title}</h3>
+        <p className="mt-1 text-sm leading-relaxed text-foreground-secondary">{lesson.description}</p>
       </div>
     </>
   );
@@ -72,10 +75,10 @@ export function LessonCard({
       : "border-cyan/25 hover:border-cyan/45 hover:shadow-cyan/5";
 
   const cardClass =
-    "flex gap-4 rounded-2xl border p-5 transition sm:p-6 " +
+    "flex gap-4 rounded-2xl border p-5 transition-[border-color,box-shadow,background-color,opacity] duration-300 sm:p-6 " +
     (canOpen
-      ? `bg-surface/80 hover:bg-surface-elevated/90 hover:shadow-lg ${openClasses}`
-      : "border-white/8 bg-surface/40 opacity-90");
+      ? `bg-surface/80 hover:bg-card-hover hover:shadow-lg ${openClasses}`
+      : "border-theme-medium bg-surface/40 lesson-card-locked");
 
   const href = `/courses/${courseId}/lessons/${lesson.id}`;
 

@@ -9,25 +9,30 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#080c14",
-        surface: "#0f1629",
-        "surface-elevated": "#141d33",
+        background: "rgb(var(--rgb-background) / <alpha-value>)",
+        surface: "rgb(var(--rgb-surface) / <alpha-value>)",
+        "surface-elevated": "rgb(var(--rgb-surface-elevated) / <alpha-value>)",
+        "card-hover": "rgb(var(--rgb-card-hover) / <alpha-value>)",
+        foreground: "rgb(var(--rgb-foreground) / <alpha-value>)",
+        "foreground-secondary": "rgb(var(--rgb-foreground-secondary) / <alpha-value>)",
+        "foreground-muted": "rgb(var(--rgb-foreground-muted) / <alpha-value>)",
+        "foreground-subtle": "rgb(var(--rgb-foreground-subtle) / <alpha-value>)",
         cyan: {
-          DEFAULT: "#22d3ee",
-          dim: "rgba(34, 211, 238, 0.15)",
+          DEFAULT: "rgb(var(--rgb-cyan) / <alpha-value>)",
+          dim: "var(--color-cyan-dim)",
+          hover: "rgb(var(--rgb-cyan-hover) / <alpha-value>)",
         },
         purple: {
-          DEFAULT: "#a78bfa",
-          dim: "rgba(167, 139, 250, 0.12)",
+          DEFAULT: "rgb(var(--rgb-purple) / <alpha-value>)",
+          dim: "var(--color-purple-dim)",
         },
+        line: "rgb(var(--rgb-line) / <alpha-value>)",
+        success: "rgb(var(--rgb-success) / <alpha-value>)",
+        warning: "rgb(var(--rgb-warning) / <alpha-value>)",
       },
       fontFamily: {
         sans: ["var(--font-ibm-plex-sans)", "system-ui", "sans-serif"],
         mono: ["var(--font-jetbrains-mono)", "ui-monospace", "monospace"],
-      },
-      backgroundImage: {
-        "grid-pattern":
-          "linear-gradient(rgba(34, 211, 238, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px)",
       },
       backgroundSize: {
         grid: "64px 64px",

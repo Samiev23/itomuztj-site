@@ -69,16 +69,16 @@ export function CoursesGridClient() {
           return (
             <div
               key={course.id}
-              className={`relative flex flex-col rounded-2xl border border-dashed border-white/15 bg-surface/40 p-6 opacity-90 shadow-lg sm:p-8 ${glow}`}
+              className={`relative flex flex-col rounded-2xl border border-dashed border-theme-strong bg-surface/40 p-6 opacity-90 shadow-lg transition-colors duration-300 sm:p-8 ${glow}`}
             >
-              <span className="absolute right-4 top-4 rounded-full border border-white/15 bg-white/5 px-2.5 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wider text-slate-400">
+              <span className="absolute right-4 top-4 rounded-full border border-theme-medium bg-[var(--bg-glass-mid)] px-2.5 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wider text-foreground-muted">
                 Ба зудӣ
               </span>
               <span className="text-4xl" aria-hidden>
                 {course.emoji}
               </span>
-              <h2 className="mt-4 text-xl font-bold text-white sm:text-2xl">{course.title}</h2>
-              <p className="mt-2 flex-1 text-pretty text-sm leading-relaxed text-slate-500 sm:text-base">
+              <h2 className="mt-4 text-xl font-bold text-foreground sm:text-2xl">{course.title}</h2>
+              <p className="mt-2 flex-1 text-pretty text-sm leading-relaxed text-foreground-muted sm:text-base">
                 {course.description}
               </p>
               <p className={`mt-6 font-mono text-sm ${label}`}>Интизори мундариҷа…</p>
@@ -95,7 +95,7 @@ export function CoursesGridClient() {
           <Link
             key={course.id}
             href={`/courses/${course.id}/lessons`}
-            className={`group relative flex flex-col rounded-2xl border bg-surface/80 p-6 shadow-lg transition sm:p-8 ${border} ${glow} hover:bg-surface-elevated/90`}
+            className={`group relative flex flex-col rounded-2xl border bg-surface/80 p-6 shadow-lg transition-[border-color,box-shadow,background-color] duration-300 sm:p-8 ${border} ${glow} hover:bg-card-hover`}
           >
             <span className="absolute right-4 top-4 rounded-full border border-cyan/25 bg-cyan/10 px-2.5 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wider text-cyan">
               Бепул
@@ -103,8 +103,8 @@ export function CoursesGridClient() {
             <span className="text-4xl" aria-hidden>
               {course.emoji}
             </span>
-            <h2 className="mt-4 text-xl font-bold text-white sm:text-2xl">{course.title}</h2>
-            <p className="mt-2 flex-1 text-pretty text-sm leading-relaxed text-slate-400 sm:text-base">
+            <h2 className="mt-4 text-xl font-bold text-foreground sm:text-2xl">{course.title}</h2>
+            <p className="mt-2 flex-1 text-pretty text-sm leading-relaxed text-foreground-secondary sm:text-base">
               {course.description}
             </p>
             <div className="mt-6 space-y-2">
@@ -112,10 +112,14 @@ export function CoursesGridClient() {
                 <span className={`font-mono ${label}`}>
                   {done} / {total} дарс
                 </span>
-                <span className="text-slate-500">{percent}%</span>
+                <span className="text-foreground-muted">{percent}%</span>
               </div>
               <div
-                className="h-2 overflow-hidden rounded-full bg-white/5 ring-1 ring-white/10"
+                className="h-2 overflow-hidden rounded-full transition-colors duration-300"
+                style={{
+                  backgroundColor: "var(--progress-track)",
+                  boxShadow: "inset 0 0 0 1px var(--progress-ring)",
+                }}
                 role="progressbar"
                 aria-valuenow={percent}
                 aria-valuemin={0}
