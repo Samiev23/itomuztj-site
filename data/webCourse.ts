@@ -2,7 +2,7 @@ import type { LessonModule } from "./lessonTypes";
 import { webModule5JsBasics } from "./webModule5JsBasics";
 
 /** Анҷоми ин дарс — гирифтани гувоҳномаи «Сайтсозӣ» */
-export const WEB_CAPSTONE_LESSON_ID = "31";
+export const WEB_CAPSTONE_LESSON_ID = "26";
 
 export const webLessonModules: LessonModule[] = [
   {
@@ -183,136 +183,18 @@ export const webLessonModules: LessonModule[] = [
   },
   {
     id: "m3",
-    title: "Модул 3: JavaScript — ҷони сайт",
-    titleEn: "Ҷони сайт",
+    title: "Модул 3: Мини-лоиҳаҳо 1",
+    titleEn: "Mini projects 1",
     locked: false,
     lessons: [
       {
         id: "8",
         number: 8,
-        title: "JavaScript чист?",
-        description: "Ақл ва ҳаракати сайт",
-        theory: `**HTML** — ин **ҷисми одам**, **CSS** — ин **либос**, **JavaScript** — ин **ақл ва ҳаракат**!
-
-Бе JavaScript сайт мисли **манекен** аст — зебо, вале **ҳаракат намекунад**. Бо JavaScript **тугмаҳо кор мекунанд**, **рангҳо иваз мешаванд**, чизҳо **пайдо ва ғоиб** мешаванд.
-
-Мисоли оддӣ — тугма, ки пахш карда, паём нишон медиҳад:
-
-\`\`\`html
-<button onclick="alert('Салом!')">Пахш кун!</button>
-\`\`\`
-
-Пахш кунед — браузер паёмро мебарорад. Ин ҳамон JavaScript аст, ки дар як лаҳза иҷро мешавад.`,
-        starterCode: `<button onclick="alert('Салом!')">Пахш кун!</button>`,
-        task: "Тугмаро тағйир диҳед, ки «Хуш омадед ба ITomuz TJ!» нишон диҳад",
-        expectedOutput: "Алерт бо матни «Хуш омадед ба ITomuz TJ!»",
-        hint: "Дар дохили alert() матнро иваз кунед",
-        runtime: "web",
-        webChecks: {
-          contains: ["onclick", "alert(", "хуш омадед ба itomuz"],
-        },
-      },
-      {
-        id: "9",
-        number: 9,
-        title: "Тағйирёбандаҳо дар JS",
-        description: "let ва const — халтаҳо дар бозор",
-        theory: `Боз **ҳамон халтаҳои бозор**! Дар JavaScript ба ҷои \`val\` / \`var\` мо **\`let\`** ва **\`const\`** истифода мебарем.
-
-- **\`const\`** = халтаи **қулфшуда**: чизро гузоштед — дигар иваз намекунед (масалан номи шаҳр).
-- **\`let\`** = халтаи **кушода**: метавонед чизи нав гузоред (масалан номи одам).
-
-Мисол:
-
-\`\`\`javascript
-let ном = "Аҳмад";
-const шаҳр = "Душанбе";
-\`\`\`
-
-Баъд ин қимматҳоро метавонед дар саҳифа нишон диҳед (масалан бо \`document.getElementById(...).innerText\`).`,
-        starterCode: `<p id="хабар"></p>
-<script>
-let ном = "";
-const шаҳр = "";
-document.getElementById("хабар").innerText = "Ман " + ном + " аз " + шаҳр + " ҳастам.";
-</script>`,
-        task: "Тағйирёбандаҳоро пур кунед ва дар сайт нишон диҳед",
-        expectedOutput: "Матн дар пешнамоиш бо ном ва шаҳри шумо",
-        hint: 'let ном = "Номи шумо"; const шаҳр = "Шаҳри шумо";',
-        runtime: "web",
-        webChecks: {
-          contains: ["let", "const", "document.getelementbyid", "innertext"],
-        },
-      },
-      {
-        id: "10",
-        number: 10,
-        title: "Функсияҳо дар JS",
-        description: "Рецепт дар код",
-        theory: `**Ёдатон ҳаст рецепти плов?** Дар JavaScript ҳам **функсия = рецепт** аст. **Як маротиба менависед**, **борҳо истифода мебаред**!
-
-Мисол:
-
-\`\`\`javascript
-function салом(ном) {
-  alert("Салом, " + ном + "!");
-}
-\`\`\`
-
-Дар веб мо одатан натиҷаро дар саҳифа мегузорем — на танҳо \`alert\`.`,
-        starterCode: `<p id="натиҷа"></p>
-<script>
-function салом(ном) {
-  // ин ҷо: матнро дар #натиҷа гузоред — «Салом, [ном]!»
-}
-салом("Меҳмон");
-</script>`,
-        task: "Функсия нависед, ки номро гирифта дар сайт «Салом, [ном]!» нишон диҳад",
-        expectedOutput: "Дар пешнамоиш: Салом, Меҳмон!",
-        hint: "document.getElementById('натиҷа').innerText = 'Салом, ' + ном + '!'",
-        runtime: "web",
-        webChecks: {
-          contains: ["function", "салом(", "getelementbyid", "innertext", "салом, "],
-        },
-      },
-      {
-        id: "11",
-        number: 11,
-        title: "Шартҳо дар JS",
-        description: "Чароғаки роҳ: if / else",
-        theory: `**Чароғаки роҳ боз!** 🚦 \`if\` / \`else\` дар JavaScript **ҳам мисли Kotlin** кор мекунад.
-
-- **Агар** шарт дуруст бошад — **як кор**;
-- **Агар не** — **кори дигар**.
-
-Мисол: синро санҷем — калонсол ё хурдсол?`,
-        starterCode: `<label>Синатон (рақам):</label>
-<input id="син" type="number" value="16">
-<button onclick="санҷиш()">Санҷиш</button>
-<p id="паём"></p>
-<script>
-function санҷиш() {
-  let син = Number(document.getElementById("син").value);
-  // ин ҷо if (син >= 18) { ... } else { ... }
-  // дар #паём нависед: «Шумо калонсол ҳастед» ё «Шумо хурдсол ҳастед»
-}
-</script>`,
-        task: "Барнома нависед: агар син >= 18 бошад «Шумо калонсол ҳастед» ва агар не «Шумо хурдсол ҳастед» нишон диҳад",
-        expectedOutput: "Бо пахши Санҷиш паёми дуруст",
-        hint: "if (син >= 18) { document.getElementById('паём').innerText = '...' } else { ... }",
-        runtime: "web",
-        webChecks: {
-          contains: ["if", "else", ">=", "18", "калонсол", "хурдсол"],
-        },
-      },
-      {
-        id: "12",
-        number: 12,
         title: "Лоиҳаи мини: ҳисобкунаки сомонӣ",
         description: "Сомонӣ ба доллар",
         theory: `Биёед **аввалин лоиҳаи воқеиро** созем!
 
-**Ҳисобкунак**, ки **сомониро ба доллар** табдил медиҳад. Ин лоиҳа **ҳамаи чизҳои омӯхтаатонро** истифода мебарад:
+**Ҳисобкунак**, ки **сомониро ба доллар** табдил медиҳад. Ин лоиҳа **HTML**, **CSS** ва **JavaScript**-ро якҷоя истифода мебарад:
 
 - **HTML** барои шакл (вуруд, тугма),
 - **CSS** барои зебоӣ,
@@ -354,8 +236,8 @@ function табдил() {
     locked: false,
     lessons: [
       {
-        id: "13",
-        number: 13,
+        id: "9",
+        number: 9,
         title: "Flexbox — сатрҳои чандир",
         description: "display:flex ва ҷойгиркунӣ дар як сатр",
         theory: `Тасаввур кунед, ки шумо **расмҳоро дар девор мечинед** — мехоҳед як сатр бошанд, ё як сутун, ё дар чап/рост.
@@ -405,8 +287,8 @@ function табдил() {
         },
       },
       {
-        id: "14",
-        number: 14,
+        id: "10",
+        number: 10,
         title: "Flexbox амалӣ — navbar ва card",
         description: "Навбар ва карточкаҳо",
         theory: `Биёед **Flexbox-ро дар амал** истифода барем!
@@ -463,8 +345,8 @@ function табдил() {
         },
       },
       {
-        id: "15",
-        number: 15,
+        id: "11",
+        number: 11,
         title: "CSS Grid — тӯри сайт",
         description: "grid-template ва fr",
         theory: `Агар **Flexbox** — **як сатр** (ё сутун) аст, **Grid** — **тӯри пурра**!
@@ -507,8 +389,8 @@ Grid барои **layout-и калон** аст: **header**, **sidebar**, **cont
         },
       },
       {
-        id: "16",
-        number: 16,
+        id: "12",
+        number: 12,
         title: "Анимация ва transition",
         description: "Тағйири мулоим ва ҳаракат",
         theory: `**Сайти зинда** = сайти **зебо**!
@@ -558,8 +440,8 @@ Grid барои **layout-и калон** аст: **header**, **sidebar**, **cont
         },
       },
       {
-        id: "17",
-        number: 17,
+        id: "13",
+        number: 13,
         title: "Медиа-запросҳо — сайт барои мобайл",
         description: "@media ва экрани хурд",
         theory: `**90% одамони Тоҷикистон** интернетро дар **телефон** истифода мебаранд! Сайти шумо бояд дар **телефон ҳам зебо** бошад.
@@ -603,8 +485,8 @@ Grid барои **layout-и калон** аст: **header**, **sidebar**, **cont
         },
       },
       {
-        id: "18",
-        number: 18,
+        id: "14",
+        number: 14,
         title: "Адаптивный дизайн — амалӣ",
         description: "Десктоп, планшет, мобайл",
         theory: `Биёед **ҳамаи донишро як ҷо** кунем!
@@ -644,8 +526,8 @@ Grid барои **layout-и калон** аст: **header**, **sidebar**, **cont
         },
       },
       {
-        id: "19",
-        number: 19,
+        id: "15",
+        number: 15,
         title: "CSS-тағйирёбандаҳо ва :root",
         description: "var() ва темаи торик",
         theory: `Тасаввур кунед, ки **ранги сайтро** мехоҳед дар **50 ҷо** иваз кунед — бе тағйирёбанда **сахт** мешавад!
@@ -691,6 +573,13 @@ body { background: var(--фон); }
   },
   webModule5JsBasics,
   {
+    id: "m6",
+    title: "Модул 6: JavaScript ва DOM",
+    titleEn: "JS ва DOM",
+    locked: true,
+    lessons: [],
+  },
+  {
     id: "m7",
     title: "Модул 7: Мини-лоиҳаҳо 2",
     titleEn: "Mini projects 2",
@@ -698,8 +587,8 @@ body { background: var(--фон); }
     capstone: true,
     lessons: [
       {
-        id: "28",
-        number: 28,
+        id: "24",
+        number: 24,
         title: "Лоиҳа: Корти визитӣ (Portfolio Card)",
         description: "Корти визитии онлайн бо HTML ва CSS",
         theory: `Биёед **корти визитии онлайн** созем — ин **лоиҳаи воқеии калон** аст!
@@ -743,8 +632,8 @@ body { background: var(--фон); }
         },
       },
       {
-        id: "29",
-        number: 29,
+        id: "25",
+        number: 25,
         title: "Лоиҳа: Рӯйхати вазифаҳо (Todo List)",
         description: "Илова кардани вазифа бо JavaScript",
         theory: `Ҳар рӯз мо **корҳо дорем** — мисли **рӯйхати харид**. Биёед **барномае** созем, ки вазифаҳоро ба **рӯйхат илова** кунад.
@@ -779,51 +668,8 @@ function addTask() {
         },
       },
       {
-        id: "30",
-        number: 30,
-        title: "Лоиҳа: Ҳисобкунаки асъор (Currency Calculator)",
-        description: "Сомонӣ ба доллар, рубл ва евро",
-        theory: `Дар **бозор** асъор иваз мекунанд — мисли **тарозу**. Биёед **ҳисобкунак** созем: **сомонӣ** ба **доллар**, **рубл**, **евро**.
-
-**1 USD = 11 сомонӣ**, **1 RUB = 0.12 сомонӣ**, **1 EUR = 12 сомонӣ**.`,
-        starterCode: `<h3>💱 Ҳисобкунаки асъор</h3>
-<p>Маблағро бо сомонӣ ворид кунед ва асъорро интихоб кунед.</p>
-<label>Сомонӣ: <input id="маблағ" type="number" value="110"></label><br><br>
-<label>Асъор:
-  <select id="асъор">
-    <option value="USD">Доллар (USD)</option>
-    <option value="RUB">Рубл (RUB)</option>
-    <option value="EUR">Евро (EUR)</option>
-  </select>
-</label><br><br>
-<button type="button" onclick="табдил()">Ҳисоб кардан</button>
-<p id="натиҷа"></p>
-<style>
-  body { font-family: system-ui, sans-serif; max-width: 400px; margin: 24px auto; padding: 16px; }
-  input, select, button { font-size: 1rem; padding: 8px; margin: 4px 0; border-radius: 8px; }
-  button { background: #0369a1; color: #fff; border: none; cursor: pointer; }
-  #натиҷа { margin-top: 16px; font-weight: bold; color: #047857; }
-</style>
-<script>
-const курсҳо = { USD: 11, RUB: 0.12, EUR: 12 };
-function табдил() {
-  let маблағ = Number(document.getElementById("маблағ").value);
-  let асъор = document.getElementById("асъор").value;
-  // ин ҷо: маблағро ба қиммати курс тақсим кунед (аз объекти курсҳо) ва дар #натиҷа нишон диҳед
-  document.getElementById("натиҷа").innerText = "";
-}
-</script>`,
-        task: "Функсияи табдилро пурра кунед: 1 USD = 11 сомонӣ, 1 RUB = 0.12 сомонӣ, 1 EUR = 12 сомонӣ",
-        expectedOutput: "Бо 110 сомонӣ ва USD — натиҷаи дуруст",
-        hint: "натиҷа = маблағ / курсҳо[асъор]",
-        runtime: "web",
-        webChecks: {
-          contains: ["табдил", "курсҳо", "11", "0.12", "12", "getelementbyid", "innertext", "number(", "курсҳо["],
-        },
-      },
-      {
-        id: "31",
-        number: 31,
+        id: "26",
+        number: 26,
         title: "Лоиҳа: Саҳифаи фурӯш (Landing Page)",
         description: "Лоиҳаи ниҳоӣ ва гувоҳнома",
         theory: `Тасаввур кунед, ки шумо **маҳсулот мефурӯшед** ва мехоҳед **сайт дошта бошед**.

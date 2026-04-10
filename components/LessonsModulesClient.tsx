@@ -111,20 +111,24 @@ export function LessonsModulesClient({ courseId, accent }: Props) {
               )}
               </div>
             </div>
-            <ul className="space-y-4">
-              {mod.lessons.map((lesson) => (
-                <li key={lesson.id}>
-                  <LessonCard
-                    courseId={courseId}
-                    accent={accent}
-                    lesson={lesson}
-                    moduleLocked={mod.locked}
-                    unlocked={isLessonUnlockedByProgress(lesson.id, mod, completedIds, courseId)}
-                    completed={isLessonCompleted(lesson.id, completedIds)}
-                  />
-                </li>
-              ))}
-            </ul>
+            {mod.lessons.length === 0 ? (
+              <p className="text-sm text-foreground-muted">Дарсҳо ба зудӣ илова мешаванд.</p>
+            ) : (
+              <ul className="space-y-4">
+                {mod.lessons.map((lesson) => (
+                  <li key={lesson.id}>
+                    <LessonCard
+                      courseId={courseId}
+                      accent={accent}
+                      lesson={lesson}
+                      moduleLocked={mod.locked}
+                      unlocked={isLessonUnlockedByProgress(lesson.id, mod, completedIds, courseId)}
+                      completed={isLessonCompleted(lesson.id, completedIds)}
+                    />
+                  </li>
+                ))}
+              </ul>
+            )}
           </section>
         ))}
       </div>
