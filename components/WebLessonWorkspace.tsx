@@ -7,6 +7,7 @@ import remarkGfm from "remark-gfm";
 import type { Lesson } from "@/data/lessons";
 import { getNextLessonIdForCourse } from "@/data/lessons";
 import { notifyProgressUpdated, saveLessonCompletion } from "@/lib/lessonProgress";
+import { WEB_CAPSTONE_LESSON_ID } from "@/data/lessons";
 import { evaluateWebLessonSuccess } from "@/lib/webLessonSuccess";
 import { ThemedSyntaxBlock } from "@/components/ThemedSyntaxBlock";
 
@@ -237,6 +238,11 @@ export function WebLessonWorkspace({ lesson, moduleTitle, courseId }: Props) {
                 }}
               >
                 <p className="font-semibold text-[color:var(--success-text)]">✅ Офарин! Дуруст аст!</p>
+                {lesson.id === WEB_CAPSTONE_LESSON_ID ? (
+                  <p className="text-sm leading-relaxed text-[color:var(--success-text)]">
+                    🎓 Ин лоиҳаи ниҳоии курс аст — шумо <strong>гувоҳномаи Сайтсозӣ</strong>-ро гирифтед. Ба рӯйхати дарсҳо баргардед, то паёми пурраро бинед.
+                  </p>
+                ) : null}
                 {nextId && (
                   <Link
                     href={`/courses/${courseId}/lessons/${nextId}`}

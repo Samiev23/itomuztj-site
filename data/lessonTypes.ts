@@ -21,6 +21,8 @@ export interface Lesson {
     /** Санҷиши ҳамон сатр (бе тағйири регистр) */
     containsLiteral?: string[];
     minLiCount?: number;
+    /** Ҳадди ақали тегҳои <a> (масалан барои линкҳои иҷтимоӣ) */
+    minAnchorCount?: number;
   };
 }
 
@@ -30,6 +32,8 @@ export interface LessonModule {
   titleEn: string;
   locked: boolean;
   lessons: Lesson[];
+  /** Модулҳои ниҳоӣ — анҷоми охирин дарс гувоҳнома мешавад */
+  capstone?: boolean;
 }
 
 export type CourseId = "kotlin" | "web";

@@ -35,4 +35,4 @@ export {
   getNextKotlinLessonId,
 } from "./kotlinCourse";
 
-export { webLessonModules } from "./webCourse";
+export { webLessonModules, WEB_CAPSTONE_LESSON_ID } from "./webCourse";

@@ -14,5 +14,9 @@ export function evaluateWebLessonSuccess(lesson: Lesson, code: string): boolean 
     const n = (t.match(/<li\b/gi) ?? []).length;
     if (n < lesson.webChecks.minLiCount) return false;
   }
+  if (lesson.webChecks?.minAnchorCount != null) {
+    const n = (t.match(/<a\b/gi) ?? []).length;
+    if (n < lesson.webChecks.minAnchorCount) return false;
+  }
   return true;
 }
