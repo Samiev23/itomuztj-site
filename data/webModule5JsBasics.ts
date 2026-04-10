@@ -1,6 +1,6 @@
 import type { LessonModule } from "./lessonTypes";
 
-/** Модул 5: JavaScript асосӣ — дарсҳои 16–23 */
+/** Модул 5: JavaScript асосӣ — дарсҳои 26–33 */
 export const webModule5JsBasics: LessonModule = {
   id: "m5",
   title: "Модул 5: JavaScript асосӣ",
@@ -8,8 +8,8 @@ export const webModule5JsBasics: LessonModule = {
   locked: false,
   lessons: [
     {
-      id: "16",
-      number: 16,
+      id: "26",
+      number: 26,
       title: "JavaScript чист ва чаро лозим?",
       description: "Тугма, alert ва теги script",
       theory: `**HTML** — ин **ҷисми одам**, **CSS** — ин **либос**, **JavaScript** — ин **мағз**!
@@ -34,8 +34,8 @@ export const webModule5JsBasics: LessonModule = {
       },
     },
     {
-      id: "17",
-      number: 17,
+      id: "27",
+      number: 27,
       title: "Тағйирёбандаҳо: let, const, var",
       description: "let, const ва намоиш дар саҳифа",
       theory: `Боз **ҳамон халтаҳои бозор**!
@@ -65,8 +65,8 @@ export const webModule5JsBasics: LessonModule = {
       },
     },
     {
-      id: "18",
-      number: 18,
+      id: "28",
+      number: 28,
       title: "Шартҳо: if, else, else if",
       description: "Чароғаки роҳ дар код",
       theory: `**Чароғаки роҳ боз!** 🚦
@@ -102,8 +102,8 @@ function санҷишСин() {
       },
     },
     {
-      id: "19",
-      number: 19,
+      id: "29",
+      number: 29,
       title: "Давраҳо: for ва while",
       description: "Такрор бе дасти хаста",
       theory: `**100 мактуб** як-як навиштан — **вақти зиёд**! **Давра** мегӯяд: «Ин корро **100 маротиба** такрор кун!»
@@ -130,8 +130,8 @@ let рӯйхат = document.getElementById("рӯйхат");
       },
     },
     {
-      id: "20",
-      number: 20,
+      id: "30",
+      number: 30,
       title: "Функсияҳо",
       description: "Рецепт дар JavaScript",
       theory: `**Рецепти плов** боз! **Як маротиба менависед**, **борҳо истифода мебаред**.
@@ -161,8 +161,8 @@ function нишонДиҳ() {
       },
     },
     {
-      id: "21",
-      number: 21,
+      id: "31",
+      number: 31,
       title: "Массивҳо (Array)",
       description: "Рӯйхати тартибнок",
       theory: `**Қатор дар бозор** — ҳар кас **рақами навбат** дорад: **0, 1, 2, 3…**
@@ -196,8 +196,8 @@ function навКунонРӯйхат() {
       },
     },
     {
-      id: "22",
-      number: 22,
+      id: "32",
+      number: 32,
       title: "Объектҳо (Object)",
       description: "Паспорт дар код",
       theory: `**Паспорти шумо** чӣ дорад? **Ном**, **фамилия**, **син**, **суратчасп**.
@@ -230,8 +230,8 @@ function навКунонРӯйхат() {
       },
     },
     {
-      id: "23",
-      number: 23,
+      id: "33",
+      number: 33,
       title: "Scope ва хатогирӣ (try/catch)",
       description: "Ҳудуд ва амният",
       theory: `**Scope** — ин **ҳудуд**. Тағйирёбанда дар **дохили функсия** «зиндагӣ мекунад» — **берун аз он намебинед**!

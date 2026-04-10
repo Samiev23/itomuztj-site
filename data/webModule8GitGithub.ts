@@ -1,6 +1,6 @@
 import type { LessonModule } from "./lessonTypes";
 
-/** Модул 8: Git ва GitHub — дарсҳои 35–38 */
+/** Модул 8: Git ва GitHub — дарсҳои 45–48 */
 export const webModule8GitGithub: LessonModule = {
   id: "m8",
   title: "Модул 8: Git ва GitHub",
@@ -8,8 +8,8 @@ export const webModule8GitGithub: LessonModule = {
   locked: false,
   lessons: [
     {
-      id: "35",
-      number: 35,
+      id: "45",
+      number: 45,
       title: "Git чист ва чаро лозим?",
       description: "Назорати версия ва commit",
       theory: `Тасаввур кунед, ки шумо **рефератро** менависед. Ҳар рӯз тағйир медиҳед. Як рӯз **хато** мекунед ва мехоҳед ба **версияи дирӯза** баргардед — вале **дер шуд**!
@@ -43,8 +43,8 @@ export const webModule8GitGithub: LessonModule = {
       },
     },
     {
-      id: "36",
-      number: 36,
+      id: "46",
+      number: 46,
       title: "Аввалин репозиторӣ",
       description: "init, add, commit, log",
       theory: `**Репозиторӣ** (**repo**) — ин **папкаи лоиҳаатон**, ки **Git назорат** мекунад.
@@ -89,8 +89,8 @@ export const webModule8GitGithub: LessonModule = {
       },
     },
     {
-      id: "37",
-      number: 37,
+      id: "47",
+      number: 47,
       title: "Branch ва Merge",
       description: "Шоха, кор, якшавӣ",
       theory: `**Branch** мисли **роҳи алоҳида** аст 🛤️
@@ -131,8 +131,8 @@ feature:       D---E</pre>
       },
     },
     {
-      id: "38",
-      number: 38,
+      id: "48",
+      number: 48,
       title: "GitHub ва GitHub Pages",
       description: "Remote, push, сайти бепул",
       theory: `**GitHub** — ин ҷое дар **интернет**, ки **кодатонро нигоҳ медорад**. Мисли **Google Drive**, вале **барои код**! 🌐

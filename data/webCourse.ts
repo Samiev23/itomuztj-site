@@ -8,7 +8,7 @@ import { webModule10FinalProject } from "./webModule10FinalProject";
 import { webModule11JobPrep } from "./webModule11JobPrep";
 
 /** Анҷоми ин дарс — гирифтани гувоҳномаи «Сайтсозӣ» */
-export const WEB_CAPSTONE_LESSON_ID = "54";
+export const WEB_CAPSTONE_LESSON_ID = "64";
 
 export const webLessonModules: LessonModule[] = [
   {
@@ -39,6 +39,77 @@ export const webLessonModules: LessonModule[] = [
         outputValidation: "nonempty",
         webChecks: { contains: ["<h1", "</h1>"] },
       },
+      {
+        id: "2",
+        number: 2,
+        title: "Интернет чӣ тавр кор мекунад?",
+        description: "Браузер, сервер, HTTP, URL",
+        theory: `**Интернет** — ин **шабакаи улуми компютерҳо** дар саросари ҷаҳон, ки якдигарро **мепайвандад**.
+
+**Браузер** (Chrome, Firefox…) — мисли **телевизор**: шумо **канал** интихоб мекунед (**сайт**) ва **сурат** мебинед (**саҳифа**).
+
+**Сервер** — компютери **қавӣ**, ки **сайтро нигоҳ медорад**. Вақте шумо \`google.com\` менависед, компютери шумо ба компютери Google **дархост** мефиристад: «**Салом! саҳифаро фиристод!**»
+
+**HTTP** — **забони гуфтугӯи** ин ду тараф: **дархост** ва **ҷавоб**.
+
+**URL** — **суроғаи пурраи саҳифа**. Мисол: \`https://www.google.com/search?q=таҷик\`
+- **https://** — протокол (роҳи бехатар)
+- **www.google.com** — **домен** (номи сервер)
+- **/search** — **роҳ** (папка ё саҳифа дар сервер)
+- **?q=...** — **параметрҳо** (маълумоти иловагӣ)`,
+        starterCode: `<div class="url-дарс">
+  <h2>Қисмҳои URL</h2>
+  <p>Ба ҳар сатр ҷавоби худро гузоред (аз мисоли дарс истифода баред).</p>
+  <ul>
+    <li><strong>Протокол:</strong> </li>
+    <li><strong>Домен:</strong> </li>
+    <li><strong>Роҳ:</strong> </li>
+    <li><strong>Параметр:</strong> </li>
+  </ul>
+</div>
+<style>
+  .url-дарс { font-family: system-ui, sans-serif; max-width: 520px; margin: 0 auto; padding: 16px; }
+</style>`,
+        task: "Дар ҳар сатр қисми дурусти URL-ро аз мисоли дарс нависед: https://, домен, /роҳ, ?параметр",
+        expectedOutput: "https://, домен, /, q=",
+        hint: "Мисол: https:// + www.google.com + /search + ?q=таҷик",
+        runtime: "web",
+        webChecks: {
+          contains: ["https://", "google.com", "/search", "q="],
+        },
+      },
+      {
+        id: "3",
+        number: 3,
+        title: "Асбобҳои барномасоз",
+        description: "VS Code, DevTools, папкаҳо",
+        theory: `**VS Code** — ин **дафтари сеҳрӣ** барои барномасоз: дар он **код** менависед, **ранг** мегирад, **папкаҳо** дар чап мебинед.
+
+**DevTools** (асбобҳои таҳиягар) — ин **рентгени сайт**! Клики рост дар саҳифа → **Омӯхтан / Inspect** — шумо **тегҳои HTML** ва **стилҳои CSS**-ро мебинед, ҳатто **хатогиҳои JavaScript**.
+
+**Сохтори папка:** лоиҳа дар як **ҷузвдон** — \`index.html\`, папкаи \`css\`, \`js\`, \`images\` — ҳамеша **тартибдор** бошед.
+
+**F12** ё **Ctrl+Shift+I** — кушодани DevTools дар аксар браузерҳо.`,
+        starterCode: `<div class="асбобҳо">
+  <h2>Тамошои элемент бо DevTools</h2>
+  <blockquote>Ин блокро дар браузер кушоед, F12 занед, ин матнро интихоб кунед.</blockquote>
+  <p class="ҷавоб-devtools">
+    <strong>Номи тег:</strong>
+  </p>
+  <p>Калимаҳои ёддошт: </p>
+</div>
+<style>
+  .асбобҳо { font-family: system-ui, sans-serif; padding: 16px; max-width: 480px; }
+  blockquote { padding: 8px; background: #ecfdf5; border-radius: 8px; }
+</style>`,
+        task: "Дар «Номи тег» нависед blockquote (чунки матни сабз blockquote аст). Дар охир калимаҳои vscode, devtools ва f12 илова кунед",
+        expectedOutput: "blockquote, devtools, vscode, f12",
+        hint: "F12 → Inspect → номи тег дар панели Elements",
+        runtime: "web",
+        webChecks: {
+          contains: ["blockquote", "devtools", "vscode", "f12"],
+        },
+      },
     ],
   },
   {
@@ -48,8 +119,8 @@ export const webLessonModules: LessonModule[] = [
     locked: false,
     lessons: [
       {
-        id: "2",
-        number: 2,
+        id: "4",
+        number: 4,
         title: "Сарлавҳа ва матн",
         description: "Сарлавҳа ва абзац",
         theory: `**Сарлавҳаҳо** (\`h1\` то \`h6\`) — мисли **унвони китоб**: калонтарин \`h1\`, хурдтарин \`h6\`.
@@ -66,8 +137,8 @@ export const webLessonModules: LessonModule[] = [
         webChecks: { contains: ["<h1", "</h1>", "<p", "</p>"] },
       },
       {
-        id: "3",
-        number: 3,
+        id: "5",
+        number: 5,
         title: "Рӯйхатҳо",
         description: "Рӯйхати харид дар сайт",
         theory: `**Рӯйхат** — мисли **рӯйхати харид дар бозор**: чизҳо як-баъд-як навишта мешаванд.
@@ -87,8 +158,8 @@ export const webLessonModules: LessonModule[] = [
         webChecks: { minLiCount: 3, contains: ["<ul", "</ul>"] },
       },
       {
-        id: "4",
-        number: 4,
+        id: "6",
+        number: 6,
         title: "Суратҳо ва линкҳо",
         description: "Сурат ва пайвандҳо",
         theory: `**Сурат** (\`img\`) — мисли **расми деворӣ**: чизеро нишон медиҳад.
@@ -105,8 +176,8 @@ export const webLessonModules: LessonModule[] = [
         webChecks: { contains: ["<a", "google.com"] },
       },
       {
-        id: "5",
-        number: 5,
+        id: "7",
+        number: 7,
         title: "Ҷадвалҳо",
         description: "Ҷадвалҳо дар сайт",
         theory: `**Ҷадвал** — мисли **ҷадвали баҳоҳо дар мактаб**: сатрҳо ва сутунҳо.
@@ -132,6 +203,68 @@ export const webLessonModules: LessonModule[] = [
           contains: ["<table", "Себ", "5", "Нок", "8", "Олу", "3"],
         },
       },
+      {
+        id: "8",
+        number: 8,
+        title: "Формаҳо — маълумот аз корбар",
+        description: "input, textarea, select, form",
+        theory: `**Форма** мисли **анкета** аст — корбар **маълумот мегузорад**, шумо мегиред.
+
+- **\`<form>\`** — ҳамаи майдонҳоро гирд мекунад; **\`action\`** ва **\`method\`** баъдтар омӯхта мешаванд.
+- **\`<input>\`** — майдони хурд: \`type="text"\`, **\`email\`**, **\`password\`**, **\`number\`**, **\`checkbox\`**, **\`radio\`**.
+- **\`<textarea>\`** — матни дароз (паём, шарҳ).
+- **\`<select>\`** + **\`<option>\`** — рӯйхати интихоб.
+- **\`<button>\`** ё \`input type="submit"\` — **фиристодан**.
+
+**\`<label>\`** ба **\`for\`** ё гузоштани input дохили label ба мобайл кӯмак мекунад — клик бар label = фокус ба input.`,
+        starterCode: `<h2>Сабти ном</h2>
+<form>
+  <!-- method ва action баъдтар -->
+  <p><label>Ном: <input type="text" name="ном"></label></p>
+  <p><!-- email ва password илова кунед --></p>
+  <button type="submit">Ирсол</button>
+</form>`,
+        task: "Формаи сабти ном бо ном, email, password созед; ҳар input бо name; тугмаи submit",
+        expectedOutput: "form, email, password",
+        hint: "<input type=\"email\" name=\"email\"> ва type=\"password\"",
+        runtime: "web",
+        webChecks: {
+          contains: ["<form", "type=\"email\"", "type=\"password\"", "type=\"text\"", "name=", "submit"],
+        },
+      },
+      {
+        id: "9",
+        number: 9,
+        title: "HTML семантикӣ ва структура",
+        description: "header, nav, main, footer…",
+        theory: `**Семантика** мегӯяд: ин **ҷой чист?** на танҳо «қуттӣ», балки **нақш**.
+
+- **\`<header>\`** — болои саҳифа ё бахш: лого, сарлавҳа.
+- **\`<nav>\`** — **менюи роҳнамо**, линкҳо.
+- **\`<main>\`** — **мундариҷаи асосӣ** — як маротиба дар саҳифа.
+- **\`<section>\`** — бахши мавзӯӣ.
+- **\`<article>\`** — мақола, карточкаи мустақил.
+- **\`<aside>\`** — ҷониб, иттилооти иловагӣ.
+- **\`<footer>\`** — поён, тамос, ©.
+
+Ин ба **моторҳои ҷустҷӯ** ва **корбарони экранхон** кӯмак мекунад.`,
+        starterCode: `<div class="сомона">
+  <div class="сар">Лого</div>
+  <div class="меню"><a href="#">Асосӣ</a></div>
+  <div class="мобайн">
+    <div class="мақола"><h1>Хабар</h1><p>Матн...</p></div>
+  </div>
+  <div class="поён">© 2026</div>
+</div>
+<!-- Ба ҷои div-ҳои боло тегҳои семантикӣ истифода баред -->`,
+        task: "Саҳифаро бо header, nav, main, article, footer аз нав созед (div-ҳои барзиёдро хориҷ кунед)",
+        expectedOutput: "header, nav, main, article, footer",
+        hint: "<header>…</header><nav>…</nav><main><article>…</article></main><footer>…</footer>",
+        runtime: "web",
+        webChecks: {
+          contains: ["<header", "<nav", "<main", "<article", "<footer"],
+        },
+      },
     ],
   },
   {
@@ -141,8 +274,8 @@ export const webLessonModules: LessonModule[] = [
     locked: false,
     lessons: [
       {
-        id: "6",
-        number: 6,
+        id: "10",
+        number: 10,
         title: "Рангҳо ва фонт",
         description: "Рангҳо ва андозаи ҳарфҳо",
         theory: `**CSS** — мисли **рангрез**: хонаро зебо мекунад.
@@ -163,8 +296,8 @@ export const webLessonModules: LessonModule[] = [
         },
       },
       {
-        id: "7",
-        number: 7,
+        id: "11",
+        number: 11,
         title: "Ҷойгиршавӣ",
         description: "Фосила ва ҳошияҳо",
         theory: `**margin** — мисли **ҳавлӣ**: фосила берун аз қуттӣ.
@@ -185,6 +318,132 @@ export const webLessonModules: LessonModule[] = [
           contains: ["margin", "padding", "border"],
         },
       },
+      {
+        id: "12",
+        number: 12,
+        title: "Box Model — қуттии CSS",
+        description: "content, padding, border, margin",
+        theory: `Ҳар элемент дар CSS **як қуттӣ** аст.
+
+Мисли **тӯҳфа** 🎁:
+- **content** — худи тӯҳфа (матн, сурат).
+- **padding** — **коғази печонӣ** атрофи тӯҳфа — фосила **дохил** ба қуттӣ.
+- **border** — **қуттии картон** — ҳошияи диданӣ.
+- **margin** — **фосила берун** — дурӣ аз қуттиҳои дигар.
+
+**box-sizing: border-box** — ба андозаи устувон **padding ва border** ҳам ҳисоб мешавад — барои тарҳ осонтар.`,
+        starterCode: `<div class="корт">Корт</div>
+<style>
+  .корт {
+    width: 200px;
+    /* padding, border, margin илова кунед — корт ба назар ҷудо ва зебо шавад */
+  }
+</style>`,
+        task: "Кортро бо padding, border (1px ё зиёд), margin ва border-radius оро диҳед",
+        expectedOutput: "padding, border, margin",
+        hint: "padding: 16px; border: 2px solid #64748b; margin: 20px; border-radius: 12px;",
+        runtime: "web",
+        webChecks: {
+          contains: ["padding", "border", "margin", "border-radius"],
+        },
+      },
+      {
+        id: "13",
+        number: 13,
+        title: "Позитсия ва display",
+        description: "block, inline, fixed…",
+        theory: `**display** мегӯяд, чӣ тавр элемент **дар сатр** мезанад:
+- **block** — мисли **хишт**: пурраи сатрро мегирад, сатри нав.
+- **inline** — мисли **калима**: паҳлӯи ҳам, бе шикасти сатр (андозаи баландӣ кам муътадил аст).
+- **inline-block** — миёна — дар сатр, вале андоза гирифтан мумкин.
+- **none** — пинҳон.
+
+**position:**
+- **static** — оддӣ, чун рӯйхат.
+- **relative** — аз ҷои худ кӯчидан.
+- **absolute** — нисбат ба волиди relative/absolute.
+- **fixed** — нисбат ба **равзанаи браузер** — барои **навбари часпанда**.`,
+        starterCode: `<nav class="навбар">Меню · Асосӣ · Тамос</nav>
+<p>Матни дарзерӣ барои санҷиши навбари устувон.</p>
+<style>
+  body { margin: 0; font-family: system-ui, sans-serif; min-height: 120vh; }
+  .навбар {
+    background: #0f766e;
+    color: #fff;
+    padding: 12px 20px;
+    /* position: fixed; top: 0; left: 0; right: 0; z-index: 10; */
+  }
+</style>`,
+        task: "Навбарро fixed кунед: болои саҳифа, пурраи уфуқ, z-index барои боло будан",
+        expectedOutput: "position:fixed, top, z-index",
+        hint: "position: fixed; top: 0; left: 0; right: 0; width: 100%;",
+        runtime: "web",
+        webChecks: {
+          contains: ["position:fixed", "top:", "z-index"],
+        },
+      },
+      {
+        id: "14",
+        number: 14,
+        title: "Float ва Clear",
+        description: "матн атрофи сурат",
+        theory: `**float: left** ё **right** — элементро ба як тараф мебарад, **матн дар гирдаш** мегузарад.
+
+Мисли **расм дар рӯзнома** — матн атрофи сурат ҷой мегирад.
+
+**clear: both** — «**пас аз ин элемент ҳеҷ float-и чап/рост набошад**» — барои нест кардани ҳамроҳшавӣ.
+
+Оёми муосир аксар **Flexbox/Grid** истифода мебаранд, вале **float** ҳанӯз дар коди кӯҳна ва чанд намуна вомехӯред.`,
+        starterCode: `<div class="блок">
+  <img class="расм" src="https://picsum.photos/120/90" alt="">
+  <p>Матни дароз дар бораи мавзӯъ. Матн бояд атрофи сурат ҷой гирад.</p>
+</div>
+<style>
+  .блок { max-width: 400px; font-family: system-ui, sans-serif; }
+</style>`,
+        task: "Суратро бо float: left ба чап баред ва ба матн margin-и рост диҳед; clear: both дар поён агар лозим бошад",
+        expectedOutput: "float, clear",
+        hint: "float: left; margin-right: 12px; — баъд clear: both барои элементи навбатӣ",
+        runtime: "web",
+        webChecks: {
+          contains: ["float:", "clear:"],
+        },
+      },
+      {
+        id: "15",
+        number: 15,
+        title: "Псевдоклассҳо ва псевдоэлементҳо",
+        description: ":hover, ::before",
+        theory: `**Псевдокласс** мегӯяд **дар кадом ҳолат** стил лозим аст:
+- **:hover** — вақте **муш** рӯйи элемент аст.
+- **:focus** — вақте **интихоб** шудааст (масалан input).
+- **:first-child**, **:nth-child(2)** — тартиби фарзанд.
+
+**Псевдоэлемент** — **қисми нодуда**:
+- **::before** — пеш аз мундариҷа.
+- **::after** — баъд аз мундариҷа.
+
+Одатан бо **\`content: ''\`** ва **\`display: inline-block\`** барои нуқта ё хат истифода мешавад.`,
+        starterCode: `<nav class="меню">
+  <a href="#">Асосӣ</a>
+  <a href="#">Курсҳо</a>
+  <a href="#">Тамос</a>
+</nav>
+<style>
+  .меню { font-family: system-ui, sans-serif; display: flex; gap: 16px; }
+  .меню a {
+    text-decoration: none;
+    color: #334155;
+  }
+</style>`,
+        task: "Ба линкҳо :hover (ранг ё underline) илова кунед. Ба як линк бо ::before нуқта ё смайлӣ гузоред (content:)",
+        expectedOutput: ":hover, ::before ё ::after, content",
+        hint: ".меню a:hover { color: #0d9488; } — .меню a::before { content: '● '; }",
+        runtime: "web",
+        webChecks: {
+          contains: [":hover", "::before", "content:"],
+        },
+      },
     ],
   },
   {
@@ -194,8 +453,70 @@ export const webLessonModules: LessonModule[] = [
     locked: false,
     lessons: [
       {
-        id: "8",
-        number: 8,
+        id: "16",
+        number: 16,
+        title: "Лоиҳа: Саҳифаи шахсӣ",
+        description: "Акс, био, ҳавоҳо",
+        theory: `**Саҳифаи шахсӣ** — аввалин чизе, ки шумо метавонед дар веб нишон диҳед.
+
+Танҳо **HTML** ва **CSS-и сода**: сурат, ном, чанд сатр дар бораи худ, **рӯйхати ҳавоҳо**, **тамос** (email ё шабака).
+
+Мисли **визиткаи электронӣ** — оддӣ, вале шахсӣ.`,
+        starterCode: `<!DOCTYPE html>
+<html lang="tg">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ман</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 480px; margin: 24px auto; padding: 0 16px; }
+    img { max-width: 160px; border-radius: 50%; }
+  </style>
+</head>
+<body>
+  <!-- сурат, h1, био, ul ҳавоҳо, тамос -->
+</body>
+</html>`,
+        task: "Саҳифаи шахсӣ созед: img (акс), h1 (ном), p (био), ul (ҳавоҳо), p ё a (тамос)",
+        expectedOutput: "img, h1, ul, тамос",
+        hint: "<img src=\"...\" alt=\"Ман\"> — рӯйхати дӯстдоштаҳо бо ul/li",
+        runtime: "web",
+        webChecks: {
+          contains: ["<img", "<h1", "<ul", "<li", "@"],
+          minLiCount: 2,
+        },
+      },
+      {
+        id: "17",
+        number: 17,
+        title: "Лоиҳа: Формаи тамос",
+        description: "Зебо, label, focus",
+        theory: `**Формаи тамос** — корбар ба шумо **паём мефиристад**.
+
+Бо **label**, **input**, **textarea**, **тугма** — ва CSS барои **ранг**, **ҳошия**, ҳолати **:focus** (вақте майдон интихоб шуд).
+
+Мисли **қуттии почтаи зебо** дар дарвозаи хона.`,
+        starterCode: `<section class="тамос">
+  <h2>Ба мо нависед</h2>
+  <form>
+    <!-- label, input name email, textarea, submit — дар style :focus барои input -->
+  </form>
+</section>
+<style>
+  .тамос { max-width: 400px; margin: 0 auto; font-family: system-ui, sans-serif; }
+  input, textarea { width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #cbd5e1; }
+</style>`,
+        task: "Формаи пурра: ном, email, textarea барои паём, submit. Ба input:focus ё textarea:focus стил илова кунед",
+        expectedOutput: "label, textarea, :focus",
+        hint: "input:focus { outline: 2px solid #0d9488; border-color: #0d9488; }",
+        runtime: "web",
+        webChecks: {
+          contains: ["<label", "<textarea", "<form", ":focus"],
+        },
+      },
+      {
+        id: "18",
+        number: 18,
         title: "Лоиҳаи мини: ҳисобкунаки сомонӣ",
         description: "Сомонӣ ба доллар",
         theory: `Биёед **аввалин лоиҳаи воқеиро** созем!
@@ -242,8 +563,8 @@ function табдил() {
     locked: false,
     lessons: [
       {
-        id: "9",
-        number: 9,
+        id: "19",
+        number: 19,
         title: "Flexbox — сатрҳои чандир",
         description: "display:flex ва ҷойгиркунӣ дар як сатр",
         theory: `Тасаввур кунед, ки шумо **расмҳоро дар девор мечинед** — мехоҳед як сатр бошанд, ё як сутун, ё дар чап/рост.
@@ -293,8 +614,8 @@ function табдил() {
         },
       },
       {
-        id: "10",
-        number: 10,
+        id: "20",
+        number: 20,
         title: "Flexbox амалӣ — navbar ва card",
         description: "Навбар ва карточкаҳо",
         theory: `Биёед **Flexbox-ро дар амал** истифода барем!
@@ -351,8 +672,8 @@ function табдил() {
         },
       },
       {
-        id: "11",
-        number: 11,
+        id: "21",
+        number: 21,
         title: "CSS Grid — тӯри сайт",
         description: "grid-template ва fr",
         theory: `Агар **Flexbox** — **як сатр** (ё сутун) аст, **Grid** — **тӯри пурра**!
@@ -395,8 +716,8 @@ Grid барои **layout-и калон** аст: **header**, **sidebar**, **cont
         },
       },
       {
-        id: "12",
-        number: 12,
+        id: "22",
+        number: 22,
         title: "Анимация ва transition",
         description: "Тағйири мулоим ва ҳаракат",
         theory: `**Сайти зинда** = сайти **зебо**!
@@ -446,8 +767,8 @@ Grid барои **layout-и калон** аст: **header**, **sidebar**, **cont
         },
       },
       {
-        id: "13",
-        number: 13,
+        id: "23",
+        number: 23,
         title: "Медиа-запросҳо — сайт барои мобайл",
         description: "@media ва экрани хурд",
         theory: `**90% одамони Тоҷикистон** интернетро дар **телефон** истифода мебаранд! Сайти шумо бояд дар **телефон ҳам зебо** бошад.
@@ -491,8 +812,8 @@ Grid барои **layout-и калон** аст: **header**, **sidebar**, **cont
         },
       },
       {
-        id: "14",
-        number: 14,
+        id: "24",
+        number: 24,
         title: "Адаптивный дизайн — амалӣ",
         description: "Десктоп, планшет, мобайл",
         theory: `Биёед **ҳамаи донишро як ҷо** кунем!
@@ -532,8 +853,8 @@ Grid барои **layout-и калон** аст: **header**, **sidebar**, **cont
         },
       },
       {
-        id: "15",
-        number: 15,
+        id: "25",
+        number: 25,
         title: "CSS-тағйирёбандаҳо ва :root",
         description: "var() ва темаи торик",
         theory: `Тасаввур кунед, ки **ранги сайтро** мехоҳед дар **50 ҷо** иваз кунед — бе тағйирёбанда **сахт** мешавад!

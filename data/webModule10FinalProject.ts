@@ -1,6 +1,6 @@
 import type { LessonModule } from "./lessonTypes";
 
-/** Модул 10: Лоиҳаи ниҳоӣ — дарсҳои 47–51 */
+/** Модул 10: Лоиҳаи ниҳоӣ — дарсҳои 57–61 */
 export const webModule10FinalProject: LessonModule = {
   id: "m10",
   title: "Модул 10: Лоиҳаи ниҳоӣ",
@@ -8,8 +8,8 @@ export const webModule10FinalProject: LessonModule = {
   locked: false,
   lessons: [
     {
-      id: "47",
-      number: 47,
+      id: "57",
+      number: 57,
       title: "Нақшакашӣ ва дизайн",
       description: "Wireframe, палитра, саҳифаҳо",
       theory: `Пеш аз код задан — **ФИКР кунед!** Ҳар лоиҳаи хуб аз **нақша** оғоз мешавад.
@@ -64,8 +64,8 @@ export const webModule10FinalProject: LessonModule = {
       },
     },
     {
-      id: "48",
-      number: 48,
+      id: "58",
+      number: 58,
       title: "HTML ва CSS — вёрстка",
       description: "Navbar, hero, grid, адаптив",
       theory: `Акнун **wireframe-ро ба код** табдил медиҳем!
@@ -128,8 +128,8 @@ export const webModule10FinalProject: LessonModule = {
       },
     },
     {
-      id: "49",
-      number: 49,
+      id: "59",
+      number: 59,
       title: "JavaScript — интерактивият",
       description: "Меню, scroll, аниматсия, форма",
       theory: `Сайт бояд **зинда** бошад!
@@ -204,8 +204,8 @@ export const webModule10FinalProject: LessonModule = {
       },
     },
     {
-      id: "50",
-      number: 50,
+      id: "60",
+      number: 60,
       title: "React-версия",
       description: "6 компонент, props, state",
       theory: `Акнун ҳамон **портфолиоро бо React** месозем!
@@ -273,8 +273,8 @@ function App() {
       },
     },
     {
-      id: "51",
-      number: 51,
+      id: "61",
+      number: 61,
       title: "Деплой — сайтро ба интернет!",
       description: "GitHub Pages, Vercel, линк",
       theory: `Лоиҳа **тайёр аст** — вақти **нашр** расид! 🚀

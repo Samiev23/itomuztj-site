@@ -1,6 +1,6 @@
 import type { LessonModule } from "./lessonTypes";
 
-/** Модул 11: Тайёрӣ ба кор — дарсҳои 52–54 (гувоҳнома) */
+/** Модул 11: Тайёрӣ ба кор — дарсҳои 62–64 (гувоҳнома) */
 export const webModule11JobPrep: LessonModule = {
   id: "m11",
   title: "Модул 11: Тайёрӣ ба кор",
@@ -9,8 +9,8 @@ export const webModule11JobPrep: LessonModule = {
   capstone: true,
   lessons: [
     {
-      id: "52",
-      number: 52,
+      id: "62",
+      number: 62,
       title: "Резюме ва портфолио",
       description: "CV, GitHub README, LinkedIn",
       theory: `Шумо акнун **барномасоз** ҳастед! Вале **корфармо** инро бояд донад.
@@ -67,8 +67,8 @@ export const webModule11JobPrep: LessonModule = {
       },
     },
     {
-      id: "53",
-      number: 53,
+      id: "63",
+      number: 63,
       title: "Мусоҳиба — саволҳои техникӣ",
       description: "Саволҳо, live coding, рафтор",
       theory: `Дар **мусоҳиба** аз шумо **саволҳои техникӣ** мепурсанд.
@@ -111,8 +111,8 @@ export const webModule11JobPrep: LessonModule = {
       },
     },
     {
-      id: "54",
-      number: 54,
+      id: "64",
+      number: 64,
       title: "Фриланс ва кори аввалин",
       description: "Платформаҳо, ширкатҳо, нарх",
       theory: `Шумо **омодаед**! Акнун ду роҳ дар пеш аст:

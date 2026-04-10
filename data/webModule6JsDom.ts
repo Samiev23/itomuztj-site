@@ -1,6 +1,6 @@
 import type { LessonModule } from "./lessonTypes";
 
-/** Модул 6: JavaScript ва DOM — дарсҳои 24–30 */
+/** Модул 6: JavaScript ва DOM — дарсҳои 34–40 */
 export const webModule6JsDom: LessonModule = {
   id: "m6",
   title: "Модул 6: JavaScript ва DOM",
@@ -8,8 +8,8 @@ export const webModule6JsDom: LessonModule = {
   locked: false,
   lessons: [
     {
-      id: "24",
-      number: 24,
+      id: "34",
+      number: 34,
       title: "DOM чист?",
       description: "document, getElementById, querySelector",
       theory: `**DOM** — ин **нақшаи сайти шумо дар хотираи браузер**.
@@ -35,8 +35,8 @@ export const webModule6JsDom: LessonModule = {
       },
     },
     {
-      id: "25",
-      number: 25,
+      id: "35",
+      number: 35,
       title: "Элементҳоро тағйир додан",
       description: "style, className, classList",
       theory: `Бо **DOM** шумо метавонед **ҳар чизро дар саҳифа** тағйир диҳед — матн, ранг, андоза, сурат.
@@ -73,8 +73,8 @@ const матн = document.getElementById("матн");
       },
     },
     {
-      id: "26",
-      number: 26,
+      id: "36",
+      number: 36,
       title: "Рӯйдодҳо (Events)",
       description: "addEventListener ва рӯйдодҳо",
       theory: `**Рӯйдод** — ин «**чӣ шуд?**».
@@ -104,8 +104,8 @@ const намоиш = document.getElementById("намоиш");
       },
     },
     {
-      id: "27",
-      number: 27,
+      id: "37",
+      number: 37,
       title: "Элементҳоро сохтан ва нест кардан",
       description: "createElement, appendChild, remove",
       theory: `Шумо метавонед **элементҳои нав** аз нав созед ва ба саҳифа илова кунед — **бе тағйири HTML-и файл**!
@@ -136,8 +136,8 @@ document.getElementById("илова").addEventListener("click", function () {
       },
     },
     {
-      id: "28",
-      number: 28,
+      id: "38",
+      number: 38,
       title: "Формаҳо бо JavaScript",
       description: "submit, preventDefault, валидатсия",
       theory: `**Формаҳо** дар ҳама ҷо ҳастанд — логин, сабти ном, тамос.
@@ -169,8 +169,8 @@ document.getElementById("алоқа").addEventListener("submit", function (e) {
       },
     },
     {
-      id: "29",
-      number: 29,
+      id: "39",
+      number: 39,
       title: "localStorage — хотираи браузер",
       description: "setItem, getItem, JSON",
       theory: `Вақте ки саҳифаро **аз нав мекунед**, ҳама маълумоти JS-и дохили саҳифа **нест мешавад**!
@@ -197,8 +197,8 @@ document.getElementById("алоқа").addEventListener("submit", function (e) {
       },
     },
     {
-      id: "30",
-      number: 30,
+      id: "40",
+      number: 40,
       title: "Fetch ва API",
       description: "fetch, JSON, async",
       theory: `**API** — ин **пешхизматчии интернет** 🤵 Шумо мегӯед: «**Маълумот деҳ!**» — ва API ҷавоб медиҳад.
