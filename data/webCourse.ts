@@ -1,8 +1,9 @@
 import type { LessonModule } from "./lessonTypes";
 import { webModule5JsBasics } from "./webModule5JsBasics";
+import { webModule6JsDom } from "./webModule6JsDom";
 
 /** Анҷоми ин дарс — гирифтани гувоҳномаи «Сайтсозӣ» */
-export const WEB_CAPSTONE_LESSON_ID = "26";
+export const WEB_CAPSTONE_LESSON_ID = "36";
 
 export const webLessonModules: LessonModule[] = [
   {
@@ -572,13 +573,7 @@ body { background: var(--фон); }
     ],
   },
   webModule5JsBasics,
-  {
-    id: "m6",
-    title: "Модул 6: JavaScript ва DOM",
-    titleEn: "JS ва DOM",
-    locked: true,
-    lessons: [],
-  },
+  webModule6JsDom,
   {
     id: "m7",
     title: "Модул 7: Мини-лоиҳаҳо 2",
@@ -587,8 +582,8 @@ body { background: var(--фон); }
     capstone: true,
     lessons: [
       {
-        id: "24",
-        number: 24,
+        id: "34",
+        number: 34,
         title: "Лоиҳа: Корти визитӣ (Portfolio Card)",
         description: "Корти визитии онлайн бо HTML ва CSS",
         theory: `Биёед **корти визитии онлайн** созем — ин **лоиҳаи воқеии калон** аст!
@@ -632,8 +627,8 @@ body { background: var(--фон); }
         },
       },
       {
-        id: "25",
-        number: 25,
+        id: "35",
+        number: 35,
         title: "Лоиҳа: Рӯйхати вазифаҳо (Todo List)",
         description: "Илова кардани вазифа бо JavaScript",
         theory: `Ҳар рӯз мо **корҳо дорем** — мисли **рӯйхати харид**. Биёед **барномае** созем, ки вазифаҳоро ба **рӯйхат илова** кунад.
@@ -668,8 +663,8 @@ function addTask() {
         },
       },
       {
-        id: "26",
-        number: 26,
+        id: "36",
+        number: 36,
         title: "Лоиҳа: Саҳифаи фурӯш (Landing Page)",
         description: "Лоиҳаи ниҳоӣ ва гувоҳнома",
         theory: `Тасаввур кунед, ки шумо **маҳсулот мефурӯшед** ва мехоҳед **сайт дошта бошед**.

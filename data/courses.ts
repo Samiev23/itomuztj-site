@@ -29,7 +29,7 @@ export const coursesCatalog: CourseCatalogEntry[] = [
     id: "web",
     emoji: "🌐",
     title: "Сайтсозӣ",
-    description: "HTML, CSS, мини-лоиҳа, CSS пешрафта, JavaScript асосӣ — то лоиҳаҳои воқеӣ ва гувоҳнома",
+    description: "HTML, CSS, мини-лоиҳа, CSS пешрафта, JavaScript, DOM ва API — то лоиҳаҳои воқеӣ ва гувоҳнома",
     accentHex: "#34d399",
     accent: "emerald",
   },
