@@ -23,6 +23,8 @@ export interface Lesson {
     minLiCount?: number;
     /** Ҳадди ақали тегҳои <a> (масалан барои линкҳои иҷтимоӣ) */
     minAnchorCount?: number;
+    /** Ҳадди ақали блокҳои @media (адаптив) */
+    minMediaBlocks?: number;
   };
 }
 

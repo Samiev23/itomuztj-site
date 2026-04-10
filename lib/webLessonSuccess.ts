@@ -18,5 +18,9 @@ export function evaluateWebLessonSuccess(lesson: Lesson, code: string): boolean 
     const n = (t.match(/<a\b/gi) ?? []).length;
     if (n < lesson.webChecks.minAnchorCount) return false;
   }
+  if (lesson.webChecks?.minMediaBlocks != null) {
+    const n = (t.match(/@media/gi) ?? []).length;
+    if (n < lesson.webChecks.minMediaBlocks) return false;
+  }
   return true;
 }
