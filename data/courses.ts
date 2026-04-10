@@ -119,6 +119,13 @@ export function getAllLessonIdsForCourse(courseId: string): string[] {
   return mods?.flatMap((m) => m.lessons.map((l) => l.id)) ?? [];
 }
 
+/** Танҳо дарсҳои ҳозираи курс — барои пешрафт бо ID-ҳои кӯҳна аз localStorage */
+export function countCompletedLessonsForCourse(courseId: string, completedIds: string[]): number {
+  const valid = new Set(getAllLessonIdsForCourse(courseId));
+  if (valid.size === 0) return 0;
+  return completedIds.filter((id) => valid.has(id)).length;
+}
+
 export function countLessonsInCourse(courseId: CourseId): number {
   return courseLessonModules[courseId].reduce((n, m) => n + m.lessons.length, 0);
 }

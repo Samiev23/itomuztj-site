@@ -1,6 +1,6 @@
 import type { LessonModule } from "./lessonTypes";
 
-/** Модул 7: Мини-лоиҳаҳо 2 — дарсҳои 34–37 */
+/** Модул 7: Мини-лоиҳаҳо 2 — дарсҳои 31–34 */
 export const webModule7MiniProjects2: LessonModule = {
   id: "m7",
   title: "Модул 7: Мини-лоиҳаҳо 2",
@@ -9,8 +9,8 @@ export const webModule7MiniProjects2: LessonModule = {
   capstone: true,
   lessons: [
     {
-      id: "34",
-      number: 34,
+      id: "31",
+      number: 31,
       title: "Лоиҳа: Рӯйхати вазифаҳо (Todo App)",
       description: "Todo бо филтр ва localStorage",
       theory: `Биёед **барномаи пурраи рӯйхати корҳоро** созем!
@@ -73,8 +73,8 @@ document.querySelectorAll(".филтрҳо button").forEach(function (б) {
       },
     },
     {
-      id: "35",
-      number: 35,
+      id: "32",
+      number: 32,
       title: "Лоиҳа: Обу ҳавои шаҳр (Weather App)",
       description: "fetch ва API-и wttr.in",
       theory: `Биёед **барнома** созем, ки **обу ҳавои ҳар шаҳрро** нишон диҳад!
@@ -122,8 +122,8 @@ document.getElementById("ҷустуҷӯ").addEventListener("click", function () 
       },
     },
     {
-      id: "36",
-      number: 36,
+      id: "33",
+      number: 33,
       title: "Лоиҳа: Quiz-бозӣ",
       description: "Саволҳо, балл, DOM",
       theory: `**Ҳама бозиро дӯст медоранд!**
@@ -173,8 +173,8 @@ document.getElementById("навбатӣ").addEventListener("click", function () 
       },
     },
     {
-      id: "37",
-      number: 37,
+      id: "34",
+      number: 34,
       title: "Лоиҳа: Ҳисобкунаки асъор",
       description: "Табдил, swap, таърих",
       theory: `Дар **бозори Душанбе** ҳар рӯз одамон **асъор иваз** мекунанд.

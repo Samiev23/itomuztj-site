@@ -2,7 +2,12 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { countLessonsInCourse, coursesCatalog, type CourseId } from "@/data/lessons";
+import {
+  countCompletedLessonsForCourse,
+  countLessonsInCourse,
+  coursesCatalog,
+  type CourseId,
+} from "@/data/lessons";
 import { fetchAllCoursesProgress } from "@/lib/lessonProgress";
 
 const accentBar: Record<string, string> = {
@@ -88,7 +93,7 @@ export function CoursesGridClient() {
 
         const cid = course.id as CourseId;
         const total = countLessonsInCourse(cid);
-        const done = byCourse?.[cid]?.length ?? 0;
+        const done = countCompletedLessonsForCourse(cid, byCourse?.[cid] ?? []);
         const percent = total > 0 ? Math.round((done / total) * 100) : 0;
 
         return (

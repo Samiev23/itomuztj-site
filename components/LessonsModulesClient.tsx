@@ -3,7 +3,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { LessonCard } from "@/components/LessonCard";
 import { WebCourseCertificateBanner } from "@/components/WebCourseCertificateBanner";
-import { getLessonModulesForCourse, type CourseAccent } from "@/data/lessons";
+import {
+  countCompletedLessonsForCourse,
+  countLessonsInCourse,
+  getLessonModulesForCourse,
+  type CourseAccent,
+  type CourseId,
+} from "@/data/lessons";
 import {
   fetchCompletedLessonIds,
   isLessonCompleted,
@@ -36,8 +42,9 @@ export function LessonsModulesClient({ courseId, accent }: Props) {
     return () => window.removeEventListener("itomuz-progress", refresh);
   }, [refresh]);
 
-  const total = modules?.reduce((n, m) => n + m.lessons.length, 0) ?? 0;
-  const completed = completedIds.length;
+  const total =
+    courseId === "kotlin" || courseId === "web" ? countLessonsInCourse(courseId as CourseId) : 0;
+  const completed = countCompletedLessonsForCourse(courseId, completedIds);
   const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
 
   const barClass =

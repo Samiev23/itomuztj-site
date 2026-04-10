@@ -9,6 +9,7 @@ export type {
 export {
   coursesCatalog,
   courseLessonModules,
+  countCompletedLessonsForCourse,
   countLessonsInCourse,
   getAllLessonIdsForCourse,
   getLessonByCourseAndId,

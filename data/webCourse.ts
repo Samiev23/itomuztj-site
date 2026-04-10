@@ -4,7 +4,7 @@ import { webModule6JsDom } from "./webModule6JsDom";
 import { webModule7MiniProjects2 } from "./webModule7MiniProjects2";
 
 /** Анҷоми ин дарс — гирифтани гувоҳномаи «Сайтсозӣ» */
-export const WEB_CAPSTONE_LESSON_ID = "37";
+export const WEB_CAPSTONE_LESSON_ID = "34";
 
 export const webLessonModules: LessonModule[] = [
   {
