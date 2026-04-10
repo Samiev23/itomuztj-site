@@ -6,7 +6,6 @@ export const webModule7MiniProjects2: LessonModule = {
   title: "Модул 7: Мини-лоиҳаҳо 2",
   titleEn: "Лоиҳаҳои амалӣ",
   locked: false,
-  capstone: true,
   lessons: [
     {
       id: "31",

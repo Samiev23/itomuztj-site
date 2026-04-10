@@ -9,9 +9,9 @@ import { getNextLessonIdForCourse } from "@/data/lessons";
 import { notifyProgressUpdated, saveLessonCompletion } from "@/lib/lessonProgress";
 import { WEB_CAPSTONE_LESSON_ID } from "@/data/lessons";
 import { evaluateWebLessonSuccess } from "@/lib/webLessonSuccess";
+import { buildReactLessonPreviewSrcDoc } from "@/lib/reactLessonPreview";
+import { WEB_PREVIEW_CONSOLE_TYPE } from "@/lib/webPreviewConstants";
 import { ThemedSyntaxBlock } from "@/components/ThemedSyntaxBlock";
-
-const WEB_PREVIEW_CONSOLE_TYPE = "itomuz-web-console";
 
 /** Wraps console in iframe and forwards lines to parent via postMessage */
 function buildWebLessonPreviewSrcDoc(fragment: string): string {
@@ -45,7 +45,12 @@ export function WebLessonWorkspace({ lesson, moduleTitle, courseId }: Props) {
   const markedRef = useRef(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  const previewSrcDoc = useMemo(() => buildWebLessonPreviewSrcDoc(code), [code]);
+  const previewSrcDoc = useMemo(() => {
+    if (lesson.webPreviewMode === "react") {
+      return buildReactLessonPreviewSrcDoc(code, { includeRouter: Boolean(lesson.webReactRouter) });
+    }
+    return buildWebLessonPreviewSrcDoc(code);
+  }, [code, lesson.webPreviewMode, lesson.webReactRouter]);
 
   useEffect(() => {
     setConsoleLines([]);
@@ -222,7 +227,7 @@ export function WebLessonWorkspace({ lesson, moduleTitle, courseId }: Props) {
             <div className="grid min-h-0 flex-1 gap-3 lg:grid-cols-2 lg:gap-4">
               <div className="flex min-h-[180px] flex-col gap-2 lg:min-h-0">
                 <label htmlFor="web-lesson-code" className="text-xs font-medium uppercase tracking-wider text-foreground-muted">
-                  Код (HTML/CSS)
+                  {lesson.webPreviewMode === "react" ? "Код (React / JSX)" : "Код (HTML/CSS)"}
                 </label>
                 <textarea
                   id="web-lesson-code"
@@ -235,7 +240,9 @@ export function WebLessonWorkspace({ lesson, moduleTitle, courseId }: Props) {
               <div className="flex min-h-[200px] flex-col gap-2 lg:min-h-0">
                 <p className="text-xs font-medium tracking-wider text-foreground-muted">
                   <span className="uppercase">Пешнамоиш</span>{" "}
-                  <span className="normal-case tracking-normal">(Дар браузер)</span>
+                  <span className="normal-case tracking-normal">
+                    ({lesson.webPreviewMode === "react" ? "React + Babel дар iframe" : "Дар браузер"})
+                  </span>
                 </p>
                 <div
                   className="flex min-h-[200px] flex-1 flex-col overflow-hidden rounded-xl border shadow-inner transition-[border-color,background-color] duration-300 lg:min-h-[280px]"
@@ -246,7 +253,7 @@ export function WebLessonWorkspace({ lesson, moduleTitle, courseId }: Props) {
                 >
                   <iframe
                     ref={iframeRef}
-                    title="Пешнамоиши HTML дар браузер"
+                    title={lesson.webPreviewMode === "react" ? "Пешнамоиши React" : "Пешнамоиши HTML дар браузер"}
                     className="h-full min-h-[160px] w-full flex-1 lg:min-h-[220px]"
                     style={{ backgroundColor: "var(--preview-bg)" }}
                     sandbox="allow-scripts"

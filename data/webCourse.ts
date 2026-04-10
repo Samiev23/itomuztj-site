@@ -3,9 +3,12 @@ import { webModule5JsBasics } from "./webModule5JsBasics";
 import { webModule6JsDom } from "./webModule6JsDom";
 import { webModule7MiniProjects2 } from "./webModule7MiniProjects2";
 import { webModule8GitGithub } from "./webModule8GitGithub";
+import { webModule9ReactBasics } from "./webModule9ReactBasics";
+import { webModule10FinalProject } from "./webModule10FinalProject";
+import { webModule11JobPrep } from "./webModule11JobPrep";
 
 /** Анҷоми ин дарс — гирифтани гувоҳномаи «Сайтсозӣ» */
-export const WEB_CAPSTONE_LESSON_ID = "34";
+export const WEB_CAPSTONE_LESSON_ID = "54";
 
 export const webLessonModules: LessonModule[] = [
   {
@@ -578,4 +581,7 @@ body { background: var(--фон); }
   webModule6JsDom,
   webModule7MiniProjects2,
   webModule8GitGithub,
+  webModule9ReactBasics,
+  webModule10FinalProject,
+  webModule11JobPrep,
 ];

@@ -2,6 +2,9 @@ export type LessonOutputValidation = "exact" | "nonempty" | "contains";
 
 export type LessonRuntime = "kotlin" | "web";
 
+/** Пешнамоиш: HTML мустақим ё React+JSX дар iframe (Babel) */
+export type WebPreviewMode = "html" | "react";
+
 export interface Lesson {
   id: string;
   number: number;
@@ -15,6 +18,10 @@ export interface Lesson {
   outputValidation?: LessonOutputValidation;
   /** Пешфарз: kotlin */
   runtime?: LessonRuntime;
+  /** Пешфарз: html — барои React JSX пешнамоиш */
+  webPreviewMode?: WebPreviewMode;
+  /** Барои webPreviewMode=react: китобхаҳои CDN (масалан react-router-dom) */
+  webReactRouter?: boolean;
   /** Барои дарсҳои веб — санҷиши матни код */
   webChecks?: {
     contains?: string[];
