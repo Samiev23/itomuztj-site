@@ -1,7 +1,8 @@
 import type { LessonModule } from "./lessonTypes";
+import { webModule5JsBasics } from "./webModule5JsBasics";
 
 /** Анҷоми ин дарс — гирифтани гувоҳномаи «Сайтсозӣ» */
-export const WEB_CAPSTONE_LESSON_ID = "23";
+export const WEB_CAPSTONE_LESSON_ID = "31";
 
 export const webLessonModules: LessonModule[] = [
   {
@@ -688,6 +689,7 @@ body { background: var(--фон); }
       },
     ],
   },
+  webModule5JsBasics,
   {
     id: "m7",
     title: "Модул 7: Мини-лоиҳаҳо 2",
@@ -696,8 +698,8 @@ body { background: var(--фон); }
     capstone: true,
     lessons: [
       {
-        id: "20",
-        number: 20,
+        id: "28",
+        number: 28,
         title: "Лоиҳа: Корти визитӣ (Portfolio Card)",
         description: "Корти визитии онлайн бо HTML ва CSS",
         theory: `Биёед **корти визитии онлайн** созем — ин **лоиҳаи воқеии калон** аст!
@@ -741,8 +743,8 @@ body { background: var(--фон); }
         },
       },
       {
-        id: "21",
-        number: 21,
+        id: "29",
+        number: 29,
         title: "Лоиҳа: Рӯйхати вазифаҳо (Todo List)",
         description: "Илова кардани вазифа бо JavaScript",
         theory: `Ҳар рӯз мо **корҳо дорем** — мисли **рӯйхати харид**. Биёед **барномае** созем, ки вазифаҳоро ба **рӯйхат илова** кунад.
@@ -777,8 +779,8 @@ function addTask() {
         },
       },
       {
-        id: "22",
-        number: 22,
+        id: "30",
+        number: 30,
         title: "Лоиҳа: Ҳисобкунаки асъор (Currency Calculator)",
         description: "Сомонӣ ба доллар, рубл ва евро",
         theory: `Дар **бозор** асъор иваз мекунанд — мисли **тарозу**. Биёед **ҳисобкунак** созем: **сомонӣ** ба **доллар**, **рубл**, **евро**.
@@ -820,8 +822,8 @@ function табдил() {
         },
       },
       {
-        id: "23",
-        number: 23,
+        id: "31",
+        number: 31,
         title: "Лоиҳа: Саҳифаи фурӯш (Landing Page)",
         description: "Лоиҳаи ниҳоӣ ва гувоҳнома",
         theory: `Тасаввур кунед, ки шумо **маҳсулот мефурӯшед** ва мехоҳед **сайт дошта бошед**.

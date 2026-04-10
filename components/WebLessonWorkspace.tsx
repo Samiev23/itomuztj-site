@@ -11,11 +11,21 @@ import { WEB_CAPSTONE_LESSON_ID } from "@/data/lessons";
 import { evaluateWebLessonSuccess } from "@/lib/webLessonSuccess";
 import { ThemedSyntaxBlock } from "@/components/ThemedSyntaxBlock";
 
+const WEB_PREVIEW_CONSOLE_TYPE = "itomuz-web-console";
+
+/** Wraps console in iframe and forwards lines to parent via postMessage */
+function buildWebLessonPreviewSrcDoc(fragment: string): string {
+  const hook = `<script>(function(){function fmt(a){return Array.prototype.slice.call(a).map(function(x){if(x===null)return"null";if(x===void 0)return"undefined";if(typeof x==="object")try{return JSON.stringify(x)}catch(e){return Object.prototype.toString.call(x)}return String(x)}).join(" ")}function post(lvl,args){try{window.parent.postMessage({type:"${WEB_PREVIEW_CONSOLE_TYPE}",level:lvl,message:fmt(args)},"*")}catch(e){}}var i,methods=["log","warn","error","info","debug"];for(i=0;i<methods.length;i++){(function(method){var orig=console[method];console[method]=function(){post(method,arguments);return orig.apply(console,arguments)}})(methods[i])}})();<\/script>`;
+  return `<!DOCTYPE html><html lang="tg"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>html,body{margin:0;background:#ffffff;}body{margin:12px;font-family:system-ui,sans-serif;}</style>${hook}</head><body>${fragment}</body></html>`;
+}
+
 type Props = {
   lesson: Lesson;
   moduleTitle: string;
   courseId: string;
 };
+
+type ConsoleLine = { id: string; level: string; message: string };
 
 const accent = {
   link: "text-[#34d399] underline decoration-[#34d399]/40 underline-offset-2 hover:decoration-[#34d399]",
@@ -31,7 +41,29 @@ export function WebLessonWorkspace({ lesson, moduleTitle, courseId }: Props) {
   const [showHint, setShowHint] = useState(false);
   const [hasChecked, setHasChecked] = useState(false);
   const [checkOk, setCheckOk] = useState(false);
+  const [consoleLines, setConsoleLines] = useState<ConsoleLine[]>([]);
   const markedRef = useRef(false);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  const previewSrcDoc = useMemo(() => buildWebLessonPreviewSrcDoc(code), [code]);
+
+  useEffect(() => {
+    setConsoleLines([]);
+  }, [code, lesson.id]);
+
+  useEffect(() => {
+    function onMessage(ev: MessageEvent) {
+      if (!ev.data || ev.data.type !== WEB_PREVIEW_CONSOLE_TYPE) return;
+      if (iframeRef.current?.contentWindow !== ev.source) return;
+      const level = typeof ev.data.level === "string" ? ev.data.level : "log";
+      const message = typeof ev.data.message === "string" ? ev.data.message : String(ev.data.message ?? "");
+      setConsoleLines((prev) =>
+        [...prev, { id: `${Date.now()}-${prev.length}`, level, message }].slice(-200),
+      );
+    }
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, []);
 
   useEffect(() => {
     setCode(lesson.starterCode);
@@ -206,19 +238,55 @@ export function WebLessonWorkspace({ lesson, moduleTitle, courseId }: Props) {
                   <span className="normal-case tracking-normal">(Дар браузер)</span>
                 </p>
                 <div
-                  className="min-h-[200px] flex-1 overflow-hidden rounded-xl border shadow-inner transition-[border-color,background-color] duration-300 lg:min-h-[280px]"
+                  className="flex min-h-[200px] flex-1 flex-col overflow-hidden rounded-xl border shadow-inner transition-[border-color,background-color] duration-300 lg:min-h-[280px]"
                   style={{
                     backgroundColor: "var(--preview-bg)",
                     borderColor: "var(--preview-border)",
                   }}
                 >
                   <iframe
+                    ref={iframeRef}
                     title="Пешнамоиши HTML дар браузер"
-                    className="h-full min-h-[200px] w-full lg:min-h-[280px]"
+                    className="h-full min-h-[160px] w-full flex-1 lg:min-h-[220px]"
                     style={{ backgroundColor: "var(--preview-bg)" }}
                     sandbox="allow-scripts"
-                    srcDoc={`<!DOCTYPE html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:#ffffff;}body{margin:12px;font-family:system-ui,sans-serif;}</style></head><body>${code}</body></html>`}
+                    srcDoc={previewSrcDoc}
                   />
+                  <div
+                    className="shrink-0 border-t font-mono text-xs transition-[border-color,background-color] duration-300"
+                    style={{
+                      borderColor: "var(--preview-border)",
+                      backgroundColor: "var(--bg-glass-mid)",
+                      color: "var(--foreground-secondary)",
+                      maxHeight: "min(200px, 28vh)",
+                    }}
+                  >
+                    <p className="border-b px-3 py-1.5 text-[0.65rem] font-semibold uppercase tracking-wider text-foreground-muted">
+                      Консол (console.log, warn, error)
+                    </p>
+                    <div className="max-h-[min(168px,24vh)] overflow-y-auto px-3 py-2">
+                      {consoleLines.length === 0 ? (
+                        <p className="text-foreground-muted">Ҳоло паём нест — console.log дар код истифода баред.</p>
+                      ) : (
+                        <ul className="space-y-1">
+                          {consoleLines.map((line) => (
+                            <li
+                              key={line.id}
+                              className={
+                                line.level === "error"
+                                  ? "text-red-600 dark:text-red-400"
+                                  : line.level === "warn"
+                                    ? "text-amber-700 dark:text-amber-400"
+                                    : "text-foreground-secondary"
+                              }
+                            >
+                              <span className="opacity-60">[{line.level}]</span> {line.message}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
