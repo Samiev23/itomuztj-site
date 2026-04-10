@@ -2,6 +2,7 @@ import type { LessonModule } from "./lessonTypes";
 import { webModule5JsBasics } from "./webModule5JsBasics";
 import { webModule6JsDom } from "./webModule6JsDom";
 import { webModule7MiniProjects2 } from "./webModule7MiniProjects2";
+import { webModule8GitGithub } from "./webModule8GitGithub";
 
 /** Анҷоми ин дарс — гирифтани гувоҳномаи «Сайтсозӣ» */
 export const WEB_CAPSTONE_LESSON_ID = "34";
@@ -576,4 +577,5 @@ body { background: var(--фон); }
   webModule5JsBasics,
   webModule6JsDom,
   webModule7MiniProjects2,
+  webModule8GitGithub,
 ];
