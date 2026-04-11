@@ -113,56 +113,291 @@ function resolvePrintlnArg(arg: string, ctx: Ctx, objFields: Record<string, Reco
   return "";
 }
 
-function extractPrintlnArgumentList(code: string): string[] {
-  const args: string[] = [];
-  let i = 0;
-  while (i < code.length) {
-    const idx = code.indexOf("println", i);
-    if (idx === -1) break;
-    const afterWord = idx + 7;
-    if (afterWord < code.length && /[a-zA-Z0-9_]/.test(code[afterWord]!)) {
-      i = afterWord;
+const KOTLIN_ID_TAIL = /[a-zA-Z0-9_\u0400-\u04FF]/;
+
+function skipWhitespace(code: string, i: number): number {
+  let j = i;
+  while (j < code.length && /\s/.test(code[j]!)) j++;
+  return j;
+}
+
+/** Калимаи Kotlin (val, if, else, println, …), на қисми нишонаи дарозтар */
+function startsWithKotlinKeyword(code: string, pos: number, word: string): boolean {
+  if (!code.startsWith(word, pos)) return false;
+  const after = pos + word.length;
+  if (after < code.length && KOTLIN_ID_TAIL.test(code[after]!)) return false;
+  return true;
+}
+
+function substituteCtxInExpr(expr: string, ctx: Ctx): string {
+  let e = expr;
+  for (const [k, v] of Object.entries(ctx)) {
+    const re = new RegExp(
+      `(?<![a-zA-Z0-9_\\u0400-\\u04FF])${escapeRegExp(k)}(?![a-zA-Z0-9_\\u0400-\\u04FF])`,
+      "gu",
+    );
+    e = e.replace(re, String(v));
+  }
+  return e;
+}
+
+function parseOperandValue(s: string): string | number | boolean | null {
+  const t = s.trim();
+  if (t === "true") return true;
+  if (t === "false") return false;
+  const strM = /^"((?:\\.|[^"\\])*)"$/.exec(t);
+  if (strM) return unescapeKotlinString(strM[1]!);
+  if (/^-?\d+$/.test(t)) return parseInt(t, 10);
+  if (/^-?\d+\.\d+$/.test(t)) return parseFloat(t);
+  return null;
+}
+
+function evalKotlinCondition(expr: string, ctx: Ctx, objFields: Record<string, Record<string, string | number>>): boolean {
+  let e = substituteCtxInExpr(expr.trim(), ctx);
+  e = e.replace(/\s/g, "");
+
+  if (e === "true") return true;
+  if (e === "false") return false;
+
+  const ops = [">=", "<=", "==", "!=", ">", "<"] as const;
+  let bestIdx = -1;
+  let bestOp: (typeof ops)[number] | null = null;
+  for (const op of ops) {
+    const idx = e.indexOf(op);
+    if (idx !== -1 && (bestIdx === -1 || idx < bestIdx)) {
+      bestIdx = idx;
+      bestOp = op;
+    }
+  }
+  if (bestOp === null || bestIdx === -1) return false;
+
+  const leftRaw = e.slice(0, bestIdx);
+  const rightRaw = e.slice(bestIdx + bestOp.length);
+  const left = parseOperandValue(leftRaw);
+  const right = parseOperandValue(rightRaw);
+  if (left === null || right === null) return false;
+
+  switch (bestOp) {
+    case ">=":
+      return Number(left) >= Number(right);
+    case "<=":
+      return Number(left) <= Number(right);
+    case ">":
+      return Number(left) > Number(right);
+    case "<":
+      return Number(left) < Number(right);
+    case "==":
+      return left === right || String(left) === String(right);
+    case "!=":
+      return left !== right && String(left) !== String(right);
+    default:
+      return false;
+  }
+}
+
+function parseUntilStatementEnd(code: string, start: number): [number, string] {
+  let j = start;
+  let paren = 0;
+  let inStr = false;
+  let strEscape = false;
+  while (j < code.length) {
+    const c = code[j]!;
+    if (strEscape) {
+      strEscape = false;
+      j++;
       continue;
     }
-    let j = afterWord;
-    while (j < code.length && /\s/.test(code[j]!)) j++;
-    if (code[j] !== "(") {
-      i = afterWord;
+    if (inStr) {
+      if (c === "\\") strEscape = true;
+      else if (c === '"') inStr = false;
+      j++;
       continue;
+    }
+    if (c === '"') {
+      inStr = true;
+      j++;
+      continue;
+    }
+    if (c === "(") paren++;
+    else if (c === ")") paren--;
+    if (paren === 0 && (c === ";" || c === "\n")) {
+      return [j + (c === ";" ? 1 : 1), code.slice(start, j).trim()];
     }
     j++;
-    let depth = 1;
-    const start = j;
-    let inStr = false;
-    let strEscape = false;
-    while (j < code.length && depth > 0) {
-      const c = code[j]!;
-      if (strEscape) {
-        strEscape = false;
-        j++;
-        continue;
-      }
-      if (inStr) {
-        if (c === "\\") strEscape = true;
-        else if (c === '"') inStr = false;
-        j++;
-        continue;
-      }
-      if (c === '"') {
-        inStr = true;
-        j++;
-        continue;
-      }
-      if (c === "(") depth++;
-      else if (c === ")") depth--;
-      j++;
-    }
-    if (depth === 0) {
-      args.push(code.slice(start, j - 1).trim());
-    }
-    i = j;
   }
-  return args;
+  return [j, code.slice(start, j).trim()];
+}
+
+function evalAssignmentRhs(expr: string, ctx: Ctx, objFields: Record<string, Record<string, string | number>>): string | number {
+  const r = resolvePrintlnArg(expr.trim(), ctx, objFields).trim();
+  if (/^-?\d+$/.test(r)) return parseInt(r, 10);
+  if (/^-?\d+\.\d+$/.test(r)) return parseFloat(r);
+  return r;
+}
+
+type IfBranch = { condition: string; body: string } | { elseBody: string };
+
+/**
+ * Аз индекси `if` то охири занҷири if / else if / else — баданҳо бе `{`/`}`.
+ * Бозгашт: индекси баъд аз охири занҷир.
+ */
+function parseIfElseChain(code: string, start: number): [number, IfBranch[]] | null {
+  if (!startsWithKotlinKeyword(code, start, "if")) return null;
+  const branches: IfBranch[] = [];
+  let i = start + 2;
+  i = skipWhitespace(code, i);
+  if (code[i] !== "(") return null;
+  const condClose = findMatchingParen(code, i);
+  if (condClose === -1) return null;
+  const condition = code.slice(i + 1, condClose).trim();
+  i = skipWhitespace(code, condClose + 1);
+  if (code[i] !== "{") return null;
+  const thenClose = findMatchingBrace(code, i);
+  if (thenClose === -1) return null;
+  const thenBody = code.slice(i + 1, thenClose).trim();
+  branches.push({ condition, body: thenBody });
+  i = skipWhitespace(code, thenClose + 1);
+
+  while (i < code.length && startsWithKotlinKeyword(code, i, "else")) {
+    i += 4;
+    i = skipWhitespace(code, i);
+    if (startsWithKotlinKeyword(code, i, "if")) {
+      i += 2;
+      i = skipWhitespace(code, i);
+      if (code[i] !== "(") return [i, branches];
+      const ec = findMatchingParen(code, i);
+      if (ec === -1) return [i, branches];
+      const cond = code.slice(i + 1, ec).trim();
+      i = skipWhitespace(code, ec + 1);
+      if (code[i] !== "{") return [i, branches];
+      const bc = findMatchingBrace(code, i);
+      if (bc === -1) return [i, branches];
+      branches.push({ condition: cond, body: code.slice(i + 1, bc).trim() });
+      i = skipWhitespace(code, bc + 1);
+    } else if (code[i] === "{") {
+      const bc = findMatchingBrace(code, i);
+      if (bc === -1) return [i, branches];
+      branches.push({ elseBody: code.slice(i + 1, bc).trim() });
+      return [skipWhitespace(code, bc + 1), branches];
+    } else {
+      break;
+    }
+  }
+  return [i, branches];
+}
+
+function extractNextPrintln(code: string, start: number): { end: number; arg: string } | null {
+  const idx = code.indexOf("println", start);
+  if (idx === -1) return null;
+  const afterWord = idx + 7;
+  if (afterWord < code.length && KOTLIN_ID_TAIL.test(code[afterWord]!)) {
+    return extractNextPrintln(code, afterWord);
+  }
+  let j = afterWord;
+  j = skipWhitespace(code, j);
+  if (code[j] !== "(") return extractNextPrintln(code, afterWord);
+  j++;
+  let depth = 1;
+  const argStart = j;
+  let inStr = false;
+  let strEscape = false;
+  while (j < code.length && depth > 0) {
+    const c = code[j]!;
+    if (strEscape) {
+      strEscape = false;
+      j++;
+      continue;
+    }
+    if (inStr) {
+      if (c === "\\") strEscape = true;
+      else if (c === '"') inStr = false;
+      j++;
+      continue;
+    }
+    if (c === '"') {
+      inStr = true;
+      j++;
+      continue;
+    }
+    if (c === "(") depth++;
+    else if (c === ")") depth--;
+    j++;
+  }
+  if (depth !== 0) return null;
+  return { end: j, arg: code.slice(argStart, j - 1).trim() };
+}
+
+function runStatements(
+  code: string,
+  ctx: Ctx,
+  objFields: Record<string, Record<string, string | number>>,
+): string[] {
+  const out: string[] = [];
+  const merged: Ctx = { ...ctx };
+  let i = 0;
+  const len = code.length;
+
+  while (i < len) {
+    i = skipWhitespace(code, i);
+    if (i >= len) break;
+
+    const kwVal = startsWithKotlinKeyword(code, i, "val");
+    const kwVar = !kwVal && startsWithKotlinKeyword(code, i, "var");
+    if (kwVal || kwVar) {
+      i += 3;
+      i = skipWhitespace(code, i);
+      const idM = new RegExp(`^(${KOTLIN_ID})`).exec(code.slice(i));
+      if (!idM) {
+        i++;
+        continue;
+      }
+      const name = idM[1]!;
+      i += idM[0]!.length;
+      i = skipWhitespace(code, i);
+      if (code[i] !== "=") {
+        i++;
+        continue;
+      }
+      i++;
+      i = skipWhitespace(code, i);
+      const [nextPos, exprStr] = parseUntilStatementEnd(code, i);
+      merged[name] = evalAssignmentRhs(exprStr, merged, objFields);
+      i = nextPos;
+      continue;
+    }
+
+    const ifChain = parseIfElseChain(code, i);
+    if (ifChain) {
+      const [endIf, branches] = ifChain;
+      for (const br of branches) {
+        if ("elseBody" in br) {
+          out.push(...runStatements(br.elseBody, merged, objFields));
+          break;
+        }
+        if (evalKotlinCondition(br.condition, merged, objFields)) {
+          out.push(...runStatements(br.body, merged, objFields));
+          break;
+        }
+      }
+      i = endIf;
+      continue;
+    }
+
+    if (startsWithKotlinKeyword(code, i, "println")) {
+      const pl = extractNextPrintln(code, i);
+      if (pl) {
+        out.push(resolvePrintlnArg(pl.arg, merged, objFields));
+        i = pl.end;
+      } else {
+        i += 7;
+      }
+      continue;
+    }
+
+    i++;
+  }
+
+  return out;
 }
 
 function stripLineComments(src: string): string {
@@ -453,31 +688,23 @@ export function simulateKotlinPrintlnOutput(code: string): string {
 
   for (const seg of segments) {
     if (seg.kind === "outer") {
-      for (const arg of extractPrintlnArgumentList(seg.code)) {
-        lines.push(resolvePrintlnArg(arg, {}, objFields));
-      }
+      lines.push(...runStatements(seg.code, {}, objFields));
     } else if (seg.kind === "range") {
       for (let n = seg.start; n <= seg.end; n++) {
         const ctx: Ctx = { [seg.varName]: n };
-        for (const arg of extractPrintlnArgumentList(seg.body)) {
-          lines.push(resolvePrintlnArg(arg, ctx, objFields));
-        }
+        lines.push(...runStatements(seg.body, ctx, objFields));
       }
     } else if (seg.kind === "list") {
       const arr = lists.get(seg.listName) ?? [];
       for (const item of arr) {
         const ctx: Ctx = { [seg.itemVar]: item };
-        for (const arg of extractPrintlnArgumentList(seg.body)) {
-          lines.push(resolvePrintlnArg(arg, ctx, objFields));
-        }
+        lines.push(...runStatements(seg.body, ctx, objFields));
       }
     } else if (seg.kind === "map") {
       const entries = maps.get(seg.mapName) ?? [];
       for (const [k, v] of entries) {
         const ctx: Ctx = { [seg.kVar]: k, [seg.vVar]: v };
-        for (const arg of extractPrintlnArgumentList(seg.body)) {
-          lines.push(resolvePrintlnArg(arg, ctx, objFields));
-        }
+        lines.push(...runStatements(seg.body, ctx, objFields));
       }
     }
   }
