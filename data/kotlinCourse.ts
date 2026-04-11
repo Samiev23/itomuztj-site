@@ -1317,6 +1317,89 @@ const kotlinM11CleanArchitectureTheory = `## Clean Architecture амалӣ
 - Папкаҳо = тартиб; domain = дил; data ва presentation = дасту пой.
 `;
 
+const kotlinM12TodoProjectTheory = `## Лоиҳа: Todo App
+
+### Аввал аз ҳаёт фаҳмем
+
+**Аввалин барномаи воқеӣ!** Рӯйхати **вазифаҳо** бо ҳамаи донишатон: **Compose UI**, **State**, **Room**, **ViewModel**.
+
+Корбар вазифа **илова** мекунад ✅, **тамом** мекунад ☑️, **нест** мекунад ❌ — ва ҳама дар **база** нигоҳ мешавад, мисли **дафтари вазифаҳо**, ки гум намешавад.
+
+### Сохтор
+
+- **Entity**, **DAO**, **Database**, **Repository**, **ViewModel**, экранҳо: **рӯйхат** + **диалоги илова**.
+
+### 🎯 Хулоса
+
+- Todo = ҷамъи Room + MVVM + Compose дар як лоиҳаи хурд.
+`;
+
+const kotlinM12WeatherProjectTheory = `## Лоиҳа: Обу ҳавои шаҳр
+
+### Аввал аз ҳаёт фаҳмем
+
+Барномае, ки **обу ҳавои шаҳр**ро нишон медиҳад! Корбар **номи шаҳр**ро менависад — барнома аз **API** **ҳарорат**, **вазъият** ва **тасвир**ро мегирад.
+
+Ин лоиҳа **Retrofit**, **Coroutines** ва **Compose**-ро якҷо мекунад — мисли **радиои обу ҳаво**, вале шумо сохтаед.
+
+### Нишон диҳед
+
+- **data class**-ҳо барои JSON; **ViewModel** бо **Loading / Success / Error**; UI бо **нишонаҳо** ва **карточка**.
+
+### 🎯 Хулоса
+
+- Шабака + ҳолатҳо + UI = барномаи обу ҳаво.
+`;
+
+const kotlinM12NotesProjectTheory = `## Лоиҳа: Ёддоштҳо (Notes App)
+
+### Аввал аз ҳаёт фаҳмем
+
+Барномаи **ёддоштҳо** бо **Room**, **MVVM** ва дизайни зебо! Корбар **ёддошт** менависад, **ранг** интихоб мекунад, **ҷустуҷӯ** мекунад ва **нест** мекунад.
+
+Ин лоиҳа мисли **Google Keep** аст — **картчаҳои рангин** дар тӯр.
+
+### Нишон диҳед
+
+- Room бо **унвон**, **матн**, **ранг**, **сана**; **Query** барои ҷустуҷӯ; **LazyVerticalStaggeredGrid**; **интихоби ранг**.
+
+### 🎯 Хулоса
+
+- Ёддошт = маълумоти бой + тӯри staggered + ҷустуҷӯ.
+`;
+
+const kotlinM12CurrencyProjectTheory = `## Лоиҳа: Ҳисобкунаки асъор
+
+### Аввал аз ҳаёт фаҳмем
+
+**Ҳисобкунаки касбӣ** бо **курсҳои зинда** аз API! **Сомонӣ** ба **доллар**, **рубл**, **евро** ва баръакс. Бо **Material 3**, **анимация** ва **таърихи табдилҳо** дар **Room** — мисли **дафтари сарфаи асъор** дар телефон.
+
+### Нишон диҳед
+
+- API + **Retrofit**; **Room** барои таърих; **тугмаи иваз** (swap); дизайни M3.
+
+### 🎯 Хулоса
+
+- Асъор = API + нигоҳдории таърих + UI-и зебо.
+`;
+
+const kotlinM12QuizProjectTheory = `## Лоиҳа: Quiz App
+
+### Аввал аз ҳаёт фаҳмем
+
+**Quiz-бозии IT** бо **саволҳо**, **вақт**, **балл** ва **рейтинг**! Саволҳо аз **Room** хонда мешаванд, **вақт** ҳисоб мешавад, **натиҷа** нишон дода мешавад.
+
+Ин лоиҳа **Navigation**, **ViewModel**, **Room** ва **анимация**ро истифода мебарад — мисли **бозии телевизионӣ** бо вақти маҳдуд.
+
+### Нишон диҳед
+
+- Экранҳо: **Хона**, **Quiz**, **Натиҷа**; **таймер**; **балл**; Room барои **рекордҳо**; **navigate** бо аргумент; **LaunchedEffect** барои вақт.
+
+### 🎯 Хулоса
+
+- Quiz = ҷараён + вақт + нигоҳи натиҷа.
+`;
+
 const LESSON8_TABLE_EXPECTED = Array.from({ length: 10 }, (_, i) => {
   const n = i + 1;
   return `5 x ${n} = ${5 * n}`;
@@ -2543,6 +2626,100 @@ fun main() {
         expectedOutput: "presentation",
         outputValidation: "contains",
         hint: "data/ → Repository, Entity, API. domain/ → UseCase, Model. presentation/ → Screen, ViewModel",
+      },
+    ],
+  },
+  {
+    id: "m12",
+    title: "Модул 12: Мини-лоиҳаҳо",
+    titleEn: "Лоиҳаҳои амалӣ",
+    locked: false,
+    lessons: [
+      {
+        id: "61",
+        number: 61,
+        title: "Лоиҳа: Todo App",
+        description: "Room, ViewModel, LazyColumn",
+        theory: kotlinM12TodoProjectTheory,
+        starterCode: `// Дар Studio: Entity Todo, DAO, Database, Repository омода
+// TodoViewModel холӣ — addTodo, deleteTodo, toggleComplete нест
+// UI: LazyColumn барои вазифаҳо нест
+
+fun main() {
+    println("Todo: ViewModel + LazyColumn нопурра")
+}`,
+        task: "Дар Studio ViewModel-ро пурра кунед: addTodo, deleteTodo, toggleComplete (repository + viewModelScope) ва UI бо LazyColumn. Дар симулятор addTodo, deleteTodo, toggleComplete ва LazyColumn-ро дар println зикр кунед",
+        expectedOutput: "toggleComplete",
+        outputValidation: "contains",
+        hint: "viewModelScope.launch { repository.insert(todo) }",
+      },
+      {
+        id: "62",
+        number: 62,
+        title: "Лоиҳа: Обу ҳавои шаҳр",
+        description: "Retrofit, WeatherState, карточка",
+        theory: kotlinM12WeatherProjectTheory,
+        starterCode: `// Дар Studio: Retrofit + WeatherApi омода
+// ViewModel: sealed class WeatherState нест; UI бе Loading
+
+fun main() {
+    println("Обу ҳаво: API омода — ViewModel/UI нопурра")
+}`,
+        task: "Дар Studio ViewModel-ро пурра кунед: занг ба API, Loading/Success/Error, карточка бо натиҷа. Дар симулятор WeatherState ва Loading-ро дар println зикр кунед",
+        expectedOutput: "WeatherState",
+        outputValidation: "contains",
+        hint: "sealed class WeatherState { object Loading : WeatherState(); data class Success(val data: Weather) : WeatherState(); data class Error(val msg: String) : WeatherState() }",
+      },
+      {
+        id: "63",
+        number: 63,
+        title: "Лоиҳа: Ёддоштҳо (Notes App)",
+        description: "StaggeredGrid, ранг, ҷустуҷӯ",
+        theory: kotlinM12NotesProjectTheory,
+        starterCode: `// Дар Studio: Entity Ёддошт, DAO бо ҷустуҷӯ омода
+// ViewModel/UI: Grid, саҳифаи илова бо ранг, ҷустуҷӯ нест
+
+fun main() {
+    println("Ёддошт: LazyVerticalStaggeredGrid нест")
+}`,
+        task: "Дар Studio UI созед: рӯйхат дар Grid (staggered), саҳифаи илова бо интихоби ранг, ҷустуҷӯ. Дар симулятор LazyVerticalStaggeredGrid-ро дар println зикр кунед",
+        expectedOutput: "LazyVerticalStaggeredGrid",
+        outputValidation: "contains",
+        hint: "LazyVerticalStaggeredGrid(columns = StaggeredGridCells.Fixed(2))",
+      },
+      {
+        id: "64",
+        number: 64,
+        title: "Лоиҳа: Ҳисобкунаки асъор",
+        description: "API, Room таърих, Material 3",
+        theory: kotlinM12CurrencyProjectTheory,
+        starterCode: `// Дар Studio: API курсҳо + Room барои таърих омода
+// ViewModel: табдил + нигоҳи таърих нопурра; UI M3 нопурра
+
+fun main() {
+    println("Асъор: табдил + таърих + Material3 нопурра")
+}`,
+        task: "Дар Studio функсияи табдилро пурра кунед, таърихро дар Room нигоҳ доред, UI бо Material 3 (тугмаи swap). Дар симулятор Room ва MaterialTheme-ро дар println зикр кунед",
+        expectedOutput: "MaterialTheme",
+        outputValidation: "contains",
+        hint: "val натиҷа = маблағ * (курсАз / курсБа) — курсҳо аз Map ё API; таърих = insert ба Room",
+      },
+      {
+        id: "65",
+        number: 65,
+        title: "Лоиҳа: Quiz App",
+        description: "Вақт, балл, Navigation, Room",
+        theory: kotlinM12QuizProjectTheory,
+        starterCode: `// Дар Studio: NavHost, Room барои рекордҳо омода
+// Логикаи савол, вақт, балл нопурра
+
+fun main() {
+    println("Quiz: савол/вақт/балл нопурра")
+}`,
+        task: "Дар Studio логикаи Quiz-ро пурра кунед: савол, ҳисоби вақт (масалан LaunchedEffect), балл, натиҷа. Дар симулятор LaunchedEffect ва балл-ро дар println зикр кунед",
+        expectedOutput: "LaunchedEffect",
+        outputValidation: "contains",
+        hint: "LaunchedEffect(key1 = currentQuestion) { delay(30_000); onTimeUp() }",
       },
     ],
   },
