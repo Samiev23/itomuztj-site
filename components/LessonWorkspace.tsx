@@ -6,6 +6,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { Lesson } from "@/data/lessons";
 import { getNextLessonIdForCourse } from "@/data/lessons";
+import { lessonConsoleOutputContains, lessonConsoleOutputsEqual } from "@/lib/lessonOutputMatch";
 import { notifyProgressUpdated, saveLessonCompletion } from "@/lib/lessonProgress";
 import { simulateKotlinPrintlnOutput } from "@/lib/simulateKotlinOutput";
 import { ThemedSyntaxBlock } from "@/components/ThemedSyntaxBlock";
@@ -37,11 +38,9 @@ export function LessonWorkspace({ lesson, moduleTitle, courseId }: Props) {
     const trimmed = output.trim();
     if (lesson.outputValidation === "nonempty") return trimmed.length > 0;
     if (lesson.outputValidation === "contains") {
-      const needle = lesson.expectedOutput.trim();
-      return needle.length > 0 && trimmed.includes(needle);
+      return lessonConsoleOutputContains(output, lesson.expectedOutput);
     }
-    const exp = lesson.expectedOutput.trim();
-    return exp.length > 0 && trimmed === exp;
+    return lessonConsoleOutputsEqual(output, lesson.expectedOutput);
   }, [hasRun, output, lesson.expectedOutput, lesson.outputValidation]);
 
   useEffect(() => {
