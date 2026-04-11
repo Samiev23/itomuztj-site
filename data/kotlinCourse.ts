@@ -1228,6 +1228,95 @@ const kotlinM10CoilTheory = `## Сурат аз интернет — Coil
 - Coil = суратҳои шабакавӣ осон дар Compose.
 `;
 
+const kotlinM11MvvmTheory = `## MVVM чист?
+
+### Аввал аз ҳаёт фаҳмем
+
+Тасаввур кунед **ресторан** 🍽️
+
+- **Model** — **ошхона** (маълумот: чӣ пухта мешавад, захира).
+- **View** — **зал** (экран: чӣ мебинед, тугмаҳо).
+- **ViewModel** — **пешхизматчӣ**: фармоишро аз зал мегирад, ба ошхона мебарад, **хӯрокро** ба зал меорад — **байни Model ва View**.
+
+**MVVM** ҳамин аст — **кодро ба се қисм** тақсим мекунед, то ҳар қисм **як кор** кунад (**separation of concerns**).
+
+### Чаро муҳим?
+
+- **Санҷиш** осонтар; **тағйир** дар як қисм ба дигар зарар намерасонад.
+- **Намоиш** аз **мантиқи маълумот** ҷудо мемонад.
+
+### Нишон диҳем
+
+- **Model** — data class, база, API-и хом (маълумот).
+- **View** — \`@Composable\` (танҳо нишон додан ва чизҳои оддӣ).
+- **ViewModel** — \`StateFlow\`, корутина, фармоиш ба Model.
+
+### 🎯 Хулоса
+
+- MVVM = Model + View + ViewModel; ресторан дар сари ангушт.
+`;
+
+const kotlinM11ViewModelStateFlowTheory = `## ViewModel ва StateFlow
+
+### Аввал аз ҳаёт фаҳмем
+
+**ViewModel** мисли **мағзи барнома** аст 🧠 Вақте ки **телефонро мегардонед** (**rotate**), **Activity** аз нав сохта мешавад — вале **ViewModel** (одатан) **зинда мемонад**! Маълумоти UI дар он **намегӯрад**.
+
+**StateFlow** маълумотро аз ViewModel ба UI мефиристад — мисли **радио** 📻: ViewModel **пахш** мекунад, Composable **мешунавад** (\`collectAsState\`).
+
+### Дар код
+
+- \`class XViewModel : ViewModel()\` — \`viewModelScope\` барои корутинаҳо.
+- \`private val _x = MutableStateFlow(0)\` ва \`val x = _x.asStateFlow()\` — берун танхонӣ хониш.
+- Дар UI: \`val x by viewModel.x.collectAsState()\`.
+
+### 🎯 Хулоса
+
+- ViewModel = зинда аз rotate; StateFlow = пайванди бехатар ба UI.
+`;
+
+const kotlinM11RepositoryTheory = `## Repository Pattern
+
+### Аввал аз ҳаёт фаҳмем
+
+**Repository** мисли **анбор** аст 📦 **ViewModel намедонад** маълумот **аз куҷо** меояд — аз **интернет**? Аз **Room**? Аз **кеш**?
+
+**Repository** инро **худаш ҳал** мекунад. ViewModel танҳо мегӯяд: **«Маълумот деҳ!»** — ва Repository **медиҳад** — мисли **фурӯшандаи яклухт**: шумо нағз намепурсед, аз кадом анбор овард.
+
+### Як сарчашмаи ростӣ
+
+Рӯйхати ниҳоӣ метавонад аз **чанд сарчашма** омехта шавад, вале барои UI **як дар** мемонад.
+
+### Вобастагӣ (асос)
+
+- \`class UserRepository(private val dao: UserDao, private val api: ApiService)\` — баъд **Hilt** ё дигар **DI** инро мепайвандад.
+
+### 🎯 Хулоса
+
+- Repository = пинҳон кардани Room + API аз ViewModel.
+`;
+
+const kotlinM11CleanArchitectureTheory = `## Clean Architecture амалӣ
+
+### Аввал аз ҳаёт фаҳмем
+
+Биёед **ҳамаро як ҷо кунем**! Лоиҳаро ба **се қисм** тақсим мекунем:
+
+- **data** — **маълумот** (API, Room, Repository имплементатсия, Entity).
+- **domain** — **мантиқ** (UseCase, моделҳои соҳа — бе Android-и зиёд).
+- **presentation** — **UI** (Screen, ViewModel, Compose).
+
+Ин тартиб барои **лоиҳаҳои калон** зарур аст — вақте ки **даҳҳо барномасоз** якҷо кор мекунанд, мисли **шаҳр бо кӯчаҳои номгузоришуда**: ҳар кас медонад, куҷо чӣ бояд бошад.
+
+### Оғоз ба ҷараён
+
+**UI → ViewModel → UseCase → Repository → DataSource** (шабака ё база).
+
+### 🎯 Хулоса
+
+- Папкаҳо = тартиб; domain = дил; data ва presentation = дасту пой.
+`;
+
 const LESSON8_TABLE_EXPECTED = Array.from({ length: 10 }, (_, i) => {
   const n = i + 1;
   return `5 x ${n} = ${5 * n}`;
@@ -2379,6 +2468,81 @@ fun main() {
         expectedOutput: "AsyncImage",
         outputValidation: "contains",
         hint: "AsyncImage(model = корбар.суратUrl, contentDescription = null, modifier = Modifier.size(48.dp).clip(CircleShape))",
+      },
+    ],
+  },
+  {
+    id: "m11",
+    title: "Модул 11: Архитектура",
+    titleEn: "Кодро тоза нигоҳ доред",
+    locked: false,
+    lessons: [
+      {
+        id: "57",
+        number: 57,
+        title: "MVVM чист?",
+        description: "Model, View, ViewModel",
+        theory: kotlinM11MvvmTheory,
+        starterCode: `// Ҳама дар як ҷо (намуна барои таҳлил — дар Studio):
+// data class Китоб(val ном: String, val муаллиф: String)
+// class КитобViewModel : ViewModel() { /* StateFlow */ }
+// @Composable fun ЭкранКитоб() { /* UI */ }
+
+fun main() {
+    println("Код як файл — ҷудо кардани MVVM лозим")
+}`,
+        task: "Ба коди боло (шарҳҳо) нигаред ва дар се сатри println муайян кунед: кадом қисм Model, кадом View ва кадом ViewModel (мисли: Model: data class Китоб)",
+        expectedOutput: "ViewModel",
+        outputValidation: "contains",
+        hint: "Data class = Model, @Composable = View, class бо StateFlow = ViewModel",
+      },
+      {
+        id: "58",
+        number: 58,
+        title: "ViewModel ва StateFlow",
+        description: "rotate, MutableStateFlow, collectAsState",
+        theory: kotlinM11ViewModelStateFlowTheory,
+        starterCode: `// Дар Studio: var шумора дар @Composable — rotate → Activity аз нав → шумора 0
+
+fun main() {
+    println("шумора дар Composable — ViewModel нест — rotate маълумотро нест мекунад")
+}`,
+        task: "Дар Studio ҳисобкунакро бо CounterViewModel + MutableStateFlow/asStateFlow созед. Дар симулятор ViewModel ва MutableStateFlow-ро дар println зикр кунед",
+        expectedOutput: "MutableStateFlow",
+        outputValidation: "contains",
+        hint: "class CounterViewModel : ViewModel() { private val _count = MutableStateFlow(0); val count = _count.asStateFlow() }",
+      },
+      {
+        id: "59",
+        number: 59,
+        title: "Repository Pattern",
+        description: "Room + API, як сарчашма",
+        theory: kotlinM11RepositoryTheory,
+        starterCode: `// Дар Studio: ViewModel бевосита api.корбарон() — Repository нест
+
+fun main() {
+    println("ViewModel → API мустақим — анбор (Repository) нест")
+}`,
+        task: "Дар Studio Repository созед: аввал Room (dao), агар нест — API; ViewModel танҳо Repository-ро мехонад. Дар симулятор Repository ва UserDao/ApiService-ро дар println зикр кунед",
+        expectedOutput: "Repository",
+        outputValidation: "contains",
+        hint: "class UserRepository(private val dao: UserDao, private val api: ApiService)",
+      },
+      {
+        id: "60",
+        number: 60,
+        title: "Clean Architecture амалӣ",
+        description: "data, domain, presentation",
+        theory: kotlinM11CleanArchitectureTheory,
+        starterCode: `// Дар Studio: ҳама чиз дар як папка — бе қисмбандӣ
+
+fun main() {
+    println("Структура: беҳсоз — data/domain/presentation нест")
+}`,
+        task: "Лоиҳаро ба се папка тақсим кунед: data, domain, presentation — файлҳоро ҷойгир кунед. Дар симулятор се номи папкаро дар як ё чанд println нишон диҳед",
+        expectedOutput: "presentation",
+        outputValidation: "contains",
+        hint: "data/ → Repository, Entity, API. domain/ → UseCase, Model. presentation/ → Screen, ViewModel",
       },
     ],
   },
