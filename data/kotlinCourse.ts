@@ -111,7 +111,7 @@ fun main() {
 - Барои рақам кавита лозим нест; кавита танҳо барои матн аст.
 `;
 
-/* ─── Kotlin: дарсҳои 4–8 ─── */
+/* ─── Kotlin: теорияи модулҳои 1–3 ─── */
 
 const kotlin04Theory = `## Салом, Дунё!
 
@@ -285,6 +285,201 @@ fun main() {
 - Код хонотар ва хато камтар мешавад.
 `;
 
+const kotlin09DataTypesTheory = `## Навъҳои маълумот (Data Types)
+
+### Аввал аз ҳаёт фаҳмем
+
+Дар **бозор** ҳар чиз **навъи худро** дорад: **себ** = мева, **нон** = хӯрок, **5 сомонӣ** = рақам. Дар Kotlin ҳар қиммат **навъ** дорад, то компютер бифаҳмад чӣ гуна кор кардан лозим.
+
+### Навъҳои асосӣ
+
+- **Int** — ададҳои **бутун**: \`1\`, \`42\`, \`-7\` (бе ашёи каср).
+- **Double** — ададҳои **каср**: \`3.14\`, \`99.9\`.
+- **String** — **матн** дар кавита: \`"Салом"\`.
+- **Boolean** — **ҳа** ё **не**: \`true\` / \`false\`.
+- **Char** — **як ҳарф** дар як кавитаи танҳо: \`'А'\`.
+
+### Навъро чӣ гуна мегӯем?
+
+Kotlin **худаш** метавонад навъро ҳисоб кунад (**type inference**): \`val x = 5\` → Int. Вале шумо метавонед **оше карда** нависед: \`val x: Int = 5\`.
+
+Агар навъҳо мувофиқат накунанд, **табдил** мекунем: \`"42".toInt()\`, \`3.toDouble()\`, \`5.toString()\`.
+
+### 🫖 Мисол аз ҳаёт
+
+Қуттии **«рақам»** танҳо рақам мегирад; қуттии **«матн»** — ҳарфҳо. Навъҳо ҳамин қуттиҳоро муайян мекунанд.
+
+### ⚠️ Хатои маъмул
+
+Адад ва матнро омехта накун: \`"5" + 3\` дар матн табдил мешавад, на ба ҳисоби рақамӣ.
+
+### 🎯 Хулоса
+
+- Ҳар қиммат дар Kotlin навъ дорад — мисли ҷойгиркунии чизҳо дар бозор.
+- Int, Double, String, Boolean, Char — пойгоҳ.
+- Дар Android Studio метавонед \`::class.simpleName\` барои дидани навъ истифода баред.
+`;
+
+const kotlin10NullTheory = `## Null Safety — бехатарии null
+
+### Аввал аз ҳаёт фаҳмем
+
+**Null** = **ҳеч чиз**. Мисли **халтаи холӣ**: ном надорад, аммо шумо мегӯед «ин халта ҳаст». Дар бисёр забонҳо ин хатоҳои калон меорад. Kotlin мегӯяд: агар чиз метавонад **нобуд** бошад, бояд равшан нишон диҳед.
+
+### Чӣ гуна менависем?
+
+- **Nullable**: \`var ном: String? = null\` — \`?\` маънояш «метавонад null бошад».
+- **Бехатар**: \`ном?.length\` — агар ном null бошад, натиҷа null, на хато.
+- **Elvis** \`?:\`: \`ном ?: "Меҳмон"\` — агар null бошад, **Меҳмон** мегиред.
+- **!!** — «ман кафолат медиҳам, null нест!» — хатарнок; кам истифода баред.
+- **let**: \`ном?.let { println(it) }\` — танҳо агар null набошад.
+
+### 🫖 Мисол аз ҳаёт
+
+Рақами телефони дӯст: агар надонӣ — халта холӣ (null); агар донӣ — рақам. Сайт бояд ҳар ду ҳолатро донад.
+
+### 🎯 Хулоса
+
+- Null = ҳеч чиз; Kotlin кӯмак мекунад бехатар кор кунед.
+- \`?\`, \`?.\`, \`?:\`, \`let\` — асбобҳои асосӣ.
+`;
+
+const kotlin11StringTheory = `## String Templates ва амалиёт
+
+### Аввал аз ҳаёт фаҳмем
+
+Шумо аллакай \`$ном\` истифода кардед — ин **string template** аст. Боз чизҳои қавитар ҳастанд: \`\${ном.length}\` — дарозӣ; \`\${2 + 2}\` — ҳисоб дар дохили матн.
+
+### Амалиётҳои оддӣ
+
+- **trim()** — фосилаҳои аввал/охирро мегирад.
+- **uppercase()** / **lowercase()** — ҳарфҳо калон ё хурд.
+- **replace()**, **contains()**, **split()** — ҷустуҷӯ ва тақсим.
+
+### Чанд сатр
+
+Котлин **трипл-кавита** \`"""\` барои матни дароз дорад. Вале аксар вақт **шаблон** осонтар аз пайвастани зиёдаи \`+\` аст.
+
+### 🎯 Хулоса
+
+- Шаблонҳо матнро зинда мекунанд; усулҳои String корро осон.
+`;
+
+const kotlinM2MutableListTheory = `## MutableList — рӯйхати тағйиршаванда
+
+### Аввал аз ҳаёт фаҳмем
+
+\`listOf()\` — рӯйхати **қулфшуда** (идда накунед). \`mutableListOf()\` — рӯйхати **кушода**! Мисли **рӯйхати харид**: як чиз илова мекунед, дигарро хат мезанед.
+
+### Асосҳо
+
+\`add\`, \`remove\`, \`removeAt\`, \`clear\`, \`size\`, \`contains\`, \`indexOf\`, \`sort\`.
+
+### 🎯 Хулоса
+
+- Рӯйхати кушод барои рӯйхатҳои зиндаи корҳо мувофиқ аст.
+`;
+
+const kotlinM2SetTheory = `## Set ва тафовут аз List
+
+### Аввал аз ҳаёт фаҳмем
+
+**Set** мисли рӯйхати меҳмонон бо **қоида**: ҳар ном **танҳо як маротиба**! Агар **Аҳмад** ду бор бошад, Set як **Аҳмад** нигоҳ медорад. Барои **нест кардани такрорҳо** беҳтарин аст.
+
+### Асосҳо
+
+\`setOf\`, \`mutableSetOf\`, \`union\`, \`intersect\`, \`minus\` (фарқ).
+
+### 🎯 Хулоса
+
+- List — тартиб ва такрор; Set — ягонаӣ.
+`;
+
+const kotlinM2CollectionsOpsTheory = `## Давра ва кор бо коллексияҳо
+
+### Аввал аз ҳаёт фаҳмем
+
+Бо **давра** (\`for\`) шумо ҳар элементро мебинед. Функсияҳои болотар: **filter** — танҳо мувофиқҳо; **map** — тағйири ҳар элемент; **forEach** — амал; **sorted** / **sortedBy** — тартиб.
+
+### Санҷишҳо
+
+\`any\`, \`all\`, \`count\`, \`sumOf\`, \`first\`, \`last\`, \`groupBy\`.
+
+### 🎯 Хулоса
+
+- Дар практика \`filter\` + \`map\` кодро кӯтоҳ мекунанд; \`for\` ҳамеша равшан аст.
+`;
+
+const kotlinM2LambdaTheory = `## Лямбда ва функсияҳои баланд
+
+### Аввал аз ҳаёт фаҳмем
+
+**Лямбда** — функсияи **бе ном**: \`{ x -> x * 2 }\`. Мисли «ин корро кун!» бе номи алоҳида. Агар як параметр бошад, метавонед \`it\` истифода баред: \`{ it * 2 }\`.
+
+**Функсияи баланд** — функсияе, ки **функсияи дигар** мегирад ё бармегардонад.
+
+### Scope-функцияҳо
+
+\`run\`, \`let\`, \`apply\`, \`also\`, \`with\` — кӯмак мекунанд объектро дар блок кор кунед.
+
+### 🎯 Хулоса
+
+- Лямбдаҳо ва HOF кодро гибридӣ ва қудратманд мекунанд.
+`;
+
+const kotlinM3InterfaceTheory = `## Интерфейсҳо
+
+### Аввал аз ҳаёт фаҳмем
+
+**Интерфейс** мисли **шартнома** аст. Агар шартномаро имзо кунед — бояд **шартҳоро иҷро кунед**. \`interface Парвозкунанда { fun парвоз() }\` — ҳар синфе, ки ин интерфейсро мегирад, бояд \`парвоз()\` дошта бошад.
+
+### Нуқтаҳо
+
+Чанд интерфейс, усулҳои пешфарз дар интерфейс (дар версияҳои нав).
+
+### 🎯 Хулоса
+
+- Интерфейс = чӣ бояд иҷро шавад, бе он ки чӣ гуна сохта шудааст.
+`;
+
+const kotlinM3DataSealedTheory = `## Data Class ва Sealed Class
+
+### Аввал аз ҳаёт фаҳмем
+
+**Data class** — синф барои **нигоҳдории маълумот**. Kotlin \`equals\`, \`toString\`, \`copy\`-ро месозад. **Sealed class** — фарзандон дар **як файл / маҳдуд**; мисли **светофор**: танҳо чанд ҳолат иҷозат.
+
+### Data class
+
+\`data class Маҳсулот(val ном: String, val нарх: Double)\`
+
+### Sealed class
+
+\`sealed class Натиҷа\` → зерсинфҳо: \`Муваффақ\`, \`Хато\` — дар \`when\` пӯшиши пурра осон аст.
+
+### 🎯 Хулоса
+
+- Data = маълумот бо коди кам; Sealed = ҳолатҳои маҳдуди бехатар.
+`;
+
+const kotlinM3EnumCompanionTheory = `## Enum ва Companion Object
+
+### Аввал аз ҳаёт фаҳмем
+
+**Enum** — рӯйхати **собит**: рӯзҳои ҳафта — танҳо **7**, тағйир намешавад. **Companion object** — чизе, ки ба **синф** тааллуқ дорад, на ба як объект; мисли **номи мактаб** барои ҳамаи хонандагон.
+
+### Enum бо хосият
+
+\`enum class Мавсим(val ҳарорат: Int) { БАҲОР(15), ... }\`
+
+### Companion
+
+Функсияҳои заводӣ (\`factory\`) ва константаҳои синф.
+
+### 🎯 Хулоса
+
+- Enum барои вариантҳои маълум; companion барои «ман ба синф тааллуқ дорам».
+`;
+
 const LESSON8_TABLE_EXPECTED = Array.from({ length: 10 }, (_, i) => {
   const n = i + 1;
   return `5 x ${n} = ${5 * n}`;
@@ -347,8 +542,8 @@ export const kotlinLessonModules: LessonModule[] = [
   },
   {
     id: "m1",
-    title: "Асосҳои Kotlin",
-    titleEn: "Асосӣ",
+    title: "Модул 1: Асосҳои Kotlin",
+    titleEn: "Асосҳо",
     locked: false,
     lessons: [
       {
@@ -438,17 +633,71 @@ fun main() {
         expectedOutput: "молаС\nniltoK",
         hint: "калима.reversed() истифода баред",
       },
-    ],
-  },
-  {
-    id: "m3",
-    title: "Модул 3: Коллексияҳо",
-    titleEn: "Рӯйхат ва луғат",
-    locked: false,
-    lessons: [
       {
         id: "9",
         number: 9,
+        title: "Навъҳои маълумот (Data Types)",
+        description: "Int, Double, String, Boolean, табдил",
+        theory: kotlin09DataTypesTheory,
+        starterCode: `fun main() {
+    val рақам = 42
+    val касрӣ = 3.14
+    val матн = "Салом"
+    val ҳақ = true
+    val ҳарф = "А"
+    println(рақам)
+    println(касрӣ)
+    println(матн)
+    println(ҳақ)
+    println(ҳарф)
+}`,
+        task: "Тағйирёбандаҳои бо навъҳои гуногун (ё қимматҳои дигар) созед ва қимматҳоро чоп кунед",
+        expectedOutput: "42\n3.14\nСалом\ntrue\nА",
+        hint: "Дар Android Studio: println(ном::class.simpleName) навъро нишон медиҳад",
+      },
+      {
+        id: "10",
+        number: 10,
+        title: "Null Safety — бехатарии null",
+        description: "Nullable, ?., ?:, let",
+        theory: kotlin10NullTheory,
+        starterCode: `fun main() {
+    val боНом: String? = "Оиша"
+    val беНом: String? = null
+    println("Салом, \${боНом ?: "Меҳмон"}!")
+    println("Салом, \${беНом ?: "Меҳмон"}!")
+}`,
+        task: "Як тағйирёбандаи nullable илова кунед ва бо ?: салом диҳед; як ҳолат null бошад",
+        expectedOutput: "Салом, Оиша!\nСалом, Меҳмон!",
+        hint: "fun салом(ном: String?) { println(\"Салом, \${ном ?: \"Меҳмон\"}!\") } — дар Android Studio",
+      },
+      {
+        id: "11",
+        number: 11,
+        title: "String Templates ва амалиёт",
+        description: "Шаблонҳо, uppercase, length, contains",
+        theory: kotlin11StringTheory,
+        starterCode: `fun main() {
+    val email = "user@mail.com"
+    println(email.uppercase())
+    println("\${email.length}")
+    println(email.contains("@"))
+}`,
+        task: "Номи почтаро иваз кунед: ҳарфҳои калон, дарозӣ ва санҷиши '@' нишон диҳед",
+        expectedOutput: "USER@MAIL.COM\n13\ntrue",
+        hint: "println(email.contains(\"@\"))",
+      },
+    ],
+  },
+  {
+    id: "m2",
+    title: "Модул 2: Kotlin пешрафта",
+    titleEn: "Пешрафта",
+    locked: false,
+    lessons: [
+      {
+        id: "12",
+        number: 12,
         title: "Рӯйхатҳо (List)",
         description: "Як қоғаз — як қатор ном",
         theory: `Тасаввур кунед **рӯйхати хонандагони синфро**. Ҳама **номҳо дар як қоғаз** — як зери дигар навишта шудаанд.
@@ -471,8 +720,8 @@ listOf("Аҳмад", "Бобур", "Сорбон")
         hint: 'val шаҳрҳо = listOf("Душанбе", "Хуҷанд", "Кӯлоб")',
       },
       {
-        id: "10",
-        number: 10,
+        id: "13",
+        number: 13,
         title: "Луғат (Map)",
         description: "Ном → рақам, мисли телефон",
         theory: `**Луғат** мисли **телефони дӯстон** аст:
@@ -498,17 +747,85 @@ listOf("Аҳмад", "Бобур", "Сорбон")
         outputValidation: "contains",
         hint: 'val телефонҳо = mapOf("Аҳмад" to "907112233", "Бобур" to "985443322", "Сорбон" to "911223344")',
       },
+      {
+        id: "14",
+        number: 14,
+        title: "MutableList — рӯйхати тағйиршаванда",
+        description: "add, remove, size",
+        theory: kotlinM2MutableListTheory,
+        starterCode: `fun main() {
+    val вазифаҳо = mutableListOf("Хондан", "Варзиш")
+    вазифаҳо.add("Хӯрок")
+    println(вазифаҳо.size)
+    for (в in вазифаҳо) {
+        println(в)
+    }
+}`,
+        task: "Се вазифа илова кунед (дар симулятор аллакай 3 аст), дар Android Studio якро нест кунед — size ва чоп",
+        expectedOutput: "3\nХондан\nВарзиш\nХӯрок",
+        hint: 'val вазифаҳо = mutableListOf("Хондан", "Варзиш"); вазифаҳо.add("Хӯрок")',
+      },
+      {
+        id: "15",
+        number: 15,
+        title: "Set ва тафовут аз List",
+        description: "Ягонаӣ, бе такрор",
+        theory: kotlinM2SetTheory,
+        starterCode: `fun main() {
+    val ягона = setOf("Аҳмад", "Бобур", "Аҳмад")
+    for (ном in ягона) {
+        println(ном)
+    }
+}`,
+        task: "Рӯйхат бо такрорро ба Set табдил диҳед ва номҳоро чоп кунед (дар симулятор setOf омода аст)",
+        expectedOutput: "Аҳмад\nБобур",
+        hint: "val ягона = рӯйхат.toSet() — агар аз List ояд",
+      },
+      {
+        id: "16",
+        number: 16,
+        title: "Давра бо коллексияҳо",
+        description: "filter, map — дар назария; дар симулятор for",
+        theory: kotlinM2CollectionsOpsTheory,
+        starterCode: `fun main() {
+    var ҷамъ = 0
+    for (x in 1..6) {
+        if (x % 2 == 0) {
+            ҷамъ += x * 2
+        }
+    }
+    println(ҷамъ)
+}`,
+        task: "Танҳо ададҳои ҷуфтро гиред, ҳар кадомро 2 баробар кунед, ҷамъро чоп кунед (дар Android Studio: filter { it % 2 == 0 }.map { it * 2 }.sum())",
+        expectedOutput: "24",
+        hint: "ададҳо.filter { it % 2 == 0 }.map { it * 2 }.sum()",
+      },
+      {
+        id: "17",
+        number: 17,
+        title: "Лямбда ва функсияҳои баланд",
+        description: "{ x -> x * 2 }, forEach",
+        theory: kotlinM2LambdaTheory,
+        starterCode: `fun main() {
+    for (н in 1..3) {
+        println(н * 2)
+    }
+}`,
+        task: "Ҳар адади рӯйхатро ду баробар чоп кунед; дар Android Studio лямбда ва функсияи баланд санҷед",
+        expectedOutput: "2\n4\n6",
+        hint: "fun <T> татбиқ(рӯйхат: List<T>, амал: (T) -> Unit) { рӯйхат.forEach { амал(it) } }",
+      },
     ],
   },
   {
-    id: "m4",
-    title: "Модул 4: ООП — барномасозии объектӣ",
-    titleEn: "Синф ва мерос",
+    id: "m3",
+    title: "Модул 3: ООП — барномасозии объектӣ",
+    titleEn: "Объектӣ",
     locked: false,
     lessons: [
       {
-        id: "11",
-        number: 11,
+        id: "18",
+        number: 18,
         title: "Синфҳо (Class)",
         description: "Нақшаи хона, бисёр хонаҳо",
         theory: `**Синф** мисли **нақшаи хона** аст 🏠
@@ -533,8 +850,8 @@ fun main() {
         hint: 'class Талаба(val ном: String, val син: Int, val курс: Int) — баъд: val т = Талаба("Оиша", 19, 2); println("${т.ном}, син ${т.син}, курс ${т.курс}")',
       },
       {
-        id: "12",
-        number: 12,
+        id: "19",
+        number: 19,
         title: "Мерос (Inheritance)",
         description: "Аз падар — овози фарқкунанда",
         theory: `**Ҳама ҳайвонот овоз доранд.** Гурба **«мяу»** мегӯяд, саг **«ҳав-ҳав»**. Ҳарду **ҳайвонанд**, вале **овозашон фарқ мекунад**.
@@ -566,38 +883,64 @@ fun main() {
         outputValidation: "contains",
         hint: 'class Парранда : Ҳайвон() { override fun овоз() = "чик-чик" }',
       },
-    ],
-  },
-  {
-    id: "m5",
-    title: "Модул 5: Лоиҳаи амалӣ",
-    titleEn: "Лоиҳа",
-    locked: false,
-    lessons: [
       {
-        id: "13",
-        number: 13,
-        title: "Лоиҳа: рӯйхати вазифаҳо (Todo)",
-        description: "Ҳамаи дониш дар як барнома",
-        theory: `Биёед **барномаи воқеӣ** созем — **рӯйхати корҳо** (Todo)!
+        id: "20",
+        number: 20,
+        title: "Интерфейсҳо",
+        description: "Шартнома, implement",
+        theory: kotlinM3InterfaceTheory,
+        starterCode: `interface Овоздор {
+    fun овоз(): String
+}
 
-Ин лоиҳа **ҳамаи донишатонро як ҷо** мекунад:
+class Гурба : Овоздор {
+    override fun овоз() = "мяу"
+}
 
-- **Тағйирёбандаҳо** (\`val\` / рӯйхат),
-- **Рӯйхатҳо** (\`mutableListOf\`),
-- **Давраҳо** (\`for\`),
-- **Чоп кардан** (\`println\`).
+class Саг : Овоздор {
+    override fun овоз() = "ҳав-ҳав"
+}
 
-Мисли дафтарчаи «корҳои имрӯз» дар телефон — ҳар сатр як кор.`,
-        starterCode: `fun main() {
-    val вазифаҳо = mutableListOf("Нон харидан", "Дарс омӯхтан", "Китоб хондан")
-    for (вазифа in вазифаҳо) {
-
-    }
+fun main() {
+    println(Гурба().овоз())
+    println(Саг().овоз())
 }`,
-        task: "Функсияи нишондиҳии ҳамаи вазифаҳоро пурра кунед (дар давра println гузоред)",
-        expectedOutput: "Нон харидан\nДарс омӯхтан\nКитоб хондан",
-        hint: "for (вазифа in вазифаҳо) { println(вазифа) }",
+        task: "Interface Овоздор бо fun овоз() созед; Гурба ва Саг ки онро иҷро мекунанд",
+        expectedOutput: "мяу\nҳав-ҳав",
+        hint: "class Гурба : Овоздор { override fun овоз() = \"мяу\" }",
+      },
+      {
+        id: "21",
+        number: 21,
+        title: "Data Class ва Sealed Class",
+        description: "Маълумот, ҳолатҳои маҳдуд",
+        theory: kotlinM3DataSealedTheory,
+        starterCode: `data class Маҳсулот(val ном: String, val нарх: Double)
+
+fun main() {
+    val п = Маҳсулот("Нон", 5.5)
+    println("\${п.ном}: \${п.нарх}")
+}`,
+        task: "Data class Маҳсулот(ном, нарх) созед ва чоп кунед. Sealed class ва when-ро дар Android Studio аз назария бисозед",
+        expectedOutput: "Нон: 5.5",
+        hint: "data class Маҳсулот(val ном: String, val нарх: Double)",
+      },
+      {
+        id: "22",
+        number: 22,
+        title: "Enum ва Companion Object",
+        description: "Мавсимҳо, заводи синф",
+        theory: kotlinM3EnumCompanionTheory,
+        starterCode: `// Дар Android Studio: enum class Мавсим(val ҳарорат: Int) { БАҲОР(15), ... }
+
+fun main() {
+    println(15)
+    println(-5)
+    println("ITomuz")
+}`,
+        task: "Дар Android Studio enum Мавсим ва companion object-ро чунин бисозед, ки ин қимматҳоро чоп кунад. Дар симулятор натиҷаро санҷед",
+        expectedOutput: "15\n-5\nITomuz",
+        hint: "enum class Мавсим(val ҳарорат: Int) { БАҲОР(15), ТОБИСТОН(35)… }",
       },
     ],
   },

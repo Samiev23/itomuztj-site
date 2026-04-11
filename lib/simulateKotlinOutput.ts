@@ -27,7 +27,7 @@ function escapeRegExp(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-type Ctx = Record<string, string | number>;
+type Ctx = Record<string, string | number | boolean | null>;
 
 const classMethodReturn = new Map<string, string>();
 
@@ -41,7 +41,7 @@ function substituteCtxInExpr(expr: string, ctx: Ctx): string {
       `(?<![a-zA-Z0-9_\\u0400-\\u04FF])${escapeRegExp(k)}(?![a-zA-Z0-9_\\u0400-\\u04FF])`,
       "gu",
     );
-    e = e.replace(re, String(v));
+    e = e.replace(re, v === null ? "null" : String(v));
   }
   return e;
 }
@@ -89,6 +89,43 @@ function evalTemplateExpression(
   objFields: Record<string, Record<string, string | number>>,
 ): string {
   const trimmed = expr.trim();
+  const elvisRe = new RegExp(`^(${KOTLIN_ID})\\s*\\?:\\s*"((?:\\\\.|[^"\\\\])*)"$`).exec(trimmed);
+  if (elvisRe) {
+    const id = elvisRe[1]!;
+    const fb = unescapeKotlinString(elvisRe[2]!);
+    if (!(id in ctx)) return fb;
+    const v = ctx[id];
+    if (v === null) return fb;
+    return String(v);
+  }
+  const lenDot = new RegExp(`^(${KOTLIN_ID})\\.length$`).exec(trimmed);
+  if (lenDot) {
+    const id = lenDot[1]!;
+    const v = ctx[id];
+    if (v === null) return "0";
+    if (typeof v === "string") return String(v.length);
+  }
+  const containsCall = new RegExp(
+    `^(${KOTLIN_ID})\\.contains\\s*\\(\\s*"((?:\\\\.|[^"\\\\])*)"\\s*\\)$`,
+  ).exec(trimmed);
+  if (containsCall) {
+    const v = ctx[containsCall[1]!];
+    if (v === null) return "false";
+    if (typeof v === "string") {
+      const needle = unescapeKotlinString(containsCall[2]!);
+      return String(v.includes(needle));
+    }
+  }
+  const upperCall = new RegExp(`^(${KOTLIN_ID})\\.uppercase\\s*\\(\\s*\\)$`).exec(trimmed);
+  if (upperCall) {
+    const v = ctx[upperCall[1]!];
+    if (typeof v === "string") return v.toUpperCase();
+  }
+  const lowerCall = new RegExp(`^(${KOTLIN_ID})\\.lowercase\\s*\\(\\s*\\)$`).exec(trimmed);
+  if (lowerCall) {
+    const v = ctx[lowerCall[1]!];
+    if (typeof v === "string") return v.toLowerCase();
+  }
   const dot = new RegExp(`^(${KOTLIN_ID})\\.(${KOTLIN_ID})$`).exec(trimmed);
   if (dot) {
     const o = objFields[dot[1]!];
@@ -103,7 +140,12 @@ function evalTemplateExpression(
       return trimmed;
     }
   }
-  if (trimmed in ctx) return String(ctx[trimmed]!);
+  if (trimmed in ctx) {
+    const v = ctx[trimmed];
+    if (v === null) return "null";
+    if (typeof v === "boolean") return String(v);
+    return String(v);
+  }
   return trimmed;
 }
 
@@ -178,7 +220,8 @@ function expandKotlinTemplatesInString(
           const afterKey = i + 1 + k.length;
           const next = quotedInner[afterKey];
           if (next !== undefined && KOTLIN_ID_TAIL.test(next)) continue;
-          out += String(ctx[k]!);
+          const cv = ctx[k];
+          out += cv === null ? "null" : typeof cv === "boolean" ? String(cv) : String(cv);
           i = afterKey;
           replaced = true;
           break;
@@ -223,13 +266,45 @@ function resolvePrintlnArg(arg: string, ctx: Ctx, objFields: Record<string, Reco
     return evalStringTemplate(a.slice(1, -1), ctx, objFields);
   }
 
+  const argUpper = new RegExp(`^(${KOTLIN_ID})\\.uppercase\\s*\\(\\s*\\)$`).exec(a);
+  if (argUpper) {
+    const v = ctx[argUpper[1]!];
+    if (v === null) return "";
+    if (typeof v === "string") return v.toUpperCase();
+  }
+  const argLower = new RegExp(`^(${KOTLIN_ID})\\.lowercase\\s*\\(\\s*\\)$`).exec(a);
+  if (argLower) {
+    const v = ctx[argLower[1]!];
+    if (v === null) return "";
+    if (typeof v === "string") return v.toLowerCase();
+  }
+  const argContains = new RegExp(
+    `^(${KOTLIN_ID})\\.contains\\s*\\(\\s*"((?:\\\\.|[^"\\\\])*)"\\s*\\)$`,
+  ).exec(a);
+  if (argContains) {
+    const v = ctx[argContains[1]!];
+    if (v === null) return "false";
+    if (typeof v === "string") return String(v.includes(unescapeKotlinString(argContains[2]!)));
+  }
+  const argLen = new RegExp(`^(${KOTLIN_ID})\\.length$`).exec(a);
+  if (argLen) {
+    const v = ctx[argLen[1]!];
+    if (v === null) return "0";
+    if (typeof v === "string") return String(v.length);
+  }
+
   const prop = new RegExp(`^(${KOTLIN_ID})\\.(${KOTLIN_ID})$`).exec(a);
   if (prop) {
     const o = objFields[prop[1]!];
     if (o && prop[2]! in o) return String(o[prop[2]!]!);
   }
 
-  if (a in ctx) return String(ctx[a]!);
+  if (a in ctx) {
+    const cv = ctx[a];
+    if (cv === null) return "null";
+    if (typeof cv === "boolean") return String(cv);
+    return String(cv);
+  }
 
   let expr = substituteCtxInExpr(a, ctx);
   expr = expr.replace(/\s/g, "");
@@ -259,6 +334,7 @@ function startsWithKotlinKeyword(code: string, pos: number, word: string): boole
 
 function parseOperandValue(s: string): string | number | boolean | null {
   const t = s.trim();
+  if (t === "null") return null;
   if (t === "true") return true;
   if (t === "false") return false;
   const strM = /^"((?:\\.|[^"\\])*)"$/.exec(t);
@@ -291,7 +367,13 @@ function evalKotlinCondition(expr: string, ctx: Ctx, objFields: Record<string, R
   const rightRaw = e.slice(bestIdx + bestOp.length);
   const left = parseOperandValue(leftRaw);
   const right = parseOperandValue(rightRaw);
-  if (left === null || right === null) return false;
+  if (left === null && right === null && bestOp === "==") return true;
+  if (left === null && right === null && bestOp === "!=") return false;
+  if (left === null || right === null) {
+    if (bestOp === "==") return left === right;
+    if (bestOp === "!=") return left !== right;
+    return false;
+  }
 
   switch (bestOp) {
     case ">=":
@@ -344,8 +426,16 @@ function parseUntilStatementEnd(code: string, start: number): [number, string] {
   return [j, code.slice(start, j).trim()];
 }
 
-function evalAssignmentRhs(expr: string, ctx: Ctx, objFields: Record<string, Record<string, string | number>>): string | number {
-  const r = resolvePrintlnArg(expr.trim(), ctx, objFields).trim();
+function evalAssignmentRhs(
+  expr: string,
+  ctx: Ctx,
+  objFields: Record<string, Record<string, string | number>>,
+): string | number | boolean | null {
+  const t = expr.trim();
+  if (t === "null") return null;
+  if (t === "true") return true;
+  if (t === "false") return false;
+  const r = resolvePrintlnArg(t, ctx, objFields).trim();
   if (/^-?\d+$/.test(r)) return parseInt(r, 10);
   if (/^-?\d+\.\d+$/.test(r)) return parseFloat(r);
   return r;
@@ -469,6 +559,10 @@ function runStatements(
       }
       const name = idM[1]!;
       i += idM[0]!.length;
+      i = skipWhitespace(code, i);
+      if (code[i] === ":") {
+        while (i < len && code[i] !== "=") i++;
+      }
       i = skipWhitespace(code, i);
       if (code[i] !== "=") {
         i++;
@@ -598,15 +692,23 @@ function buildCollectionsAndOop(cleaned: string): {
   const objFields: Record<string, Record<string, string | number>> = {};
   classMethodReturn.clear();
 
-  const listRe = new RegExp(`(?:val|var)\\s+(${KOTLIN_ID})\\s*=\\s*(?:mutableListOf|listOf)\\s*\\(`, "g");
+  const listRe = new RegExp(
+    `(?:val|var)\\s+(${KOTLIN_ID})\\s*=\\s*(mutableListOf|listOf|setOf)\\s*\\(`,
+    "g",
+  );
   let lm: RegExpExecArray | null;
   while ((lm = listRe.exec(cleaned)) !== null) {
     const name = lm[1]!;
+    const kind = lm[2]!;
     const open = lm.index + lm[0].length - 1;
     const close = findMatchingParen(cleaned, open);
     if (close === -1) continue;
     const inner = cleaned.slice(open + 1, close);
-    lists.set(name, parseStringLiteralsFromListInner(inner));
+    let items = parseStringLiteralsFromListInner(inner);
+    if (kind === "setOf") {
+      items = Array.from(new Set(items));
+    }
+    lists.set(name, items);
   }
 
   const mapRe = new RegExp(`(?:val|var)\\s+(${KOTLIN_ID})\\s*=\\s*mapOf\\s*\\(`, "g");
@@ -642,8 +744,19 @@ function buildCollectionsAndOop(cleaned: string): {
     };
   }
 
+  const mahsulotRe = new RegExp(
+    `(?:val|var)\\s+(${KOTLIN_ID})\\s*=\\s*Маҳсулот\\s*\\(\\s*"((?:\\\\.|[^"\\\\])*)"\\s*,\\s*([\\d.]+)\\s*\\)`,
+    "g",
+  );
+  while ((lm = mahsulotRe.exec(cleaned)) !== null) {
+    objFields[lm[1]!] = {
+      ном: unescapeKotlinString(lm[2]!),
+      нарх: parseFloat(lm[3]!),
+    };
+  }
+
   const classHeadRe = new RegExp(
-    `(?:open\\s+)?class\\s+(${KOTLIN_ID})\\s*(?::\\s*${KOTLIN_ID}\\s*\\(\\s*\\)\\s*)?\\s*\\{`,
+    `(?:open\\s+)?class\\s+(${KOTLIN_ID})\\s*(?::\\s*${KOTLIN_ID}\\s*(?:\\(\\s*\\))?\\s*)?\\s*\\{`,
     "g",
   );
   let cm: RegExpExecArray | null;
