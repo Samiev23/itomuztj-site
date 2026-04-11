@@ -751,6 +751,188 @@ const kotlinM5BusinessCardTheory = `## Мисоли амалӣ — Корти в
 - Аз қисмҳои хурд UI-и пурра месозед.
 `;
 
+const kotlinM6StateRememberTheory = `## State чист? — remember ва mutableStateOf
+
+### Аввал аз ҳаёт фаҳмем
+
+Вақте ки **тугмаро пахш** мекунед — чизе бояд **тағйир ёбад**! Вале Compose **ҳар лаҳза** UI-ро аз нав месозад (**recomposition**). Бе **remember** маълумот **гум мешавад** — мисли **навиштан дар об**: як лаҳза дидан мешавад, баъд нест.
+
+**remember** мегӯяд: «**Ин маълумотро НИГОҲ ДОР!**» — қиммат дар байни дафъаҳои сохтани UI мемонад.
+
+**mutableStateOf** мегӯяд: «**Вақте ки ман тағйир шавам, UI-ро аз нав соз!**»
+
+### Дар код (Android Studio)
+
+- \`var шумора by remember { mutableStateOf(0) }\` — **by** барои хондан/навиштани state осон мекунад.
+- **Шуморакунак:** \`Button(onClick = { шумора++ })\` + \`Text("$шумора")\`.
+- Бе **remember** дар Composable қимматҳои оддии \`var\` одатан **наметавонанд** пас аз **recomposition** нигоҳ шаванд — UI «гум» мекунад.
+
+### Recomposition (мухтасар)
+
+Функсияи \`@Composable\` дубора иҷро мешавад → агар state тағйир шавад, фақат қисмҳои лозим аз нав рангу мешаванд.
+
+### 🎯 Хулоса
+
+- State = чизе ки UI бояд нишон диҳад ва тағйир шавад.
+- **remember + mutableStateOf** = хотира + огоҳӣ ба Compose барои навсозӣ.
+`;
+
+const kotlinM6TextFieldTheory = `## TextField — вуруди матн
+
+### Аввал аз ҳаёт фаҳмем
+
+**Корбар** бояд чизе **нависа тавонад**! **TextField** дар Compose мисли **input** дар HTML аст: ҷои матн, ки корбар чоп мекунад.
+
+Фарқи муҳим: дар Compose матн бояд дар **state** нигоҳ дошта шавад — шумо **value** медиҳед ва дар **onValueChange** нав мекунед. Вагарна матн «мубориза» бо UI мекунад.
+
+### Дар Studio нишон диҳед
+
+- **TextField** / **OutlinedTextField**: \`value = ном\`, \`onValueChange = { ном = it }\`.
+- **label**, **placeholder** — кӯмак ба корбар.
+- **keyboardOptions** — рақам, email, password.
+- **visualTransformation** — мисли парол пинҳон (нуқтаҳо).
+
+### 🎯 Хулоса
+
+- Вуруди матн = state + TextField; ҳамеша як сарчашмаи ростӣ барои матн.
+`;
+
+const kotlinM6ChecklistToggleTheory = `## Чеклист ва Toggle
+
+### Аввал аз ҳаёт фаҳмем
+
+**Чеклист** — рӯйхате, ки шумо **тик мезанед** ✅ Дар Compose **Checkbox** ва **Switch** истифода мешавад. Ҳар элемент **state-и худро дорад**: тик шуд ё не? **true** ё **false** — мисли чароғаки **кушода/пӯшида**.
+
+### Дар Studio
+
+- **Checkbox(checked = …, onCheckedChange = …)**.
+- **Switch** — мисли чароғаки калон дар девор.
+- **RadioButton** — як интихоб аз чанд гузина (мисли як пицца аз меню).
+- Рӯйхати вазифаҳо: \`mutableStateListOf(false, …)\` ё рӯйхати state барои ҳар сатр.
+- **Ҳамаро интихоб кун** — ҳамаи boolean-ҳоро \`true\` кунед.
+
+### 🎯 Хулоса
+
+- Checkbox / Switch = true/false дар UI; барои рӯйхат — state барои ҳар элемент.
+`;
+
+const kotlinM6StateHoistingTheory = `## State Hoisting — боло бардоштани state
+
+### Аввал аз ҳаёт фаҳмем
+
+**Масъала:** агар **ду компонент** як маълумотро лозим доранд чӣ? Масалан: **TextField** дар як ҷо, **натиҷа** дар ҷои дигар.
+
+**Ҷавоб:** state-ро ба **ПАДАР** бардоред! Ин **state hoisting** ном дорад. Падар state-ро **нигоҳ медорад** ва ба **фарзандон** мефиристад (**параметрҳо** ва **callback**-ҳо).
+
+### Фарқ
+
+- **Stateful** — дохили худ state дорад (кӯтоҳ, махсус).
+- **Stateless** — ҳамааш аз боло меояд: \`value\` + \`onValueChange\` — мисли **акси дар чӯбак**, танҳо нишон медиҳад, маълумот аз падар.
+
+### Як сарчашмаи ростӣ
+
+Танҳо **як ҷо** state нигоҳ дошта шавад — ба **ду ҷо дубора навиштан** мумкин нест; вагарна хато ва нобаробарӣ.
+
+### 🎯 Хулоса
+
+- State hoisting = боло бардоштан то падар; фарзандон танҳо нишон медиҳанд ва хабар медиҳанд.
+`;
+
+const kotlinM6TeaCalculatorTheory = `## Лоиҳа: Ҳисобкунаки чойхона
+
+### Аввал аз ҳаёт фаҳмем
+
+Биёед **барномаи воқеӣ** созем — **ҳисобкунаки чойхона**! Корбар **нархи хӯрок** (ё ҳамагӣ)ро ворид мекунад, **шумораи одамон**ро интихоб мекунад, ва барнома **ҳисоб мекунад**, ки **ҳар кас чанд сомонӣ** медиҳад. Ин лоиҳа **state**, **TextField**, **Button** ва **ҳисобкуниро** як ҷо мегирад — мисли **қуттии пулро байни дӯстон тақсим кардан**.
+
+### Дар Studio
+
+- Ду **OutlinedTextField** ё як рақам барои маблағ ва одамон.
+- **Button** «Ҳисоб кун» — ҳисоб дар **onClick** ё бо state.
+- **Text** натиҷа: \`Ҳар кас: X сомонӣ\`.
+
+### 🎯 Хулоса
+
+- Аз қисмҳои оддӣ — барномаи фоиданок; санҷиши рақамҳо (0 одамон)ро дар Studio фикр кунед.
+`;
+
+const kotlinM7NavigationBasicsTheory = `## Navigation Compose — асосҳо
+
+### Аввал аз ҳаёт фаҳмем
+
+**Барномаи шумо як саҳифа дорад?** Не! Ҳар барнома **саҳифаҳои гуногун** дорад: **асосӣ**, **профил**, **танзимот**. **Navigation Compose** ба шумо имкон медиҳад **байни саҳифаҳо гузаред** — мисли **дарҳои хона** 🚪 аз ҳуҷра ба ҳуҷра.
+
+- **NavHost** мегӯяд: «**Ин саҳифаҳо дар ин барнома ҳастанд**» — нақшаи дарҳо ва ҷойҳо.
+- **NavController** мегӯяд: «**Ба ин саҳифа рав!**» — калиди гузариш; \`navigate("профил")\` мисли гуфтан «ба ҳуҷраи профил даро!»
+
+### Дар код
+
+- \`val navController = rememberNavController()\` — контроллерро дар хотир нигоҳ доред.
+- \`NavHost(navController, startDestination = "асосӣ") { … }\` — аз куҷо оғоз шавад.
+- \`composable("профил") { Профил() }\` — ҳар **маршрут** як экран.
+- **Тугма:** \`Button(onClick = { navController.navigate("танзимот") })\`.
+
+### 🎯 Хулоса
+
+- Навигатсия = NavHost (нақша) + NavController (фармон) + composable destinations.
+`;
+
+const kotlinM7NavArgumentsTheory = `## Аргументҳо — маълумот байни саҳифаҳо
+
+### Аввал аз ҳаёт фаҳмем
+
+Вақте ки ба саҳифаи **маҳсулот** меравед — **кадом маҳсулот?** Бояд **ID** ё дигар маълумотро **фиристед**! Ин **аргумент** ном дорад.
+
+Мисли: ба **дӯкон** меравед ва мегӯед **«Маҳсулоти №5-ро диҳед!»** — фурӯшанда медонад, чӣ барои шумо овардан лозим аст.
+
+Дар Navigation маршрут метавонад чунин бошад: \`маҳсулот/5\` — мисли **нишона дар URL**: кадом «ҳуҷра» ва бо **кадом рақам**.
+
+### Дар код
+
+- Маршрут: \`"маҳсулот/{id}"\` — \`id\` ҷойи аргумент аст.
+- \`navArgument("id") { type = NavType.StringType }\` (ё IntType).
+- Дар \`composable("маҳсулот/{id}", arguments = listOf(…)) { backStackEntry -> … }\` — \`backStackEntry.arguments?.getString("id")\`.
+- **Интихобӣ:** аргументҳои дорои \`defaultValue\` ё nullable.
+
+### 🎯 Хулоса
+
+- Байни экранҳо маълумот = аргумент дар маршрут + хондан аз \`NavBackStackEntry\`.
+`;
+
+const kotlinM7BottomNavTheory = `## Bottom Navigation — менюи поён
+
+### Аввал аз ҳаёт фаҳмем
+
+Дар **Instagram**, **Telegram**, **WhatsApp** — **поёни экран** тугмаҳо ҳастанд: **Хона**, **Ҷустуҷӯ**, **Профил**. Ин **Bottom Navigation** ном дорад ва дар **бисёр барномаҳо** истифода мешавад — мисли **фарши хона бо нишонаҳо**: кадом ҳуҷраро мехоҳӣ?
+
+### Дар Compose
+
+- **NavigationBar** — хати поёни тугмаҳо.
+- **NavigationBarItem** — як таб: **нишона**, **ном**, **пахш**.
+- **selected** — кадом таб фаъол аст (ранг/стил фарқ мекунад) — мисли **чароғаки рӯшан** рӯи як тугма.
+- Бо **NavController**: \`navController.navigate(тугма.route)\` ва **ҳолати интихоб** аз \`currentBackStackEntryAsState()\` ё маршрути ҷорӣ.
+
+### 🎯 Хулоса
+
+- Bottom bar = NavigationBar + чанд NavigationBarItem + пайваст ба NavController.
+`;
+
+const kotlinM7MultiPageProjectTheory = `## Лоиҳа: Барномаи чандсаҳифагӣ
+
+### Аввал аз ҳаёт фаҳмем
+
+Биёед **барномаи пурра бо навигатсия** созем! **Саҳифаи асосӣ** бо **рӯйхати маҳсулот** (**LazyColumn**), **саҳифаи тафсилот** бо **маълумоти пурра** (бо **аргумент**), **саҳифаи профил** бо маълумоти корбар, ва **Bottom Navigation** барои гузариш байни қисмҳои асосӣ — мисли **хонаи се ҳуҷра бо роҳи поён ва ҳуҷраи ҷудогона барои тафсилоти ашё**.
+
+### Сохтори пешниҳод
+
+- **Scaffold** — боло/поён/мобайн.
+- **NavigationBar** поён + **NavHost** дар мобайн.
+- Рӯйхат → пахш → **navigate** ба тафсилот бо \`id\`.
+
+### 🎯 Хулоса
+
+- Якҷоя кардани LazyColumn, аргументҳо, профил ва bottom bar = барномаи воқеӣ.
+`;
+
 const LESSON8_TABLE_EXPECTED = Array.from({ length: 10 }, (_, i) => {
   const n = i + 1;
   return `5 x ${n} = ${5 * n}`;
@@ -1449,6 +1631,197 @@ fun main() {
         expectedOutput: "Телефон",
         outputValidation: "contains",
         hint: "Column(horizontalAlignment = Alignment.CenterHorizontally) { Image(…); Text(ном); Row { тугмаҳо } }",
+      },
+    ],
+  },
+  {
+    id: "m6",
+    title: "Модул 6: State ва интерактивият",
+    titleEn: "Хотираи барнома",
+    locked: false,
+    lessons: [
+      {
+        id: "34",
+        number: 34,
+        title: "State чист? — remember ва mutableStateOf",
+        description: "mutableStateOf, by, recomposition",
+        theory: kotlinM6StateRememberTheory,
+        starterCode: `// Дар Studio: бе remember дар @Composable ин одатан кор намекунад —
+// шумора ҳар дафъа аз нав 0 мемонад (мисли навиштан дар об).
+// Бо remember: var шумора by remember { mutableStateOf(0) }
+//             Button(onClick = { шумора++ }) { Text("+") }
+//             Text("\${шумора}")
+
+fun main() {
+    var шумора = 0
+    println(шумора)
+}`,
+        task: "Ҳисобкунак дар Studio: тугмаи + адади дар экранро зиёд мекунад. Дар ин симулятор пас аз се «пахш» шумора = 3 нишон диҳед; дар код шарҳ кунед ки remember чӣ мекунад",
+        expectedOutput: "3",
+        hint: "var шумора by remember { mutableStateOf(0) } — дар ин ҷо: шумора++; шумора++; шумора++; println(шумора)",
+      },
+      {
+        id: "35",
+        number: 35,
+        title: "TextField — вуруди матн",
+        description: "value, onValueChange, OutlinedTextField",
+        theory: kotlinM6TextFieldTheory,
+        starterCode: `// Дар Studio:
+// var ном by remember { mutableStateOf("") }
+// OutlinedTextField(value = ном, onValueChange = { ном = it }, label = { Text("Ном") })
+// Text("Салом, \${ном}!")
+
+fun main() {
+    println("Салом!")
+}`,
+        task: "Саҳифаи саломкунӣ дар Studio: корбар номашро менависад ва дар поён «Салом, [ном]!» пайдо шавад. Дар симулятор номро дар тағйирёбанда нигоҳ доред ва чоп кунед",
+        expectedOutput: "Салом,",
+        outputValidation: "contains",
+        hint: 'var ном by remember { mutableStateOf("") }; OutlinedTextField(value = ном, onValueChange = { ном = it }) — дар println: "Салом, ${ном}!"',
+      },
+      {
+        id: "36",
+        number: 36,
+        title: "Чеклист ва Toggle",
+        description: "Checkbox, Switch, mutableStateListOf",
+        theory: kotlinM6ChecklistToggleTheory,
+        starterCode: `// Дар Studio: val вазифаҳо = remember { mutableStateListOf(false, false, false, false, false) }
+// Checkbox(checked = вазифаҳо[i], onCheckedChange = { вазифаҳо[i] = it })
+
+fun main() {
+    val вазифаҳо = listOf(false, false, false, false, false)
+    if (вазифаҳо.all { it }) {
+        println("Ҳама тамом!")
+    } else {
+        println("Ҳанӯз вазифаҳо мондаанд")
+    }
+}`,
+        task: "Рӯйхати 5 вазифа бо Checkbox дар Studio созед. Дар ин симулятор ҳамаи элементҳоро true кунед то «Ҳама тамом!» чоп шавад",
+        expectedOutput: "Ҳама тамом!",
+        hint: "val вазифаҳо = remember { mutableStateListOf(false, false, false, false, false) }; if (вазифаҳо.all { it }) Text(\"Ҳама тамом!\") — дар симулятор: listOf(true, true, …)",
+      },
+      {
+        id: "37",
+        number: 37,
+        title: "State Hoisting — боло бардоштани state",
+        description: "Падар state, фарзандон параметр",
+        theory: kotlinM6StateHoistingTheory,
+        starterCode: `// Дар Studio: fun App() { var матн by remember { mutableStateOf(\"\") }; InputField(матн) { матн = it }; DisplayText(матн) }
+
+fun main() {
+    val дарInput = "Салом"
+    val дарDisplay = ""
+    println("Input: \$дарInput")
+    println("Display: \$дарDisplay")
+}`,
+        task: "Компонентҳои InputField ва DisplayText дар Studio: state дар App. Дар симулятор як матни якхела истифода баред то Display натиҷаро дуруст нишон диҳад",
+        expectedOutput: "Display: Салом",
+        outputValidation: "contains",
+        hint: 'fun App() { var матн by remember { mutableStateOf("") }; InputField(матн) { матн = it }; DisplayText(матн) } — дар симулятор: var матн = "Салом"; println("Display: ${матн}")',
+      },
+      {
+        id: "38",
+        number: 38,
+        title: "Лоиҳа: Ҳисобкунаки чойхона",
+        description: "Маблағ, одамон, ҳар кас чанд",
+        theory: kotlinM6TeaCalculatorTheory,
+        starterCode: `// Дар Studio: маблағ ва шумора дар state; Button ҳисоб мекунад.
+
+fun main() {
+    val маблағ = 500.0
+    val шумораиОдамон = 5
+    println("Ҳар кас: ___ сомонӣ")
+}`,
+        task: "Ҳисобкунакро пурра кунед: маблағ ва шумораи одамонро истифода баред, ҳар касро ҳисоб кунед ва натиҷаро бо «сомонӣ» чоп кунед",
+        expectedOutput: "100",
+        outputValidation: "contains",
+        hint: 'val ҳарКас = маблағ / шумораиОдамон; println("Ҳар кас: ${ҳарКас} сомонӣ")',
+      },
+    ],
+  },
+  {
+    id: "m7",
+    title: "Модул 7: Навигатсия",
+    titleEn: "Саҳифаҳои гуногун",
+    locked: false,
+    lessons: [
+      {
+        id: "39",
+        number: 39,
+        title: "Navigation Compose — асосҳо",
+        description: "NavHost, NavController, composable",
+        theory: kotlinM7NavigationBasicsTheory,
+        starterCode: `// Дар Studio се @Composable ҷудо, вале бе пайваст:
+// @Composable fun Асосӣ() { Text("Асосӣ") }
+// @Composable fun Профил() { Text("Профил") }
+// @Composable fun Танзимот() { Text("Танзимот") }
+// Навигатсия нест — навируҳҳо намешаванд.
+
+fun main() {
+    println("Саҳифаҳо: Асосӣ, Профил, Танзимот — NavHost нест")
+}`,
+        task: "Дар Studio: 3 саҳифа (Асосӣ, Профил, Танзимот) ва бо тугмаҳо \`navController.navigate(...)\` байни онҳо гузаред. Дар симулятор NavHost ва navigate-ро дар println нишон диҳед",
+        expectedOutput: "NavHost",
+        outputValidation: "contains",
+        hint: 'navController.navigate("профил") ва composable("профил") { Профил() }',
+      },
+      {
+        id: "40",
+        number: 40,
+        title: "Аргументҳо — маълумот байни саҳифаҳо",
+        description: "маҳсулот/{id}, navArgument, backStackEntry",
+        theory: kotlinM7NavArgumentsTheory,
+        starterCode: `// Рӯйхат дар Studio; тафсилот холӣ:
+// LazyColumn { items(маҳсулотҳо) { м -> Text(м.ном) /* пахш -> navigate */ } }
+// composable("тафсилот") { }  // бе id!
+
+fun main() {
+    println("Рӯйхат: Себ, Шир, Нон")
+    println("Тафсилот: (ном нест — аргумент нест)")
+}`,
+        task: "Рӯйхати маҳсулот дар Studio созед. Пахш кардан → саҳифаи тафсилот бо \`composable(\"маҳсулот/{id}\")\` ва номи маҳсулот. Дар симулятор маршрут ва номро чоп кунед",
+        expectedOutput: "маҳсулот/",
+        outputValidation: "contains",
+        hint: 'composable("маҳсулот/{id}") { entry -> val id = entry.arguments?.getString("id"); Тафсилот(id) }',
+      },
+      {
+        id: "41",
+        number: 41,
+        title: "Bottom Navigation — менюи поён",
+        description: "NavigationBar, NavigationBarItem, NavController",
+        theory: kotlinM7BottomNavTheory,
+        starterCode: `// Дар Studio NavHost ҳаст, вале поён меню нест.
+// Scaffold(bottomBar = { }) холӣ ё бе NavigationBar
+
+fun main() {
+    println("NavHost: асосӣ, рӯйхат, профил")
+    println("BottomBar: нест")
+}`,
+        task: "Bottom Navigation бо 3 тугма дар Studio: 🏠 Асосӣ, 📋 Рӯйхат, 👤 Профил. Тугмаи фаъол ранги дигар. Дар симулятор NavigationBar ва се номро чоп кунед",
+        expectedOutput: "NavigationBar",
+        outputValidation: "contains",
+        hint: "NavigationBar { тугмаҳо.forEach { тугма -> NavigationBarItem(selected = …, onClick = { navController.navigate(тугма.route) }, icon = { Icon(…) }) } }",
+      },
+      {
+        id: "42",
+        number: 42,
+        title: "Лоиҳа: Барномаи чандсаҳифагӣ",
+        description: "LazyColumn, аргумент, профил, Bottom Nav",
+        theory: kotlinM7MultiPageProjectTheory,
+        starterCode: `// Дар Studio — қисман:
+// Scaffold(bottomBar = { /* NavigationBar */ }) { padding ->
+//   NavHost(Modifier.padding(padding), ...) { composable("асосӣ") { }; composable("профил") { } }
+// }
+
+fun main() {
+    println("Scaffold — омода")
+    println("NavHost — нопурра")
+    println("LazyColumn маҳсулот — мондааст")
+}`,
+        task: "Барномаи пурра дар Studio: LazyColumn барои маҳсулот, тафсилот бо аргумент, таб Профил, Scaffold + NavigationBar + NavHost дар як App(). Дар симулятор як сатр чоп кунед ки ин чаҳорро дар бар гирад: LazyColumn, маҳсулот/{id}, Профил, NavigationBar",
+        expectedOutput: "маҳсулот/{id}",
+        outputValidation: "contains",
+        hint: "Scaffold + NavHost + NavigationBar — ҳамаро дар як App() ҷамъ кунед",
       },
     ],
   },
