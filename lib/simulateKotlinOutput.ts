@@ -15,6 +15,7 @@ function unescapeKotlinString(s: string): string {
     if (c === "r") return "\r";
     if (c === '"') return '"';
     if (c === "\\") return "\\";
+    if (c === "$") return "$";
     return `\\${c}`;
   });
 }
@@ -30,37 +31,169 @@ type Ctx = Record<string, string | number>;
 
 const classMethodReturn = new Map<string, string>();
 
-function evalStringTemplate(quotedInner: string, ctx: Ctx, objFields: Record<string, Record<string, string | number>>): string {
-  let s = quotedInner;
-  s = s.replace(/\$\{([^}]+)\}/g, (_, raw: string) => {
-    const expr = raw.trim();
-    const dot = new RegExp(`^(${KOTLIN_ID})\\.(${KOTLIN_ID})$`).exec(expr);
-    if (dot) {
-      const o = objFields[dot[1]!];
-      if (o && dot[2]! in o) return String(o[dot[2]!]!);
+/** Аломатҳои идомаи нишонаи Kotlin (латинӣ + кириллӣ) */
+const KOTLIN_ID_TAIL = /[a-zA-Z0-9_\u0400-\u04FF]/;
+
+function substituteCtxInExpr(expr: string, ctx: Ctx): string {
+  let e = expr;
+  for (const [k, v] of Object.entries(ctx)) {
+    const re = new RegExp(
+      `(?<![a-zA-Z0-9_\\u0400-\\u04FF])${escapeRegExp(k)}(?![a-zA-Z0-9_\\u0400-\\u04FF])`,
+      "gu",
+    );
+    e = e.replace(re, String(v));
+  }
+  return e;
+}
+
+/** Мундариҷаи `${ ... }` — қавсҳо дар дохили кавитаҳо */
+function parseTemplateInterpolationBody(inner: string, openBraceIdx: number): [string, number] | null {
+  let depth = 1;
+  let i = openBraceIdx + 1;
+  const exprStart = i;
+  let inStr = false;
+  let strEscape = false;
+  while (i < inner.length && depth > 0) {
+    const c = inner[i]!;
+    if (strEscape) {
+      strEscape = false;
+      i++;
+      continue;
     }
-    let e = expr;
-    for (const [k, v] of Object.entries(ctx)) {
-      e = e.replace(new RegExp(`\\b${k}\\b`, "g"), String(v));
+    if (inStr) {
+      if (c === "\\") strEscape = true;
+      else if (c === '"') inStr = false;
+      i++;
+      continue;
     }
-    e = e.replace(/\s/g, "");
-    if (/^[\d+\-*/().]+$/.test(e)) {
-      try {
-        return String(safeEvalIntExpression(e));
-      } catch {
-        return raw;
+    if (c === '"') {
+      inStr = true;
+      i++;
+      continue;
+    }
+    if (c === "{") depth++;
+    else if (c === "}") {
+      depth--;
+      if (depth === 0) {
+        return [inner.slice(exprStart, i).trim(), i + 1];
       }
     }
-    if (expr in ctx) return String(ctx[expr]!);
-    return raw;
-  });
-  for (const [k, v] of Object.entries(ctx)) {
-    s = s.replace(
-      new RegExp(`\\$${escapeRegExp(k)}(?![a-zA-Z0-9_\\u0400-\\u04FF])`, "g"),
-      String(v),
-    );
+    i++;
   }
-  return unescapeKotlinString(s);
+  return null;
+}
+
+function evalTemplateExpression(
+  expr: string,
+  ctx: Ctx,
+  objFields: Record<string, Record<string, string | number>>,
+): string {
+  const trimmed = expr.trim();
+  const dot = new RegExp(`^(${KOTLIN_ID})\\.(${KOTLIN_ID})$`).exec(trimmed);
+  if (dot) {
+    const o = objFields[dot[1]!];
+    if (o && dot[2]! in o) return String(o[dot[2]!]!);
+  }
+  let e = substituteCtxInExpr(trimmed, ctx);
+  e = e.replace(/\s/g, "");
+  if (/^[\d+\-*/().]+$/.test(e)) {
+    try {
+      return String(safeEvalIntExpression(e));
+    } catch {
+      return trimmed;
+    }
+  }
+  if (trimmed in ctx) return String(ctx[trimmed]!);
+  return trimmed;
+}
+
+/**
+ * Матни дохили кавитаи Kotlin: `$ном`, `${5*4}`, `\$` = доллари оддӣ.
+ * `\b` дар JS барои кириллӣ кор намекунад — аз scan + longest-match истифода мешавад.
+ */
+function expandKotlinTemplatesInString(
+  quotedInner: string,
+  ctx: Ctx,
+  objFields: Record<string, Record<string, string | number>>,
+): string {
+  const keys = Object.keys(ctx).sort((a, b) => b.length - a.length);
+  let out = "";
+  let i = 0;
+  while (i < quotedInner.length) {
+    const c = quotedInner[i]!;
+    if (c === "\\") {
+      i++;
+      if (i >= quotedInner.length) {
+        out += "\\";
+        break;
+      }
+      const n = quotedInner[i]!;
+      if (n === "n") {
+        out += "\n";
+        i++;
+        continue;
+      }
+      if (n === "t") {
+        out += "\t";
+        i++;
+        continue;
+      }
+      if (n === "r") {
+        out += "\r";
+        i++;
+        continue;
+      }
+      if (n === '"') {
+        out += '"';
+        i++;
+        continue;
+      }
+      if (n === "\\") {
+        out += "\\";
+        i++;
+        continue;
+      }
+      if (n === "$") {
+        out += "$";
+        i++;
+        continue;
+      }
+      out += n;
+      i++;
+      continue;
+    }
+    if (c === "$" && i + 1 < quotedInner.length && quotedInner[i + 1] === "{") {
+      const parsed = parseTemplateInterpolationBody(quotedInner, i + 1);
+      if (parsed) {
+        const [body, endIdx] = parsed;
+        out += evalTemplateExpression(body, ctx, objFields);
+        i = endIdx;
+        continue;
+      }
+    }
+    if (c === "$") {
+      let replaced = false;
+      for (const k of keys) {
+        if (quotedInner.startsWith(k, i + 1)) {
+          const afterKey = i + 1 + k.length;
+          const next = quotedInner[afterKey];
+          if (next !== undefined && KOTLIN_ID_TAIL.test(next)) continue;
+          out += String(ctx[k]!);
+          i = afterKey;
+          replaced = true;
+          break;
+        }
+      }
+      if (replaced) continue;
+    }
+    out += c;
+    i++;
+  }
+  return out;
+}
+
+function evalStringTemplate(quotedInner: string, ctx: Ctx, objFields: Record<string, Record<string, string | number>>): string {
+  return expandKotlinTemplatesInString(quotedInner, ctx, objFields);
 }
 
 /** Дастгирӣ барои дарси функсия: баръакс("Салом") → Kotlin .reversed() */
@@ -98,10 +231,7 @@ function resolvePrintlnArg(arg: string, ctx: Ctx, objFields: Record<string, Reco
 
   if (a in ctx) return String(ctx[a]!);
 
-  let expr = a;
-  for (const [k, v] of Object.entries(ctx)) {
-    expr = expr.replace(new RegExp(`\\b${k}\\b`, "g"), String(v));
-  }
+  let expr = substituteCtxInExpr(a, ctx);
   expr = expr.replace(/\s/g, "");
   if (/^[\d+\-*/().]+$/.test(expr)) {
     try {
@@ -112,8 +242,6 @@ function resolvePrintlnArg(arg: string, ctx: Ctx, objFields: Record<string, Reco
   }
   return "";
 }
-
-const KOTLIN_ID_TAIL = /[a-zA-Z0-9_\u0400-\u04FF]/;
 
 function skipWhitespace(code: string, i: number): number {
   let j = i;
@@ -127,18 +255,6 @@ function startsWithKotlinKeyword(code: string, pos: number, word: string): boole
   const after = pos + word.length;
   if (after < code.length && KOTLIN_ID_TAIL.test(code[after]!)) return false;
   return true;
-}
-
-function substituteCtxInExpr(expr: string, ctx: Ctx): string {
-  let e = expr;
-  for (const [k, v] of Object.entries(ctx)) {
-    const re = new RegExp(
-      `(?<![a-zA-Z0-9_\\u0400-\\u04FF])${escapeRegExp(k)}(?![a-zA-Z0-9_\\u0400-\\u04FF])`,
-      "gu",
-    );
-    e = e.replace(re, String(v));
-  }
-  return e;
 }
 
 function parseOperandValue(s: string): string | number | boolean | null {
