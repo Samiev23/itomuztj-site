@@ -933,6 +933,87 @@ const kotlinM7MultiPageProjectTheory = `## Лоиҳа: Барномаи чанд
 - Якҷоя кардани LazyColumn, аргументҳо, профил ва bottom bar = барномаи воқеӣ.
 `;
 
+const kotlinM8LazyColumnAdvancedTheory = `## LazyColumn пешрафта
+
+### Аввал аз ҳаёт фаҳмем
+
+Дар модули **Compose** мо **LazyColumn**-ро шинохтем. Акнун **чизҳои бештар** — барои рӯйхатҳои **зебо ва қулай**.
+
+- **stickyHeader** — **сарлавҳа** вақте ки **scroll** мекунед, **боло мемонад** (мисли **ҳарфҳои А, Б, В** дар рӯйхати тамос дар телефон: ҳарф як ҷо «чаппа мешавад», то бифаҳмед, дар кадом гурӯҳ ҳастед).
+- **itemsIndexed** — **индекс** ва **элемент** якҷо: «ин элементи рақами 3 аст».
+- **Divider** — **хати нозук** байни сатрҳо, мисли **хат кашидан байни сатрҳо дар дафтар**.
+
+### Боз чӣ нишон диҳем
+
+- **contentPadding** — фосила аз атрофи рӯйхат.
+- **verticalArrangement = Arrangement.spacedBy(8.dp)** — фосилаи муқаррарӣ байни элементҳо.
+- **animateItemPlacement()** — вақте ки элемент ҷо иваз мекунад, **ҳаракати нарм** (дар версияҳои дастгирикунандаи китобхона).
+
+### 🎯 Хулоса
+
+- LazyColumn + stickyHeader + Divider = рӯйхати профессионалӣ монанди тамосҳо.
+`;
+
+const kotlinM8LazyRowGridTheory = `## LazyRow ва LazyVerticalGrid
+
+### Аввал аз ҳаёт фаҳмем
+
+- **LazyColumn** — аз **боло ба поён** (рӯйхати оддӣ).
+- **LazyRow** — аз **чап ба рост**! Мисли **галереяи суратҳо** дар Instagram — як қатор, ки ба чап/рост лағжиш мекунад.
+- **LazyVerticalGrid** — **тӯр** (чанд сутун), мисли **Pinterest** ё **дӯкони онлайн** бо **карточкаҳо** дар чанд сутун.
+
+### Дар код
+
+- **LazyRow** — ҳамон **items** / **itemsIndexed**, фақат **афқӣ**.
+- **LazyVerticalGrid(columns = GridCells.Fixed(2))** — ҳамеша **2 сутун**.
+- **GridCells.Adaptive(minSize = 128.dp)** — сутунҳо ба экран мутобиқ мешаванд.
+- Дар ҳар **ячейка** — **Card** бо ном ва нарх.
+
+### 🎯 Хулоса
+
+- Row барои категорияҳо / сторилаҳ; Grid барои витринаи маҳсулот.
+`;
+
+const kotlinM8PullRefreshPaginationTheory = `## Pull-to-Refresh ва Pagination
+
+### Аввал аз ҳаёт фаҳмем
+
+Дар **Instagram** поён кашед — **маълумоти нав** пайдо мешавад! Ин **pull-to-refresh** аст (мисли **даст кашидан ба поён то чизҳои нав бор шаванд**).
+
+Ва вақте ки то **поён** scroll мекунед — **боз маълумот бор мешавад** (**pagination**), мисли **саҳифаи китоб**: аввал 20 сатр, баъд боз 10 — то охир нарасед.
+
+Ин **ду чиз** барои барномаҳои воқеӣ **зарур** аст.
+
+### Дар Compose (Материал 3)
+
+- Контейнерҳои **pull-to-refresh** (вобаста ба версияи китобхона: **PullToRefreshBox** ё василаҳои дигари M3).
+- **LaunchedEffect(isRefreshing)** — вақте ки навкунӣ оғоз шуд: **delay** (симулясияи шабакавӣ), баъд рӯйхатро иваз кунед, **isRefreshing = false**.
+- **Pagination:** фаҳмидани **охири рӯйхат** (масалан scroll state), баъд **10 элементи нав** ба рӯйхат илова кунед + **нишонаи боркунӣ**.
+
+### 🎯 Хулоса
+
+- Refresh = маълумоти тоза аз сервер (ё симулясия); pagination = бор кардани қисм-ба-қисм.
+`;
+
+const kotlinM8ContactsAppTheory = `## Лоиҳа: Барномаи тамосҳо
+
+### Аввал аз ҳаёт фаҳмем
+
+Биёед **барномаи тамосҳои пурра** созем! **Рӯйхати тамосҳо** бо **LazyColumn**, **ҷустуҷӯ** бо **TextField**, **филтр** аз рӯи ҳарф ё қисми ном, **тафсилоти тамос** бо **навигатсия** (мисли кушодани **корт** дар дасти дигар).
+
+Ин лоиҳа **LazyColumn**, **State**, **Navigation** ва **Material Design**-ро **як ҷо** мегирад — мисли **дафтари тамоси телефон**, вале шумо сохтаед.
+
+### Сохтор
+
+- **data class Тамос(ном, рақам, …)**.
+- **var ҷустуҷӯ** + **filter { it.ном.contains(ҷустуҷӯ, ignoreCase = true) }**.
+- **stickyHeader** барои ҳарфҳо; пахш → **navigate("тамос/{id}")**.
+
+### 🎯 Хулоса
+
+- Аз қисмҳои омӯхташуда — барномаи наздик ба воқеият.
+`;
+
 const LESSON8_TABLE_EXPECTED = Array.from({ length: 10 }, (_, i) => {
   const n = i + 1;
   return `5 x ${n} = ${5 * n}`;
@@ -1822,6 +1903,83 @@ fun main() {
         expectedOutput: "маҳсулот/{id}",
         outputValidation: "contains",
         hint: "Scaffold + NavHost + NavigationBar — ҳамаро дар як App() ҷамъ кунед",
+      },
+    ],
+  },
+  {
+    id: "m8",
+    title: "Модул 8: Рӯйхатҳо ва LazyColumn",
+    titleEn: "Рӯйхатҳои калон",
+    locked: false,
+    lessons: [
+      {
+        id: "43",
+        number: 43,
+        title: "LazyColumn пешрафта",
+        description: "stickyHeader, itemsIndexed, Divider",
+        theory: kotlinM8LazyColumnAdvancedTheory,
+        starterCode: `// Дар Studio: LazyColumn { items(тамосҳо) { Text(it) } } — бе сарлавҳаи чаппа, бе Divider
+
+fun main() {
+    for (т in listOf("Аҳмад", "Аниса", "Бобур")) {
+        println(т)
+    }
+}`,
+        task: "Рӯйхати тамос дар Studio: stickyHeader барои ҳарфҳои А, Б, В… ва Divider байни элементҳо. Дар симулятор дар println калимаи stickyHeader-ро зикр кунед (мисли чопи намунаи UI)",
+        expectedOutput: "stickyHeader",
+        outputValidation: "contains",
+        hint: 'stickyHeader { Text("А", fontWeight = Bold) } ва items(тамосҳоиА) { … }',
+      },
+      {
+        id: "44",
+        number: 44,
+        title: "LazyRow ва LazyVerticalGrid",
+        description: "Галерея афқӣ, тӯри 2 сутун",
+        theory: kotlinM8LazyRowGridTheory,
+        starterCode: `// Дар Studio: маҳсулотҳо дар List — вале бе LazyRow ва бе Grid
+
+fun main() {
+    println("Категорияҳо: Либос, Пойафзол, Электроника (як сатр)")
+    println("Маҳсулот: як сутуни оддӣ — Grid нест")
+}`,
+        task: "Дӯкони онлайн дар Studio: боло LazyRow барои категорияҳо (Либос, Пойафзол, Электроника), поён LazyVerticalGrid бо GridCells.Fixed(2) ва карточкаҳо. Дар симулятор дар println ҳам LazyRow ва ҳам LazyVerticalGrid-ро зикр кунед",
+        expectedOutput: "LazyVerticalGrid",
+        outputValidation: "contains",
+        hint: "LazyVerticalGrid(columns = GridCells.Fixed(2)) { items(маҳсулотҳо) { Карточка(it) } }",
+      },
+      {
+        id: "45",
+        number: 45,
+        title: "Pull-to-Refresh ва Pagination",
+        description: "Навкунӣ, +10 элемент дар поён",
+        theory: kotlinM8PullRefreshPaginationTheory,
+        starterCode: `// Дар Studio: рӯйхати статикӣ — бе refresh, бе pagination
+
+fun main() {
+    println("навигариҳо: 20 элемент")
+    println("pull-to-refresh: нест | pagination: нест")
+}`,
+        task: "Рӯйхати навигариҳо дар Studio: pull-to-refresh (LaunchedEffect, delay, ивази рӯйхат) ва вақте ки ба поён мерасед +10 элемент. Дар симулятор нишон диҳед: пас аз pagination ҳамагӣ чанд элемент (20+10)",
+        expectedOutput: "30",
+        outputValidation: "contains",
+        hint: "LaunchedEffect(isRefreshing) { delay(1000); навигариҳо = навигариҳоиНав; isRefreshing = false }",
+      },
+      {
+        id: "46",
+        number: 46,
+        title: "Лоиҳа: Барномаи тамосҳо",
+        description: "LazyColumn, ҷустуҷӯ, навигатсия",
+        theory: kotlinM8ContactsAppTheory,
+        starterCode: `data class Тамос(val ном: String, val рақам: String)
+
+fun main() {
+    val тамосҳо = (1..20).map { i -> Тамос("Дӯст\$i", "+9929000\$i") }
+    println("20 тамос — stickyHeader / TextField / navigate ба тафсилот нест")
+}`,
+        task: "Барномаи тамос дар Studio: LazyColumn бо stickyHeader, ҷустуҷӯ бо TextField, филтр бо contains(ҷустуҷӯ, ignoreCase), пахш → саҳифаи тафсилот. Дар симулятор: ҷустуҷӯ гузоред, филтр кунед ва аввалин номи филтршударо чоп кунед (масалан Дӯст1)",
+        expectedOutput: "Дӯст1",
+        outputValidation: "contains",
+        hint: "val филтршуда = тамосҳо.filter { it.ном.contains(ҷустуҷӯ, ignoreCase = true) }",
       },
     ],
   },
