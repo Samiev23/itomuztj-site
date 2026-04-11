@@ -1120,6 +1120,114 @@ const kotlinM9NotesProjectTheory = `## Лоиҳа: Барномаи ёддошт
 - Лоиҳа = ҷамъи Room, State, UI ва жестҳо.
 `;
 
+const kotlinM10ApiIntroTheory = `## API чист?
+
+### Аввал аз ҳаёт фаҳмем
+
+**API** мисли **пешхизматчии ресторан** аст 🤵 Шумо (**барнома**) мегӯед: «**Обу ҳавои Душанберо диҳед!**» Пешхизматчӣ (**API**) ба **ошхона** (**сервер**) меравад ва **ҷавоб меорад**. Шумо **серверро намебинед** — танҳо бо **API** гап мезанед!
+
+### REST API
+
+**REST** — стандарти **маъмултарин**: роҳҳо ва методҳои **HTTP**.
+
+- **GET** — **гирифтан** (хондан), мисли «ин менюро биёр».
+- **POST** — **фиристодан** / сохтан, мисли «фармоиши нав».
+- **PUT** (ё PATCH) — **навкунӣ**, мисли «фармоишро иваз кун».
+- **DELETE** — **несткунӣ**, мисли «бекор кун».
+
+### JSON ва кодҳои ҳолат
+
+- **JSON** — формати матнӣ барои маълумот дар шабака (объектҳо ва массивҳо).
+- Кодҳои маъмул: **200** — OK; **404** — наёфт; **500** — хато дар сервер.
+- Санҷиш дар **браузер** ё Postman мисли «як бор чашмак задан ба ҷавоб».
+
+### 🎯 Хулоса
+
+- API = пул байни барнома ва сервер; REST + JSON = асоси бисёр барномаҳо.
+`;
+
+const kotlinM10RetrofitTheory = `## Retrofit — занг ба API
+
+### Аввал аз ҳаёт фаҳмем
+
+**Retrofit** — китобхонаи **маъмул** барои **кор бо API** дар Android. Шумо **interface** менависед ва Retrofit **худаш** дархости HTTP мефиристад ва ҷавобро ба **объектҳои Kotlin** табдил медиҳад.
+
+Мисли **тарҷумон** — шумо **тоҷикӣ** мегӯед, ӯ ба **забони шабака** мегӯяд!
+
+### Дар лоиҳа
+
+- Вобастагиҳо: **Retrofit**, **converter** (масалан Gson ё Moshi).
+- **interface** бо \`@GET("users")\`, \`@POST\`, \`@Path("id")\`, \`@Query("q")\`.
+- \`Retrofit.Builder().baseUrl("https://.../").addConverterFactory(...).build()\`
+- \`val сервис = retrofit.create(КорбарApi::class.java)\`
+
+### 🎯 Хулоса
+
+- Як интерфейс — зангҳои типбандишуда; камтар коди дастӣ барои HTTP.
+`;
+
+const kotlinM10CoroutinesTheory = `## Coroutines — кори асинхронӣ
+
+### Аввал аз ҳаёт фаҳмем
+
+Вақте ки аз **интернет** маълумот мегиред — **вақт** лозим аст! Агар **UI интизор** шавад — барнома **ях мезанад** ❄️
+
+**Coroutines** мегӯяд: «**Дар паси парда кор кун, UI-ро банд накун!**»
+
+- **suspend fun** — функсияе, ки **метавонад интизор шавад** бе бастани нишондиҳандаи умумии барнома.
+- **viewModelScope.launch** — ҷои **оғози корутина** дар ViewModel.
+- **Dispatchers.Main** — UI; **Dispatchers.IO** — шабака ва файл; **Dispatchers.Default** — ҳисоби сангин.
+- **withContext(Dispatchers.IO) { … }** — ба дигар нишондиҳанда гузариш.
+- **try / catch** — хатои шабака; **async / await** — корҳои мувозӣ.
+
+### 🎯 Хулоса
+
+- Шабака = IO + coroutine; UI = Main; хатоҳоро дошта бигиред.
+`;
+
+const kotlinM10UiStateTheory = `## Loading, Error, Success — ҳолатҳо
+
+### Аввал аз ҳаёт фаҳмем
+
+Вақте ки аз **API** маълумот мегиред, **се ҳолат** мумкин аст:
+
+- **⏳ Loading** — **боркунӣ**; мисли **интизории автобус** — спиннер нишон диҳед.
+- **✅ Success** — **мувваффақ**; маълумотро нишон диҳед.
+- **❌ Error** — **хато**; паём ва аксаран **тугмаи такрор** (retry).
+
+Ҳар барномаи **касбӣ** ин **се ҳолат**-ро **идора** мекунад!
+
+### Дар код
+
+- **sealed class UiState** — \`Loading\`, \`Success(маълумот)\`, \`Error(паём)\`.
+- **StateFlow<UiState>** дар ViewModel; дар UI **when** барои ҳар ҳолат.
+- **CircularProgressIndicator**, **Snackbar**, тугмаи такрор.
+
+### 🎯 Хулоса
+
+- Як модели ҳолат = UI-и пешгӯӣшаванда ва сода.
+`;
+
+const kotlinM10CoilTheory = `## Сурат аз интернет — Coil
+
+### Аввал аз ҳаёт фаҳмем
+
+Аксарияти барномаҳо **сурат**-ро аз **интернет** нишон медиҳанд — **профил**, **маҳсулот**, **навигарӣ**. **Coil** китобхонаест, ки суратро аз **URL** мегирад ва нишон медиҳад.
+
+**Як сатр** дар аксар ҳолатҳо кофӣ аст: \`AsyncImage(model = url, contentDescription = …)\` — **ана тамом!**
+
+### Нишон диҳед
+
+- Вобастагии **io.coil-kt:coil-compose**.
+- **AsyncImage** — **placeholder**, **error**, **contentScale**.
+- **Modifier.size(48.dp).clip(CircleShape)** — профили мудаввар.
+- **Кеш** ва иҷозати **INTERNET** дар **Manifest**.
+
+### 🎯 Хулоса
+
+- Coil = суратҳои шабакавӣ осон дар Compose.
+`;
+
 const LESSON8_TABLE_EXPECTED = Array.from({ length: 10 }, (_, i) => {
   const n = i + 1;
   return `5 x ${n} = ${5 * n}`;
@@ -2178,6 +2286,99 @@ fun main() {
         expectedOutput: "collectAsState",
         outputValidation: "contains",
         hint: 'val ёддоштҳо by viewModel.ҳамаро.collectAsState(initial = emptyList())',
+      },
+    ],
+  },
+  {
+    id: "m10",
+    title: "Модул 10: Шабака ва API",
+    titleEn: "Интернет ва маълумот",
+    locked: false,
+    lessons: [
+      {
+        id: "52",
+        number: 52,
+        title: "API чист?",
+        description: "REST, JSON, HTTP методҳо",
+        theory: kotlinM10ApiIntroTheory,
+        starterCode: `// JSON намуна (объект):
+// {"шаҳр": "Душанбе", "ҳарорат": 12}
+
+fun main() {
+    val ҷисон = """{"шаҳр":"Душанбе","ҳарорат":12}"""
+    println("HTTP: ҳанӯз тавзеҳ нест")
+    println(ҷисон)
+}`,
+        task: "Дар println тавзеҳ диҳед: GET, POST, PUT, DELETE барои чӣ (хондан, сохтан, тағйир, нест). Мисоли JSON дар коди боло ҳаст — онро дар println нишон диҳед ё хонда чоп кунед",
+        expectedOutput: "GET",
+        outputValidation: "contains",
+        hint: "GET = хондан, POST = сохтан, PUT = тағйир, DELETE = нест",
+      },
+      {
+        id: "53",
+        number: 53,
+        title: "Retrofit — занг ба API",
+        description: "Interface, @GET, Gson, baseUrl",
+        theory: kotlinM10RetrofitTheory,
+        starterCode: `// Дар Studio:
+// interface КорбарApi { }
+// data class Корбар(val id: Int, val name: String, val email: String, …)
+
+fun main() {
+    println("Retrofit.Builder — baseUrl холӣ")
+}`,
+        task: "Дар Studio API interface барои https://jsonplaceholder.typicode.com/ — рӯйхати корбарон: @GET(\"users\") suspend fun корбарон(): List<Корбар>. Дар симулятор jsonplaceholder.typicode.com ва users-ро дар println зикр кунед",
+        expectedOutput: "jsonplaceholder.typicode.com",
+        outputValidation: "contains",
+        hint: '@GET("users") suspend fun корбарон(): List<Корбар>',
+      },
+      {
+        id: "54",
+        number: 54,
+        title: "Coroutines — кори асинхронӣ",
+        description: "suspend, viewModelScope, Dispatchers.IO",
+        theory: kotlinM10CoroutinesTheory,
+        starterCode: `// Дар Studio: ViewModel — api.корбарон() бевосита аз Composable/без launch — UI ях мекунад
+
+fun main() {
+    println("хато: занги шабака дар Main — корутина нест")
+}`,
+        task: "Дар Studio занги API-ро дар viewModelScope.launch бо withContext(Dispatchers.IO) иҷро кунед. Дар симулятор Dispatchers.IO ва viewModelScope-ро дар println зикр кунед",
+        expectedOutput: "Dispatchers.IO",
+        outputValidation: "contains",
+        hint: "viewModelScope.launch { val натиҷа = withContext(Dispatchers.IO) { api.корбарон() }; _корбарон.value = натиҷа }",
+      },
+      {
+        id: "55",
+        number: 55,
+        title: "Loading, Error, Success — ҳолатҳо",
+        description: "UiState sealed, StateFlow, UI",
+        theory: kotlinM10UiStateTheory,
+        starterCode: `// Дар Studio: фақат рӯйхат нишон дода мешавад — боркунӣ ва хато нест
+
+fun main() {
+    println("UI: фақат Success — Loading/Error нест")
+}`,
+        task: "Дар Studio sealed class UiState (Loading, Success, Error) ва StateFlow; дар UI when — спиннер, рӯйхат, паёми хато бо retry. Дар симулятор UiState, Loading ва Error-ро дар println зикр кунед",
+        expectedOutput: "UiState",
+        outputValidation: "contains",
+        hint: "sealed class UiState { object Loading : UiState(); data class Success(val маълумот: List<Корбар>) : UiState(); data class Error(val паём: String) : UiState() }",
+      },
+      {
+        id: "56",
+        number: 56,
+        title: "Сурат аз интернет — Coil",
+        description: "AsyncImage, placeholder, CircleShape",
+        theory: kotlinM10CoilTheory,
+        starterCode: `// Дар Studio: рӯйхати корбарон — бе сурат; Coil нест
+
+fun main() {
+    println("Корбарон: танҳо матн — AsyncImage нест")
+}`,
+        task: "Дар Studio бо Coil суратҳои профил аз API (масалан avatarUrl) дар карточка нишон диҳед: мудаввар, 48.dp. Дар симулятор AsyncImage, 48.dp ва CircleShape-ро дар println зикр кунед",
+        expectedOutput: "AsyncImage",
+        outputValidation: "contains",
+        hint: "AsyncImage(model = корбар.суратUrl, contentDescription = null, modifier = Modifier.size(48.dp).clip(CircleShape))",
       },
     ],
   },
