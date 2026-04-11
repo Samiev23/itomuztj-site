@@ -5,7 +5,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { Lesson } from "@/data/lessons";
-import { getNextLessonIdForCourse } from "@/data/lessons";
+import { getNextLessonIdForCourse, KOTLIN_CAPSTONE_LESSON_ID } from "@/data/lessons";
 import { lessonConsoleOutputContains, lessonConsoleOutputsEqual } from "@/lib/lessonOutputMatch";
 import { notifyProgressUpdated, saveLessonCompletion } from "@/lib/lessonProgress";
 import { simulateKotlinPrintlnOutput } from "@/lib/simulateKotlinOutput";
@@ -226,6 +226,12 @@ export function LessonWorkspace({ lesson, moduleTitle, courseId }: Props) {
                 }}
               >
                 <p className="font-semibold text-[color:var(--success-text)]">✅ Офарин! Дуруст аст!</p>
+                {courseId === "kotlin" && lesson.id === KOTLIN_CAPSTONE_LESSON_ID ? (
+                  <p className="text-sm leading-relaxed text-[color:var(--success-text)]">
+                    🎓 Ин дарси охирини курс аст — шумо <strong>гувоҳномаи Kotlin & Android</strong>-ро гирифтед. Ба рӯйхати дарсҳо
+                    баргардед, то паёми пурраро бинед.
+                  </p>
+                ) : null}
                 {nextId && (
                   <Link
                     href={`/courses/${courseId}/lessons/${nextId}`}

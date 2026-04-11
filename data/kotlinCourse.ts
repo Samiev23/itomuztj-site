@@ -1400,6 +1400,154 @@ const kotlinM12QuizProjectTheory = `## Лоиҳа: Quiz App
 - Quiz = ҷараён + вақт + нигоҳи натиҷа.
 `;
 
+const kotlinM13WireframeTheory = `## Нақшакашӣ ва дизайн
+
+### Аввал аз ҳаёт фаҳмем
+
+**Пеш аз код — ФИКР кунед!** Мо **барномаи пурра** месозем: **Todo-и касбӣ**, **Tracker-и одатҳо**, ё **ҳар чизе**, ки худатон мехоҳед.
+
+1. **Идеяро интихоб мекунем** — чӣ масъала ҳал мешавад?
+2. **Экранҳоро мекашем** (wireframe) — мисли **нақшаи хона** пеш аз сохтан: куҷо дар, куҷо тиреза.
+3. **Технологияҳоро муайян мекунем** — Compose, Room, API…
+
+### User story (қиссаи корбар)
+
+Мисли **«ман мехоҳам… то ки…»** — барои ҳар экран як қиссаи кӯтоҳ нависед.
+
+### 🎯 Хулоса
+
+- Қоғаз арзонтар аз коди бе нақша; wireframe = роҳнамо.
+`;
+
+const kotlinM13ComposeUiTheory = `## UI бо Jetpack Compose
+
+### Аввал аз ҳаёт фаҳмем
+
+Акнун **wireframe**-ро ба **код** табдил медиҳем! **Ҳамаи донишатон**: **Compose**, **Material 3**, **Navigation**, **LazyColumn**.
+
+**Зебо** ва **касбӣ** бояд бошад — мисли **либоси хушнамӯд** барои мағоза, на танҳо чизи коркунанда.
+
+### Нишон диҳед
+
+- **Scaffold** (topBar / bottomBar) + **NavHost**; рӯйхатҳо, формаҳо, **Theme**-и M3.
+
+### 🎯 Хулоса
+
+- Як сохтори UI = навигатсияи равшан + компонентҳои такроршаванда.
+`;
+
+const kotlinM13BackendTheory = `## Backend — Room + API
+
+### Аввал аз ҳаёт фаҳмем
+
+**UI тайёр** — акнун **мағзи барнома**! **Room** барои маълумоти **маҳаллӣ**, **API** барои маълумоти **интернетӣ** (агар лозим бошад).
+
+**ViewModel** ва **Repository** ҳамаро **пайваст** мекунанд — мисли **кормандони анбор ва фурӯш**, ки якдигарро мефаҳманд.
+
+### Тартиби кор
+
+- Аввал **Entity** → **DAO** → **Database** → **Repository** → **ViewModel**.
+
+### 🎯 Хулоса
+
+- CRUD пурра санҷед; сипас UI-ро ба Flow/State васл кунед.
+`;
+
+const kotlinM13TestingTheory = `## Тест ва ислоҳ
+
+### Аввал аз ҳаёт фаҳмем
+
+**Пеш аз нашр — тест!** Барномаро дар **телефони воқеӣ** санҷед — мисли **рӯзи кӯшиши либос** пеш аз чорабинӣ.
+
+- **Хатоҳоро ёбед** ва **ислоҳ** кунед (Logcat, breakpoint).
+- **Дизайн** дар **экранҳои гуногун** (андоза, торик/равшан).
+- **Performance** — рӯйхатҳои калон, суратҳо.
+
+### Боз чӣ
+
+- **ProGuard / R8** барои релиз; **икона** ва **splash** — чеҳраи барнома дар фурӯшгоҳ.
+
+### 🎯 Хулоса
+
+- Телефони воқеӣ = ҳақиқӣтарин санҷиш.
+`;
+
+const kotlinM13PlayPublishTheory = `## Нашр дар Google Play
+
+### Аввал аз ҳаёт фаҳмем
+
+**Рӯзи калон расид!** 🚀 Барномаро ба **Google Play** мегузорем — то **миллионҳо** битавонанд зеркашӣ кунанд!
+
+- **Ҳисоби Google Play** — **\$25** як маротиба (вақте ки ин қоида эътибор дорад).
+- **APK / AAB** (Bundle тавсия дода мешавад), **скриншотҳо**, **тавсиф**, **рейтинги мазмун**, **нашр** ва **корти аввалин**.
+
+### Нишон диҳед
+
+- **Play Console**: барнома нав, **store listing**, **upload** bundle, интизори **тафтиш**.
+
+### 🎯 Хулоса
+
+- Build имзодашуда + listing пурра = роҳ ба фурӯшгоҳ.
+`;
+
+const kotlinM14ResumeTheory = `## Резюме ва портфолио
+
+### Аввал аз ҳаёт фаҳмем
+
+Шумо **Android-разработчик**-и оғозкунанда ё миёна ҳастед! **Резюме** ва **портфолио** — **калиди кор** — мисли **визитка + намоишгоҳи корҳо**.
+
+- **GitHub**-ро тоза кунед: **README** барои ҳар лоиҳа, **скриншот** ё GIF.
+- **LinkedIn** — профил бо калимаҳои дуруст (Kotlin, Compose, …).
+
+### Нишон диҳед
+
+- Намунаи структураи CV барои Android; акцент ба **лоиҳаҳо**.
+
+### 🎯 Хулоса
+
+- Корфармо аввал GitHub ва CV-ро мебинад — сармоягузорӣ кунед.
+`;
+
+const kotlinM14InterviewTheory = `## Мусоҳиба — саволҳои техникӣ
+
+### Аввал аз ҳаёт фаҳмем
+
+Дар **мусоҳиба** аксар **саволҳои такрорӣ**: **Activity lifecycle**, **Compose vs XML**, **Coroutines vs Threads**, **Room vs DataStore**, **MVVM**, **State дар Compose**, **Navigation**, **Retrofit**, хатои шабака…
+
+### Чӣ кардан
+
+- Аввал **худатон ҷавоб диҳед**, баъд бо ҷавоби дуруст муқоиса кунед.
+- **Коди хурд** дар доимӣ ё **сафеда** — ором бимонед.
+
+### Мисолҳо (хулоса)
+
+- Compose: **declarative**, recomposition; Thread: сангин барои UI; Coroutine: **suspend** бе бастани UI-и асосӣ.
+
+### 🎯 Хулоса
+
+- Тайёрӣ = савол + машқ + самимият.
+`;
+
+const kotlinM14FreelanceTheory = `## Фриланс ва кори аввалин
+
+### Аввал аз ҳаёт фаҳмем
+
+**Ду роҳ:**
+
+1. **Кор дар ширкат** — ширкатҳои маҳаллӣ ё **remote** (ҷустуҷӯи вакансия).
+2. **Фриланс** — **Upwork**, **Fiverr** ва платформаҳои дигар.
+
+Дар **Тоҷикистон** барномасозони **Android** талаб доранд — **портфолио** нишон диҳед, **нарх**-ро муайян кунед (аввал метавон **арзонтар** барои таҷриба), **аввалин мизоҷ** ё **стаж**-ро ҳадаф гиред.
+
+### Нишон диҳед
+
+- Профили фрилансӣ; дархост ба вакансия бо **пайвони GitHub**.
+
+### 🎯 Хулоса
+
+- Як қадами хурд ҳар ҳафта шуморо наздиктар мекунад.
+`;
+
 const LESSON8_TABLE_EXPECTED = Array.from({ length: 10 }, (_, i) => {
   const n = i + 1;
   return `5 x ${n} = ${5 * n}`;
@@ -2723,7 +2871,155 @@ fun main() {
       },
     ],
   },
+  {
+    id: "m13",
+    title: "Модул 13: Лоиҳаи ниҳоӣ ва нашр",
+    titleEn: "Аз код то Google Play",
+    locked: false,
+    lessons: [
+      {
+        id: "66",
+        number: 66,
+        title: "Нақшакашӣ ва дизайн",
+        description: "Идея, wireframe, технология",
+        theory: kotlinM13WireframeTheory,
+        starterCode: `// Дар дафтар ё Figma экранҳо кашед. Дар зер println-ҳои худро илова кунед.
+
+fun main() {
+    println("намуна нест — идея ва экранҳоро чоп кунед")
+}`,
+        task: "Идеяи барномаро интихоб кунед, 4–5 экранро номбар кунед (мисли Асосӣ, Илова, Танзимот) ва технологияҳоро нависед (Compose, Room, …). Калимаи «Идея:» (бо ду нуқта) дар чоп бошад",
+        expectedOutput: "Идея:",
+        outputValidation: "contains",
+        hint: "Масалан: Tracker-и одатҳо — экранҳо: Асосӣ, Илова, Статистика, Танзимот",
+      },
+      {
+        id: "67",
+        number: 67,
+        title: "UI бо Jetpack Compose",
+        description: "Scaffold, NavHost, Material 3",
+        theory: kotlinM13ComposeUiTheory,
+        starterCode: `// Дар Studio: экранҳо холӣ, навигатсия пурра нест
+
+fun main() {
+    println("UI: экранҳо холӣ — навигатсия пурра нест")
+}`,
+        task: "Дар Studio ҳамаи экранҳои лоиҳаро бо Compose созед: навигатсия, рӯйхатҳо, формаҳо, Material 3. Дар симулятор NavHost ва Scaffold-ро дар println зикр кунед",
+        expectedOutput: "NavHost",
+        outputValidation: "contains",
+        hint: "Scaffold(topBar = {…}, bottomBar = {…}) { NavHost(…) }",
+      },
+      {
+        id: "68",
+        number: 68,
+        title: "Backend — Room + API",
+        description: "Entity, DAO, Repository, ViewModel",
+        theory: kotlinM13BackendTheory,
+        starterCode: `// Дар Studio: қисми data нопурра — ViewModel бевосита ба API
+
+fun main() {
+    println("Data layer: Entity/DAO/Repository нопурра")
+}`,
+        task: "Entity, DAO, Database, Repository ва ViewModel-ро барои лоиҳаатон дар Studio пурра кунед; CRUD кор кунад. Дар симулятор CRUD-ро дар println зикр кунед",
+        expectedOutput: "CRUD",
+        outputValidation: "contains",
+        hint: "Аввал Entity, баъд DAO, баъд Database, баъд Repository, охир ViewModel",
+      },
+      {
+        id: "69",
+        number: 69,
+        title: "Тест ва ислоҳ",
+        description: "Дастгоҳ, икона, ProGuard",
+        theory: kotlinM13TestingTheory,
+        starterCode: `// Дар Studio: санҷиши воқеӣ ҳанӯз нест
+
+fun main() {
+    println("Тест: эмулятор танҳо — телефон + икона нест")
+}`,
+        task: "Барномаро дар телефони воқеӣ тест кунед, 3 мушкили ёфташударо дар println номбар кунед (мисли: 1)… 2)… 3)…), иконаи барномаро тағйир диҳед. USB debugging-ро зикр кунед",
+        expectedOutput: "USB",
+        outputValidation: "contains",
+        hint: "USB debugging ON кунед → телефонро пайваст кунед → Run",
+      },
+      {
+        id: "70",
+        number: 70,
+        title: "Нашр дар Google Play",
+        description: "AAB, listing, Play Console",
+        theory: kotlinM13PlayPublishTheory,
+        starterCode: `// Build → Generate Signed Bundle / APK
+
+fun main() {
+    println("Нашр: bundle нест | listing нест")
+}`,
+        task: "APK ё AAB имзодашуда созед, скриншотҳо тайёр кунед ва store listing-ро пур кунед. Дар симулятор калимаҳои Play Console ва AAB (ё APK) дар println бошанд",
+        expectedOutput: "Play Console",
+        outputValidation: "contains",
+        hint: "Build → Generate Signed Bundle → Upload to Play Console",
+      },
+    ],
+  },
+  {
+    id: "m14",
+    title: "Модул 14: Тайёрӣ ба кор",
+    titleEn: "Аз омӯзиш ба кор",
+    locked: false,
+    capstone: true,
+    lessons: [
+      {
+        id: "71",
+        number: 71,
+        title: "Резюме ва портфолио",
+        description: "GitHub, README, LinkedIn",
+        theory: kotlinM14ResumeTheory,
+        starterCode: `// Резюме дар Word/Markdown; GitHub профил
+
+fun main() {
+    println("CV: холӣ | GitHub README: нест")
+}`,
+        task: "Резюмеи Android-разработчик нависед ва дар println намунаи README барои GitHub бо 3 лоиҳа нишон диҳед (номи лоиҳа + як сатр). Калимаи README бошад",
+        expectedOutput: "README",
+        outputValidation: "contains",
+        hint: "Малакаҳо: Kotlin, Jetpack Compose, Room, Retrofit, MVVM, Git",
+      },
+      {
+        id: "72",
+        number: 72,
+        title: "Мусоҳиба — саволҳои техникӣ",
+        description: "Lifecycle, Compose, Coroutines",
+        theory: kotlinM14InterviewTheory,
+        starterCode: `// 10 савол — ҷавобҳоро дар зер нависед
+
+fun main() {
+    println("Саволҳои мусоҳиба: ҳанӯз ҷавоб нест")
+}`,
+        task: "Ба 10 саволи техникӣ дар println ҷавобҳои кӯтоҳ диҳед (рақамгузорӣ: 1)… 2)…). Калимаи Coroutine дар яке аз ҷавобҳо бошад",
+        expectedOutput: "Coroutine",
+        outputValidation: "contains",
+        hint: "Ҳар саволро аввал худатон ҷавоб диҳед, баъд ҷавоби дурустро бинед",
+      },
+      {
+        id: "73",
+        number: 73,
+        title: "Фриланс ва кори аввалин",
+        description: "Платформаҳо, вакансия, нарх",
+        theory: kotlinM14FreelanceTheory,
+        starterCode: `// Профили фрилансӣ + вакансияҳо
+
+fun main() {
+    println("Профиль: холӣ | дархостҳо: 0")
+}`,
+        task: "Профили фрилансӣ (мутун кӯтоҳ) дар println нависед ва нишон диҳед ки ба 3 вакансияи Android дархост фиристодед. Калимаи вакансия бошад",
+        expectedOutput: "вакансия",
+        outputValidation: "contains",
+        hint: "Бо нархи паст оғоз кунед ва портфолиои GitHub-ро нишон диҳед",
+      },
+    ],
+  },
 ];
+
+/** Анҷоми ин дарс — гирифтани гувоҳномаи Kotlin & Android (ITomuz TJ) */
+export const KOTLIN_CAPSTONE_LESSON_ID = "73";
 
 export function getAllKotlinLessons(): Lesson[] {
   return kotlinLessonModules.flatMap((m) => m.lessons);

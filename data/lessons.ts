@@ -27,6 +27,7 @@ export {
 
 export {
   kotlinLessonModules,
+  KOTLIN_CAPSTONE_LESSON_ID,
   getAllKotlinLessons,
   getKotlinLessonById,
   getKotlinTotalLessonCount,

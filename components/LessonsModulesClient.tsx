@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { LessonCard } from "@/components/LessonCard";
+import { KotlinCourseCertificateBanner } from "@/components/KotlinCourseCertificateBanner";
 import { WebCourseCertificateBanner } from "@/components/WebCourseCertificateBanner";
 import {
   countCompletedLessonsForCourse,
@@ -92,6 +93,7 @@ export function LessonsModulesClient({ courseId, accent }: Props) {
       </section>
 
       {courseId === "web" ? <WebCourseCertificateBanner completedIds={completedIds} /> : null}
+      {courseId === "kotlin" ? <KotlinCourseCertificateBanner completedIds={completedIds} /> : null}
 
       <div className="mt-14 space-y-14">
         {modules.map((mod) => (
