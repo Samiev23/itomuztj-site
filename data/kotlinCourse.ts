@@ -599,6 +599,158 @@ const kotlinM4ProjectStructureTheory = `## Сохтори лоиҳа
 - Java/Kotlin = логика; res = намуд ва матн; Manifest = шиносномаи барнома.
 `;
 
+const kotlinM5ComposeIntroTheory = `## Compose чист?
+
+### Аввал аз ҳаёт фаҳмем
+
+**Пештар** барномасозон UI-ро бо **XML** мекашиданд — мисли **расмкашӣ бо қалам** дар кағаз: ҳар хатро дастӣ мекашиданд. **Jetpack Compose** усули **нав** аст — мисли **ЛЕГО** 🧱: шумо мегӯед **ЧӢ мехоҳед**, на **ЧӢ ТАВР** онро лӯла ба лӯла сохтан. Ин **declarative UI** (эъломшаванда) ном дорад: «ин чизҳое, ки дар экран бояд бошанд». **Google** Compose-ро барои **ояндаи Android** сохтааст.
+
+### Declarative vs imperative
+
+- **Imperative (фармоишӣ):** «ин тугмаро бисоз, баъд ин ранг гузор…» — қадам ба қадам.
+- **Declarative:** «ман инро мебинам: матн, тугма, ранг» — система худаш танзим мекунад.
+
+### Дар код
+
+- Аннотацияи \`@Composable\` — «ин функсия қисми UI аст».
+- Функсияи \`@Composable fun Салом() { Text("...") }\` — аввалин блоки UI.
+- **Preview** дар Android Studio — экранро бидуни эмулятор мебинед.
+
+### 🎯 Хулоса
+
+- Compose = LEGO-и UI: эълом мекунед, чӣ нишон дода шавад.
+- XML камтар; Kotlin як забон барои логика ва намоиш.
+`;
+
+const kotlinM5TextButtonImageTheory = `## Text, Button, Image
+
+### Аввал аз ҳаёт фаҳмем
+
+**Се устухони асосӣ** барои ҳар барнома:
+
+1. **Text** — **матн** нишон медиҳад, мисли **ёрлиқ** рӯи дар.
+2. **Button** — **тугма**, ки пахш мешавад, мисли **занг** дар дар.
+3. **Image** — **сурат**, мисли **акс дар девор**.
+
+Ҳар кадом **параметрҳо** дорад: **ранг**, **андоза**, **шакл**. **Icon** — нишонаҳои хурд (мисли нишонаҳои роҳ).
+
+### Text
+
+\`fontSize\`, \`color\`, \`fontWeight\`, \`textAlign\` — матнро зебо мекунанд.
+
+### Button
+
+\`onClick\` — чӣ шавад пас аз пахш; \`colors\`, \`shape\` — намуд.
+
+### Image
+
+\`painter\`, \`contentDescription\` (барои дастрасӣ), \`contentScale\` (чӣ гуна сурат пур кунад).
+
+### 🎯 Хулоса
+
+- Text, Button, Image — пойгоҳ; баъд Modifier онҳоро такмил медиҳад.
+`;
+
+const kotlinM5LayoutsTheory = `## Column, Row, Box — ҷойгиркунӣ
+
+### Аввал аз ҳаёт фаҳмем
+
+- **Column** — аз **боло ба поён**, мисли **сутун**: ном ↓ касб ↓ тугма ↓.
+- **Row** — аз **чап ба рост**, мисли **сатр**: сурат → ном → тугма.
+- **Box** — **болои ҳам**, мисли **қатҳои акс**: як чиз рӯи дигар.
+
+Ин **се layout** бо **лабӯшак** ҳамаи UI-ро месозанд!
+
+### Параметрҳо
+
+- **Column:** \`verticalArrangement\`, \`horizontalAlignment\`.
+- **Row:** \`horizontalArrangement\`, \`verticalAlignment\`.
+- **Box:** \`contentAlignment\`.
+- **Spacer** — фосилаи холӣ (мисли донаи ҳаво дар қатор).
+
+### Лабӯшак
+
+Column дохили Row ё баръакс — **профил**, **корт**, **меню**.
+
+### 🎯 Хулоса
+
+- Column / Row / Box = самтҳои гуногуни ҷойгиркунӣ.
+`;
+
+const kotlinM5ModifierTheory = `## Modifier — тағйири зоҳир
+
+### Аввал аз ҳаёт фаҳмем
+
+**Modifier** мисли **либоси элемент** аст 👔 Шумо метавонед **андоза**, **ранги фон**, **ҳошия**, **фосила**, **шакл** ва **ҳаракат** (пахш)ро тағйир диҳед.
+
+### Мисолҳо
+
+- \`Modifier.fillMaxWidth()\` — «**тамоми паҳно** гир!»
+- \`Modifier.padding(16.dp)\` — «**16 dp** аз атроф фосила!»
+- \`fillMaxSize\`, \`height\`, \`width\`, \`background\`, \`clip\`, \`border\`, \`clickable\`, \`shadow\`.
+
+### Занҷир
+
+Modifier-ҳо **занҷир мешаванд**: \`Modifier.fillMaxWidth().padding(16).background(...)\` — як қадам баъд аз дигар.
+
+### 🎯 Хулоса
+
+- Modifier = зебоӣ ва андозаи элементҳо.
+`;
+
+const kotlinM5Material3Theory = `## Material Design 3
+
+### Аввал аз ҳаёт фаҳмем
+
+**Material Design** — **забони дизайни Google**: рангҳо, шаклҳо, тугмаҳо — **стандарт**, то барномаҳо **хонотар** ва **яклухт** бошанд.
+
+### Дар Compose
+
+- **MaterialTheme** — \`colorScheme\`, \`typography\`, \`shapes\`: ҳама дар як ҷо.
+- **Card**, **Surface** — қабатҳои бо соя.
+- **Scaffold** — каркаси саҳифа: ҷой барои **TopAppBar**, **мобайн**, **FloatingActionButton**.
+- **ElevatedButton**, **OutlinedTextField** — компонентҳои тайёр.
+
+### 🎯 Хулоса
+
+- Material 3 = суръат + яклухтӣ; аз Theme оғоз кунед.
+`;
+
+const kotlinM5LazyListTheory = `## Рӯйхатҳо — LazyColumn
+
+### Аввал аз ҳаёт фаҳмем
+
+Агар **1000 элемент** дошта бошед, ҳамаро **якбора** сохтан **суст** аст! **LazyColumn** танҳо он чизҳоро месозад, ки дар **экран намоён** аст — мисли **китобро саҳифа ба саҳифа хондан**, на ҳамаро якбора бардордан.
+
+### Дар код
+
+- \`LazyColumn { items(рӯйхат) { элемент -> ... } }\`
+- \`itemsIndexed\`, \`key\` — барои идораи дуруст.
+- **LazyRow**, **LazyVerticalGrid** — самтҳои дигар.
+- **sticky headers**, **pull to refresh** — барои UX-и беҳтар.
+
+### 🎯 Хулоса
+
+- LazyColumn = рӯйхатҳои калон бе сустӣ.
+`;
+
+const kotlinM5BusinessCardTheory = `## Мисоли амалӣ — Корти визитӣ
+
+### Аввал аз ҳаёт фаҳмем
+
+Биёед **ҳамаи омӯхтаро як ҷо кунем!** **Корти визитӣ** дар телефон: **сурат**, **ном**, **касб**, **рақам**, **email**, **тугмаҳои иҷтимоӣ**. Ин лоиҳа **Text**, **Image**, **Column**, **Row**, **Modifier** ва **Material**-ро якҷо мегирад.
+
+### Сохтори пешниҳод
+
+- Боло: **Image** (профил).
+- Мобайн: **Column** бо ном ва касб.
+- Поён: **Row** бо тугмаҳо (телефон, почта, шабака).
+
+### 🎯 Хулоса
+
+- Аз қисмҳои хурд UI-и пурра месозед.
+`;
+
 const LESSON8_TABLE_EXPECTED = Array.from({ length: 10 }, (_, i) => {
   const n = i + 1;
   return `5 x ${n} = ${5 * n}`;
@@ -1141,6 +1293,162 @@ fun main() {
         expectedOutput: "ITomuz App",
         outputValidation: "contains",
         hint: "<string name=\"app_name\">ITomuz App</string> дар strings.xml",
+      },
+    ],
+  },
+  {
+    id: "m5",
+    title: "Модул 5: Jetpack Compose асосӣ",
+    titleEn: "UI-и муосир",
+    locked: false,
+    lessons: [
+      {
+        id: "27",
+        number: 27,
+        title: "Compose чист?",
+        description: "Declarative UI, @Composable, Preview",
+        theory: kotlinM5ComposeIntroTheory,
+        starterCode: `// Дар Android Studio (Compose):
+// @Composable
+// fun Профил() {
+//     Text("Аҳмад — барномасоз")
+// }
+
+fun main() {
+    println("Аҳмад — барномасоз")
+}`,
+        task: "Функсияи @Composable дар Studio созед ки номи шумо ва касбатонро нишон диҳад; дар ин ҷо ҳамон матнро дар println нависед",
+        expectedOutput: "—",
+        outputValidation: "contains",
+        hint: "@Composable fun Профил() { Text(\"Аҳмад — барномасоз\") }",
+      },
+      {
+        id: "28",
+        number: 28,
+        title: "Text, Button, Image",
+        description: "Матн, тугма, сурат, Icon",
+        theory: kotlinM5TextButtonImageTheory,
+        starterCode: `// Дар Studio: Text(сарлавҳа, fontSize = 24.sp, color = Color.Red)
+// Text(тавсиф, fontSize = 14.sp, color = Color.Gray)
+// Button(onClick = { }) { Text("Бештар") }
+
+fun main() {
+    println("Салом")
+    println("Тавсифи кӯтоҳ дар ин ҷо")
+    println("Бештар")
+}`,
+        task: "Экран дар Studio бо сарлавҳа (калон, сурх), тавсиф (хурд, хокистарӣ) ва тугмаи «Бештар» созед; дар println се сатр мисли намуна",
+        expectedOutput: "Бештар",
+        outputValidation: "contains",
+        hint: "Text(\"Салом\", fontSize = 24.sp, color = Color.Red)",
+      },
+      {
+        id: "29",
+        number: 29,
+        title: "Column, Row, Box — ҷойгиркунӣ",
+        description: "Сутун, сатр, қатҳо",
+        theory: kotlinM5LayoutsTheory,
+        starterCode: `// Дар Studio:
+// Row {
+//   Image(…) // сурат
+//   Column {
+//     Text(ном)
+//     Text(касб)
+//   }
+// }
+// Button(…) // поён
+
+fun main() {
+    println("ROW: [Сурат] | COLUMN: Ном | Касб")
+    println("BUTTON: Пайваст")
+}`,
+        task: "Корти профил дар Studio: Row бо сурат ва Column бо ном+касб; дар поён тугма. Дар println сохторро нишон диҳед",
+        expectedOutput: "COLUMN",
+        outputValidation: "contains",
+        hint: "Row { Image(…); Column { Text(ном); Text(касб) } }",
+      },
+      {
+        id: "30",
+        number: 30,
+        title: "Modifier — тағйири зоҳир",
+        description: "padding, clip, background, соя",
+        theory: kotlinM5ModifierTheory,
+        starterCode: `// Дар Studio бо Modifier:
+// Modifier.fillMaxWidth()
+//   .clip(RoundedCornerShape(16.dp))
+//   .background(Color.Blue)
+//   .padding(16.dp)
+//   .shadow(4.dp)
+
+fun main() {
+    println("КОРТ: фон=кабуд | ҳошия=16dp | соя=4dp | padding=16dp")
+}`,
+        task: "Кортро дар Studio зебо кунед: фони кабуд, ҳошияи мудаввар 16.dp, сояи 4.dp, фосилаи 16.dp — дар println хулоса нависед",
+        expectedOutput: "кабуд",
+        outputValidation: "contains",
+        hint: "Modifier.fillMaxWidth().clip(RoundedCornerShape(16.dp)).background(Color.Blue).padding(16.dp)",
+      },
+      {
+        id: "31",
+        number: 31,
+        title: "Material Design 3",
+        description: "MaterialTheme, Scaffold, Card",
+        theory: kotlinM5Material3Theory,
+        starterCode: `// Scaffold(
+//   topBar = { TopAppBar(title = { Text("ITomuz") }) },
+//   floatingActionButton = { FloatingActionButton(onClick = {}) { Text("+") } }
+// ) { padding -> Card(Modifier.padding(padding)) { Text("маълумот") } }
+
+fun main() {
+    println("TopAppBar: ITomuz")
+    println("FAB: +")
+    println("Card: маълумот")
+}`,
+        task: "Саҳифа бо Scaffold дар Studio: TopAppBar бо номи барнома, FloatingActionButton (+), ва Card бо маълумот",
+        expectedOutput: "ITomuz",
+        outputValidation: "contains",
+        hint: "Scaffold(topBar = { TopAppBar(title = { Text(\"ITomuz\") }) }, floatingActionButton = { FloatingActionButton(onClick = {}) { Icon(…) } })",
+      },
+      {
+        id: "32",
+        number: 32,
+        title: "Рӯйхатҳо — LazyColumn",
+        description: "items, LazyRow, Grid",
+        theory: kotlinM5LazyListTheory,
+        starterCode: `// LazyColumn { items(тамосҳо) { тамос -> ТамосItem(тамос) } }
+// Дар ин симулятор — 50 сатр мисли элементҳои рӯйхат:
+
+fun main() {
+    for (i in 1..50) {
+        println("📷 | Дӯст\$i | +99290000\$i")
+    }
+}`,
+        task: "Дар Studio рӯйхати 50 тамос бо LazyColumn — ҳар элемент: намояндаи сурат, ном, рақам. Дар симулятор чопи зерро санҷед",
+        expectedOutput: "Дӯст50",
+        outputValidation: "contains",
+        hint: "LazyColumn { items(тамосҳо) { тамос -> ТамосItem(тамос) } }",
+      },
+      {
+        id: "33",
+        number: 33,
+        title: "Мисоли амалӣ — Корти визитӣ",
+        description: "Профил, тамос, тугмаҳо",
+        theory: kotlinM5BusinessCardTheory,
+        starterCode: `// @Composable fun ProfileImage() { … }
+// @Composable fun ContactInfo() { … }
+// @Composable fun SocialButtons() { … }
+// @Composable fun КортиВизитӣ() { Column { ProfileImage(); ContactInfo(); SocialButtons() } }
+
+fun main() {
+    println("[Сурат профил]")
+    println("Фаррух Раҳимов")
+    println("Барномасози Android")
+    println("Телефон | Email | Telegram")
+}`,
+        task: "Корти визитии пурра дар Studio: сурат боло, ном ва касб мобайн, 3 тугмаи тамос поён. Дар println натиҷаро мутобиқ кунед",
+        expectedOutput: "Телефон",
+        outputValidation: "contains",
+        hint: "Column(horizontalAlignment = Alignment.CenterHorizontally) { Image(…); Text(ном); Row { тугмаҳо } }",
       },
     ],
   },
