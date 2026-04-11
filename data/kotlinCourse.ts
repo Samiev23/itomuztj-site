@@ -480,6 +480,125 @@ const kotlinM3EnumCompanionTheory = `## Enum ва Companion Object
 - Enum барои вариантҳои маълум; companion барои «ман ба синф тааллуқ дорам».
 `;
 
+const kotlinM4StudioTheory = `## Android Studio — муҳити корӣ
+
+### Аввал аз ҳаёт фаҳмем
+
+**Android Studio** — ин **дӯкони корӣ** барои барномасози Android. Мисли **ошпаз** барои пухтан **ошхона** лозим дорад, барномасоз барои барномаи телефон **Android Studio** лозим дорад! Дар ин қадам мо онро **насб** мекунем ва бо рӯй менӯшинем.
+
+### Талабот ба компютер
+
+- **RAM:** ҳадди ақал **8 ГБ** (беҳтар 16 ГБ).
+- **Диск:** тақрибан **8 ГБ** барои насб ва SDK.
+- **Система:** **Windows**, **Mac** ё **Linux**.
+
+### Зеркашӣ ва насб
+
+1. Ба **developer.android.com/studio** равед — аз ин ҷо **расмӣ** зеркашӣ кунед.
+2. Барномаро кушоед, роҳнамои насбро иҷро кунед.
+3. **Оғози аввал:** Android Studio SDK-ро пешниҳод мекунад — иҷозат диҳед, то компонентҳо зеркашӣ шаванд.
+
+### Рӯйи асосӣ (хулоса)
+
+- **Editor** — ин ҷо код менависед.
+- **Project** — дарахти файлҳо ва папкаҳо.
+- **Logcat** — паёмҳои барнома вақти иҷро.
+- **Run (▶)** — барномаро рӯи эмулятор ё телефон мефиристед.
+
+### 🫖 Мисол аз ҳаёт
+
+Мисли **коргоҳи мебелсозӣ**: ҳар қисмат — асбоби алоҳида; дар Studio ҳар панел як кори мушаххас дорад.
+
+### 🎯 Хулоса
+
+- Android Studio = ҷои асосии кор барои Android.
+- Насбро аз сомонаи расмӣ анҷом диҳед; SDK-ро пурра кунед.
+
+### Барои скриншот (дар дафтар ё ба устод)
+
+- Экрани **асосӣ** пас аз насб (Welcome, ё рӯйи кор).
+- **Project** + **Editor** бо як файл кушода.
+- **Toolbar** бо тугмаи **Run (▶)**.
+- (Ихтиёрӣ) равзанаи **Logcat** ё **SDK** пас аз танзим.
+`;
+
+const kotlinM4EmulatorTheory = `## Эмулятор — телефони виртуалӣ
+
+### Аввал аз ҳаёт фаҳмем
+
+Барои санҷидани барнома **телефони воқеӣ ҳатмӣ нест**! Android Studio **телефони виртуалӣ** медиҳад — ин **Эмулятор** ном дорад. Мисли **телефон дар дохили компютер**: шумо метавонед **Samsung**, **Pixel** ва дигар намунаҳоро интихоб кунед ва санҷед.
+
+### Чӣ гуна месозем?
+
+1. **Device Manager** (ё AVD Manager) кушоед.
+2. **Create Device** — дастгоҳ интихоб кунед (масалан **Pixel 7**).
+3. **Системаи амал:** **Android 14 (API 34)** интихоб кунед (агар зеркашӣ лозим бошад — анҷом диҳед).
+4. **Finish** — эмуляторро бо тугмаи **Run** оғоз кунед.
+
+### Идоракунии оддӣ
+
+Паҳнкунӣ, чархзанӣ, тугмаҳои пушти телефон — ҳама дар панели эмулятор дастрасанд.
+
+### 🎯 Хулоса
+
+- Эмулятор = санҷиши бе телефони физикӣ.
+- Pixel 7 + API 34 — мисоли хуб барои оғоз.
+
+### Скриншотҳои муфид
+
+- **Device Manager** бо дастгоҳи **Pixel 7**.
+- Эмулятори кушода бо экрани **хонагӣ**.
+- Тугмаҳои идоракунии панели эмулятор.
+`;
+
+const kotlinM4HelloAndroidTheory = `## Аввалин барнома — Салом Дунё!
+
+### Аввал аз ҳаёт фаҳмем
+
+**Вақташ расид!** Биёед **аввалин барномаи Android**-ро бисозем. Вақте **Empty Activity** мегиред, Android Studio аксар вақт **Hello World**-и омодаро мегузорад. Мо матнро иваз мекунем, то **«Салом, Тоҷикистон!»** (ё номи шумо) дар экран бино шавад.
+
+### Қадамҳо
+
+1. **File → New → New Project** — **Empty Activity** (ё шаблони ҳамсон бо **Compose**).
+2. Номи лоиҳа, забон **Kotlin**, **Minimum SDK** интихоб кунед.
+3. Файли асосӣ: **MainActivity.kt** — дар он \`setContent { ... }\` ё XML вобаста ба шаблон.
+4. **Text("...")** дар блоки **Compose** матни экранро иваз мекунад.
+5. **Run ▶** — барномаро рӯи эмулятор фиристед.
+
+### 🎯 Хулоса
+
+- Лоиҳаи нав + MainActivity = оғози роҳ.
+- Матнро дар \`Text("...")\` иваз кунед.
+`;
+
+const kotlinM4ProjectStructureTheory = `## Сохтори лоиҳа
+
+### Аввал аз ҳаёт фаҳмем
+
+Лоиҳаи Android мисли **хона бо хонаҳои гуногун** аст:
+
+| Ҷой | Мисол аз ҳаёт | Мазмун |
+|-----|----------------|--------|
+| **app/src/main/java** (ё kotlin) | **Ошхонаи кор** | Код — дарсҳо, экранҳо |
+| **app/src/main/res** | **Анбор** | Аксҳо (**drawable**), **рангҳо**, **матнҳо**, **намоиш** |
+| **AndroidManifest.xml** | **Паспорт** | Номи барнома, экрани оғоз, **иҷозатҳо** |
+| **build.gradle** | **Рӯйхати масолеҳ** | Китобхонаҳо, версияҳо |
+
+### Файлҳои муҳим дар res
+
+- **values/strings.xml** — матнҳои барнома (ном, паёмҳо).
+- **values/colors.xml** — рангҳои асосӣ.
+- **values/themes.xml** — мавзӯъ.
+
+### R ва пайвастҳо
+
+Код ба захираҳо тавассути синфи **R** пайваст мешавад (масалан \`R.string.app_name\`).
+
+### 🎯 Хулоса
+
+- Java/Kotlin = логика; res = намуд ва матн; Manifest = шиносномаи барнома.
+`;
+
 const LESSON8_TABLE_EXPECTED = Array.from({ length: 10 }, (_, i) => {
   const n = i + 1;
   return `5 x ${n} = ${5 * n}`;
@@ -941,6 +1060,87 @@ fun main() {
         task: "Дар Android Studio enum Мавсим ва companion object-ро чунин бисозед, ки ин қимматҳоро чоп кунад. Дар симулятор натиҷаро санҷед",
         expectedOutput: "15\n-5\nITomuz",
         hint: "enum class Мавсим(val ҳарорат: Int) { БАҲОР(15), ТОБИСТОН(35)… }",
+      },
+    ],
+  },
+  {
+    id: "m4",
+    title: "Модул 4: Android Studio ва аввалин барнома",
+    titleEn: "Муҳити корӣ",
+    locked: false,
+    lessons: [
+      {
+        id: "23",
+        number: 23,
+        title: "Android Studio — муҳити корӣ",
+        description: "Насб, SDK, рӯй",
+        theory: kotlinM4StudioTheory,
+        starterCode: `// Ин дарс асосан дар компютери шумо дар Android Studio иҷро мешавад.
+// Дар ин ҷо як ҷумла нависед: чӣ дар экрани асосии Studio дидед (пас аз насб).
+
+fun main() {
+    println("Экрани асосӣ: ________________________________________________")
+}`,
+        task: "Android Studio-ро насб кунед ва дар зер скриншоти экрани асосиро дар як ҷумла тавсиф кунед (println)",
+        expectedOutput: "",
+        outputValidation: "nonempty",
+        hint: "https://developer.android.com/studio — аз ин ҷо зеркашӣ кунед",
+      },
+      {
+        id: "24",
+        number: 24,
+        title: "Эмулятор — телефони виртуалӣ",
+        description: "AVD, Pixel, API 34",
+        theory: kotlinM4EmulatorTheory,
+        starterCode: `// Эмуляторро дар Android Studio созед (Device Manager).
+// Дар зер нависед: кадом дастгоҳ ва API интихоб кардед?
+
+fun main() {
+    println("Эмулятор: ________________________________________________")
+}`,
+        task: "Эмулятори Pixel 7 бо Android 14 (API 34) созед ва иҷро кунед; дар println натиҷаро нишон диҳед",
+        expectedOutput: "",
+        outputValidation: "nonempty",
+        hint: "Device Manager → Create Device → Pixel 7 → системаи Android 14 (API 34)",
+      },
+      {
+        id: "25",
+        number: 25,
+        title: "Аввалин барнома — Салом Дунё!",
+        description: "Empty Activity, MainActivity, Compose Text",
+        theory: kotlinM4HelloAndroidTheory,
+        starterCode: `// Дар Android Studio: New Project → Empty Activity → Kotlin.
+// Дар MainActivity.kt дар setContent инро гузоред:
+//    Text("Салом, Тоҷикистон!")
+// Дар ин симулятор чопи оддӣ — мисли матни экран:
+
+fun main() {
+    println("Салом, Тоҷикистон!")
+}`,
+        task: "Лоиҳаи нав дар Studio созед ва матнро ба «Салом, ман [номи шумо]!» тағйир диҳед; дар зер ҳамон матнро чоп кунед",
+        expectedOutput: "Салом, ман",
+        outputValidation: "contains",
+        hint: "Text(\"Салом, ман Аҳмад!\") дар блоки setContent — ва дар println ҳаминро нишон диҳед",
+      },
+      {
+        id: "26",
+        number: 26,
+        title: "Сохтори лоиҳа",
+        description: "java, res, Manifest, Gradle",
+        theory: kotlinM4ProjectStructureTheory,
+        starterCode: `// app/src/main/java  — код
+// app/src/main/res/values/strings.xml  — номи барнома: app_name
+// app/src/main/res/values/colors.xml   — рангҳои асосӣ
+// AndroidManifest.xml, build.gradle — шиноснома ва масолеҳ
+
+fun main() {
+    println("ITomuz App")
+    println("#6200EE")
+}`,
+        task: "Дар strings.xml номи барномаро ба «ITomuz App» гузоред; дар colors.xml ранги асосиро иваз кунед — дар println ном ва коди ранги навро нишон диҳед",
+        expectedOutput: "ITomuz App",
+        outputValidation: "contains",
+        hint: "<string name=\"app_name\">ITomuz App</string> дар strings.xml",
       },
     ],
   },
