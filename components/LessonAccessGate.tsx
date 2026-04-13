@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import type { Lesson, LessonModule } from "@/data/lessons";
 import { fetchCompletedLessonIds, isLessonUnlockedByProgress } from "@/lib/lessonProgress";
 import { LessonWorkspace } from "@/components/LessonWorkspace";
+import { PremiumLessonPaywall } from "@/components/PremiumLessonPaywall";
 import { WebLessonWorkspace } from "@/components/WebLessonWorkspace";
 
 type Props = {
@@ -75,6 +76,10 @@ export function LessonAccessGate({ courseId, lesson, module }: Props) {
         </div>
       </main>
     );
+  }
+
+  if (lesson.isPremium) {
+    return <PremiumLessonPaywall courseId={courseId} />;
   }
 
   if (lesson.runtime === "web") {
