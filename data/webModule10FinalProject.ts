@@ -1,7 +1,7 @@
-import type { LessonModule } from "./lessonTypes";
+import type { LessonModuleInput } from "./lessonPremium";
 
 /** Модул 10: Лоиҳаи ниҳоӣ — дарсҳои 57–61 */
-export const webModule10FinalProject: LessonModule = {
+export const webModule10FinalProject: LessonModuleInput = {
   id: "m10",
   title: "Модул 10: Лоиҳаи ниҳоӣ",
   titleEn: "Портфолиои касбӣ",

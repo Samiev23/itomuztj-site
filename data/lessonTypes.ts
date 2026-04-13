@@ -22,6 +22,8 @@ export interface Lesson {
   webPreviewMode?: WebPreviewMode;
   /** Барои webPreviewMode=react: китобхаҳои CDN (масалан react-router-dom) */
   webReactRouter?: boolean;
+  /** Дарси пулакӣ — кӯмаки ментор ва нишонаи «Пулакӣ» дар рӯйхат */
+  isPremium: boolean;
   /** Барои дарсҳои веб — санҷиши матни код */
   webChecks?: {
     contains?: string[];

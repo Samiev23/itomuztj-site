@@ -1,7 +1,7 @@
-import type { LessonModule } from "./lessonTypes";
+import type { LessonModuleInput } from "./lessonPremium";
 
 /** Модул 7: Мини-лоиҳаҳо 2 — дарсҳои 41–44 */
-export const webModule7MiniProjects2: LessonModule = {
+export const webModule7MiniProjects2: LessonModuleInput = {
   id: "m7",
   title: "Модул 7: Мини-лоиҳаҳо 2",
   titleEn: "Лоиҳаҳои амалӣ",

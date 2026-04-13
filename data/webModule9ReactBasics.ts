@@ -1,7 +1,7 @@
-import type { LessonModule } from "./lessonTypes";
+import type { LessonModuleInput } from "./lessonPremium";
 
 /** Модул 9: React асосӣ — дарсҳои 49–56 */
-export const webModule9ReactBasics: LessonModule = {
+export const webModule9ReactBasics: LessonModuleInput = {
   id: "m9",
   title: "Модул 9: React асосӣ",
   titleEn: "Китобхонаи муосир",

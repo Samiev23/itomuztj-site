@@ -1,7 +1,7 @@
-import type { LessonModule } from "./lessonTypes";
+import type { LessonModuleInput } from "./lessonPremium";
 
 /** Модул 5: JavaScript асосӣ — дарсҳои 26–33 */
-export const webModule5JsBasics: LessonModule = {
+export const webModule5JsBasics: LessonModuleInput = {
   id: "m5",
   title: "Модул 5: JavaScript асосӣ",
   titleEn: "Асосҳои JavaScript",

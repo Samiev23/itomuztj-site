@@ -58,10 +58,21 @@ export function LessonCard({
     <>
       <StatusIcon status={cardStatus} accent={accent} />
       <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-baseline gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <span className="font-mono text-xs font-medium uppercase tracking-wider text-foreground-muted">
             Дарс {lesson.number}
           </span>
+          {lesson.isPremium ? (
+            <span className="inline-flex items-center gap-1 rounded-full border border-amber-500/35 bg-amber-500/10 px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide text-amber-800 dark:text-amber-200">
+              <span aria-hidden>🔒</span>
+              Пулакӣ
+            </span>
+          ) : (
+            <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide text-emerald-800 dark:text-emerald-200">
+              <span aria-hidden>🆓</span>
+              Бепул
+            </span>
+          )}
         </div>
         <h3 className="mt-1 text-lg font-semibold text-foreground">{lesson.title}</h3>
         <p className="mt-1 text-sm leading-relaxed text-foreground-secondary">{lesson.description}</p>

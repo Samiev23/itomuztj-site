@@ -1,4 +1,9 @@
 import type { LessonModule } from "./lessonTypes";
+import {
+  attachLessonPremiumFlags,
+  WEB_FREE_THROUGH_LESSON_NUMBER,
+  type LessonModuleInput,
+} from "./lessonPremium";
 import { webModule5JsBasics } from "./webModule5JsBasics";
 import { webModule6JsDom } from "./webModule6JsDom";
 import { webModule7MiniProjects2 } from "./webModule7MiniProjects2";
@@ -10,7 +15,7 @@ import { webModule11JobPrep } from "./webModule11JobPrep";
 /** Анҷоми ин дарс — гирифтани гувоҳномаи «Сайтсозӣ» */
 export const WEB_CAPSTONE_LESSON_ID = "64";
 
-export const webLessonModules: LessonModule[] = [
+const webLessonModulesBase: LessonModuleInput[] = [
   {
     id: "m0",
     title: "Модул 0: Муқаддима",
@@ -906,3 +911,8 @@ body { background: var(--фон); }
   webModule10FinalProject,
   webModule11JobPrep,
 ];
+
+export const webLessonModules: LessonModule[] = attachLessonPremiumFlags(
+  webLessonModulesBase,
+  WEB_FREE_THROUGH_LESSON_NUMBER,
+);

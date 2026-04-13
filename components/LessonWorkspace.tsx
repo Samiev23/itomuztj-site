@@ -9,6 +9,7 @@ import { getNextLessonIdForCourse, KOTLIN_CAPSTONE_LESSON_ID } from "@/data/less
 import { lessonConsoleOutputContains, lessonConsoleOutputsEqual } from "@/lib/lessonOutputMatch";
 import { notifyProgressUpdated, saveLessonCompletion } from "@/lib/lessonProgress";
 import { simulateKotlinPrintlnOutput } from "@/lib/simulateKotlinOutput";
+import { MentorHelpCard } from "@/components/MentorHelpCard";
 import { ThemedSyntaxBlock } from "@/components/ThemedSyntaxBlock";
 
 type Props = {
@@ -247,6 +248,8 @@ export function LessonWorkspace({ lesson, moduleTitle, courseId }: Props) {
                 )}
               </div>
             )}
+
+            {lesson.isPremium ? <MentorHelpCard /> : null}
           </div>
         </div>
       </div>

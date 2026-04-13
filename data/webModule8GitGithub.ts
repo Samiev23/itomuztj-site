@@ -1,7 +1,7 @@
-import type { LessonModule } from "./lessonTypes";
+import type { LessonModuleInput } from "./lessonPremium";
 
 /** Модул 8: Git ва GitHub — дарсҳои 45–48 */
-export const webModule8GitGithub: LessonModule = {
+export const webModule8GitGithub: LessonModuleInput = {
   id: "m8",
   title: "Модул 8: Git ва GitHub",
   titleEn: "Назорати версияҳо",

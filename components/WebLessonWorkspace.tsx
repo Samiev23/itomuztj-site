@@ -11,6 +11,7 @@ import { WEB_CAPSTONE_LESSON_ID } from "@/data/lessons";
 import { evaluateWebLessonSuccess } from "@/lib/webLessonSuccess";
 import { buildReactLessonPreviewSrcDoc } from "@/lib/reactLessonPreview";
 import { WEB_PREVIEW_CONSOLE_TYPE } from "@/lib/webPreviewConstants";
+import { MentorHelpCard } from "@/components/MentorHelpCard";
 import { ThemedSyntaxBlock } from "@/components/ThemedSyntaxBlock";
 
 /** Wraps console in iframe and forwards lines to parent via postMessage */
@@ -334,6 +335,8 @@ export function WebLessonWorkspace({ lesson, moduleTitle, courseId }: Props) {
                 )}
               </div>
             )}
+
+            {lesson.isPremium ? <MentorHelpCard variant="web" /> : null}
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
-import type { LessonModule } from "./lessonTypes";
+import type { LessonModuleInput } from "./lessonPremium";
 
 /** Модул 11: Тайёрӣ ба кор — дарсҳои 62–64 (гувоҳнома) */
-export const webModule11JobPrep: LessonModule = {
+export const webModule11JobPrep: LessonModuleInput = {
   id: "m11",
   title: "Модул 11: Тайёрӣ ба кор",
   titleEn: "Аз омӯзиш ба кор",

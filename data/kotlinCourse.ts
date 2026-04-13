@@ -1,4 +1,9 @@
 import type { Lesson, LessonModule } from "./lessonTypes";
+import {
+  attachLessonPremiumFlags,
+  KOTLIN_FREE_THROUGH_LESSON_NUMBER,
+  type LessonModuleInput,
+} from "./lessonPremium";
 
 /* ─── Модул 0: муқаддима ─── */
 
@@ -1553,7 +1558,7 @@ const LESSON8_TABLE_EXPECTED = Array.from({ length: 10 }, (_, i) => {
   return `5 x ${n} = ${5 * n}`;
 }).join("\n");
 
-export const kotlinLessonModules: LessonModule[] = [
+const kotlinLessonModulesBase: LessonModuleInput[] = [
   {
     id: "m0",
     title: "Модул 0: Муқаддима",
@@ -3017,6 +3022,11 @@ fun main() {
     ],
   },
 ];
+
+export const kotlinLessonModules: LessonModule[] = attachLessonPremiumFlags(
+  kotlinLessonModulesBase,
+  KOTLIN_FREE_THROUGH_LESSON_NUMBER,
+);
 
 /** Анҷоми ин дарс — гирифтани гувоҳномаи Kotlin & Android (ITomuz TJ) */
 export const KOTLIN_CAPSTONE_LESSON_ID = "73";
