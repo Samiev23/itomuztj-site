@@ -35,6 +35,37 @@ function writeStored(data: ProgressByCourse): void {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
 
+async function fetchRemoteLessonIds(courseId: string): Promise<string[] | null> {
+  try {
+    const res = await fetch(`/api/lesson-progress?courseId=${encodeURIComponent(courseId)}`, {
+      credentials: "same-origin",
+    });
+    if (res.status === 401) return null;
+    if (!res.ok) return null;
+    const data = (await res.json()) as { lessonIds?: unknown };
+    if (!Array.isArray(data.lessonIds)) return null;
+    return data.lessonIds.filter((x): x is string => typeof x === "string");
+  } catch {
+    return null;
+  }
+}
+
+async function fetchRemoteAllProgress(): Promise<ProgressByCourse | null> {
+  try {
+    const res = await fetch("/api/lesson-progress", { credentials: "same-origin" });
+    if (res.status === 401) return null;
+    if (!res.ok) return null;
+    const data = (await res.json()) as { kotlin?: unknown; web?: unknown };
+    const kotlin = Array.isArray(data.kotlin)
+      ? data.kotlin.filter((x): x is string => typeof x === "string")
+      : [];
+    const web = Array.isArray(data.web) ? data.web.filter((x): x is string => typeof x === "string") : [];
+    return { kotlin, web };
+  } catch {
+    return null;
+  }
+}
+
 export function isLessonUnlockedByProgress(
   lessonId: string,
   module: LessonModule,
@@ -69,16 +100,34 @@ export function getAllProgressSync(): ProgressByCourse {
 
 export async function fetchCompletedLessonIds(courseId: string): Promise<string[]> {
   if (courseId !== "kotlin" && courseId !== "web") return [];
-  return Promise.resolve(readStored()[courseId]);
+  const remote = await fetchRemoteLessonIds(courseId);
+  if (remote !== null) return remote;
+  return readStored()[courseId];
 }
 
 export async function fetchAllCoursesProgress(): Promise<ProgressByCourse> {
-  return Promise.resolve(readStored());
+  const remote = await fetchRemoteAllProgress();
+  if (remote !== null) return remote;
+  return readStored();
 }
 
 export async function saveLessonCompletion(courseId: string, lessonId: string): Promise<boolean> {
   if (typeof window === "undefined") return false;
   if (courseId !== "kotlin" && courseId !== "web") return false;
+
+  try {
+    const res = await fetch("/api/lesson-progress", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
+      body: JSON.stringify({ courseId, lessonId }),
+    });
+    if (res.ok) return true;
+    if (res.status !== 401) return false;
+  } catch {
+    /* fall through to localStorage */
+  }
+
   const data = readStored();
   const set = new Set(data[courseId]);
   set.add(lessonId);

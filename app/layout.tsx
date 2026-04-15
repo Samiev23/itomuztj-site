@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { IBM_Plex_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { auth } from "@/auth";
+import { AuthProviders } from "@/components/AuthProviders";
 import { Navbar } from "@/components/Navbar";
 import { SITE_TITLE } from "@/lib/site";
 import { THEME_STORAGE_KEY } from "@/lib/theme";
@@ -28,19 +30,23 @@ export const metadata: Metadata = {
     "Сайтсозӣ, Android, дизайн ва зиёда — омӯзиши IT бо забони тоҷикӣ. Аз сифр то касбӣ дар платформаи ITomuz TJ.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+
   return (
     <html lang="tg" suppressHydrationWarning data-theme="dark" className={`${ibmPlexSans.variable} ${jetbrainsMono.variable}`}>
       <body className="font-sans">
         <Script id="itomuz-theme-init" strategy="beforeInteractive">
           {themeInitScript}
         </Script>
-        <Navbar />
-        {children}
+        <AuthProviders session={session}>
+          <Navbar />
+          {children}
+        </AuthProviders>
       </body>
     </html>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import { useCallback, useEffect, useState } from "react";
 import type { Lesson, LessonModule } from "@/data/lessons";
 import { fetchCompletedLessonIds, isLessonUnlockedByProgress } from "@/lib/lessonProgress";
@@ -15,6 +16,7 @@ type Props = {
 };
 
 export function LessonAccessGate({ courseId, lesson, module }: Props) {
+  const { data: session, status: sessionStatus } = useSession();
   const [ready, setReady] = useState(false);
   const [unlocked, setUnlocked] = useState(false);
 
@@ -79,7 +81,17 @@ export function LessonAccessGate({ courseId, lesson, module }: Props) {
   }
 
   if (lesson.isPremium) {
-    return <PremiumLessonPaywall courseId={courseId} />;
+    if (sessionStatus === "loading") {
+      return (
+        <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center text-foreground-secondary">
+          <p className="font-mono text-sm">Боргирӣ…</p>
+        </div>
+      );
+    }
+    const subscribed = Boolean(session?.user?.subscriptionActive);
+    if (!subscribed) {
+      return <PremiumLessonPaywall courseId={courseId} />;
+    }
   }
 
   if (lesson.runtime === "web") {

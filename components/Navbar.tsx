@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { signOut, useSession } from "next-auth/react";
 import { BrandLogo } from "@/components/BrandLogo";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
@@ -12,6 +14,46 @@ const navLinks = [
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const { data: session, status } = useSession();
+
+  const authDesktop =
+    status === "loading" ? (
+      <span className="h-8 w-20 animate-pulse rounded-full bg-[var(--bg-glass-mid)]" aria-hidden />
+    ) : session?.user ? (
+      <div className="flex items-center gap-2">
+        {session.user.image ? (
+          <Image
+            src={session.user.image}
+            alt=""
+            width={32}
+            height={32}
+            className="h-8 w-8 rounded-full border border-theme-medium object-cover"
+            unoptimized
+          />
+        ) : (
+          <span
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-theme-medium bg-[var(--bg-glass-mid)] text-xs font-semibold text-foreground-secondary"
+            aria-hidden
+          >
+            {(session.user.name ?? session.user.email ?? "?").slice(0, 1).toUpperCase()}
+          </span>
+        )}
+        <button
+          type="button"
+          onClick={() => void signOut({ callbackUrl: "/" })}
+          className="text-sm font-medium text-foreground-secondary transition-colors duration-300 hover:text-cyan"
+        >
+          Баромадан
+        </button>
+      </div>
+    ) : (
+      <Link
+        href="/login"
+        className="text-sm font-semibold text-cyan transition-colors duration-300 hover:text-cyan-hover"
+      >
+        Ворид шудан
+      </Link>
+    );
 
   return (
     <header
@@ -44,6 +86,7 @@ export function Navbar() {
 
         <div className="hidden items-center gap-3 md:flex">
           <ThemeToggle />
+          {authDesktop}
           <Link
             href="/courses"
             className="inline-flex items-center justify-center rounded-full bg-cyan px-5 py-2 text-sm font-semibold text-white shadow-lg transition-colors duration-300 hover:bg-cyan-hover"
@@ -93,6 +136,41 @@ export function Navbar() {
                 {item.label}
               </Link>
             ))}
+            {status !== "loading" && session?.user ? (
+              <div className="flex flex-col gap-3 border-t border-theme-subtle pt-3">
+                <div className="flex items-center gap-3 px-3">
+                  {session.user.image ? (
+                    <Image
+                      src={session.user.image}
+                      alt=""
+                      width={36}
+                      height={36}
+                      className="h-9 w-9 rounded-full border border-theme-medium object-cover"
+                      unoptimized
+                    />
+                  ) : null}
+                  <span className="truncate text-sm text-foreground-secondary">{session.user.name ?? session.user.email}</span>
+                </div>
+                <button
+                  type="button"
+                  className="rounded-lg px-3 py-2 text-left text-sm font-semibold text-cyan"
+                  onClick={() => {
+                    setOpen(false);
+                    void signOut({ callbackUrl: "/" });
+                  }}
+                >
+                  Баромадан
+                </button>
+              </div>
+            ) : status !== "loading" ? (
+              <Link
+                href="/login"
+                className="rounded-lg px-3 py-2 text-sm font-semibold text-cyan"
+                onClick={() => setOpen(false)}
+              >
+                Ворид шудан
+              </Link>
+            ) : null}
             <Link
               href="/courses"
               className="mt-1 inline-flex items-center justify-center rounded-full bg-cyan px-5 py-3 text-center font-semibold text-white transition-colors duration-300 hover:bg-cyan-hover"
