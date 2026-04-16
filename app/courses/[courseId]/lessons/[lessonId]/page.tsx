@@ -8,6 +8,7 @@ import {
   getModuleForLessonInCourse,
   isCourseId,
   isLessonAccessibleInCourse,
+  type CourseId,
 } from "@/data/lessons";
 import { SITE_TITLE } from "@/lib/site";
 
@@ -20,7 +21,8 @@ export function generateStaticParams() {
 }
 
 export function generateMetadata({ params }: Props): Metadata {
-  const found = getLessonByCourseAndId(params.courseId, params.lessonId);
+  const courseId = (params.courseId ?? "").trim().toLowerCase();
+  const found = getLessonByCourseAndId(courseId, params.lessonId);
   if (!found) return { title: SITE_TITLE };
   return {
     title: SITE_TITLE,
@@ -29,7 +31,8 @@ export function generateMetadata({ params }: Props): Metadata {
 }
 
 export default function CourseLessonPage({ params }: Props) {
-  const { courseId, lessonId } = params;
+  const { lessonId } = params;
+  const courseId = (params.courseId ?? "").trim().toLowerCase() as CourseId;
   if (!isCourseId(courseId)) notFound();
 
   const found = getLessonByCourseAndId(courseId, lessonId);

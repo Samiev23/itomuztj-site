@@ -95,7 +95,7 @@ export function getLessonByCourseAndId(
   const mods = getLessonModulesForCourse(courseId);
   if (!mods) return undefined;
   for (const m of mods) {
-    const lesson = m.lessons.find((l) => l.id === lessonId);
+    const lesson = (m.lessons ?? []).find((l) => l.id === lessonId);
     if (lesson) return { lesson, moduleTitle: m.title };
   }
   return undefined;
@@ -107,7 +107,7 @@ export function getNextLessonInfo(
 ): { id: string; title: string } | null {
   const mods = getLessonModulesForCourse(courseId);
   if (!mods) return null;
-  const all = mods.flatMap((m) => m.lessons);
+  const all = mods.flatMap((m) => m.lessons ?? []);
   const idx = all.findIndex((l) => l.id === currentLessonId);
   if (idx < 0 || idx >= all.length - 1) return null;
   const next = all[idx + 1];
@@ -116,7 +116,7 @@ export function getNextLessonInfo(
 
 export function getAllLessonIdsForCourse(courseId: string): string[] {
   const mods = getLessonModulesForCourse(courseId);
-  return mods?.flatMap((m) => m.lessons.map((l) => l.id)) ?? [];
+  return mods?.flatMap((m) => (m.lessons ?? []).map((l) => l.id)) ?? [];
 }
 
 /** Танҳо дарсҳои ҳозираи курс — барои пешрафт бо ID-ҳои кӯҳна аз localStorage */
@@ -127,11 +127,13 @@ export function countCompletedLessonsForCourse(courseId: string, completedIds: s
 }
 
 export function countLessonsInCourse(courseId: CourseId): number {
-  return courseLessonModules[courseId].reduce((n, m) => n + m.lessons.length, 0);
+  const mods = courseLessonModules[courseId];
+  if (!mods?.length) return 0;
+  return mods.reduce((n, m) => n + (m.lessons?.length ?? 0), 0);
 }
 
 export function getModuleForLessonInCourse(courseId: string, lessonId: string): LessonModule | undefined {
-  return getLessonModulesForCourse(courseId)?.find((m) => m.lessons.some((l) => l.id === lessonId));
+  return getLessonModulesForCourse(courseId)?.find((m) => (m.lessons ?? []).some((l) => l.id === lessonId));
 }
 
 export function isLessonAccessibleInCourse(courseId: string, lesson: Lesson): boolean {
@@ -145,14 +147,14 @@ export function getProgressionLessonIdsForCourse(courseId: string): string[] {
   if (!mods) return [];
   return mods
     .filter((m) => !m.locked)
-    .flatMap((m) => [...m.lessons].sort((a, b) => a.number - b.number))
+    .flatMap((m) => [...(m.lessons ?? [])].sort((a, b) => a.number - b.number))
     .map((l) => l.id);
 }
 
 export function getNextLessonIdForCourse(courseId: string, currentId: string): string | null {
   const mods = getLessonModulesForCourse(courseId);
   if (!mods) return null;
-  const ordered = [...mods.flatMap((m) => m.lessons)].sort((a, b) => a.number - b.number);
+  const ordered = [...mods.flatMap((m) => m.lessons ?? [])].sort((a, b) => a.number - b.number);
   const i = ordered.findIndex((l) => l.id === currentId);
   if (i === -1 || i >= ordered.length - 1) return null;
   return ordered[i + 1]!.id;

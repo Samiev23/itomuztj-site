@@ -100,15 +100,23 @@ export function getAllProgressSync(): ProgressByCourse {
 
 export async function fetchCompletedLessonIds(courseId: string): Promise<string[]> {
   if (courseId !== "kotlin" && courseId !== "web") return [];
-  const remote = await fetchRemoteLessonIds(courseId);
-  if (remote !== null) return remote;
-  return readStored()[courseId];
+  try {
+    const remote = await fetchRemoteLessonIds(courseId);
+    if (remote !== null) return remote;
+    return readStored()[courseId];
+  } catch {
+    return readStored()[courseId];
+  }
 }
 
 export async function fetchAllCoursesProgress(): Promise<ProgressByCourse> {
-  const remote = await fetchRemoteAllProgress();
-  if (remote !== null) return remote;
-  return readStored();
+  try {
+    const remote = await fetchRemoteAllProgress();
+    if (remote !== null) return remote;
+    return readStored();
+  } catch {
+    return readStored();
+  }
 }
 
 export async function saveLessonCompletion(courseId: string, lessonId: string): Promise<boolean> {

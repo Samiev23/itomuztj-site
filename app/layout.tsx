@@ -35,7 +35,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await auth();
+  let session = null;
+  try {
+    session = await auth();
+  } catch (e) {
+    console.error("[auth] session in root layout", e);
+  }
 
   return (
     <html lang="tg" suppressHydrationWarning data-theme="dark" className={`${ibmPlexSans.variable} ${jetbrainsMono.variable}`}>

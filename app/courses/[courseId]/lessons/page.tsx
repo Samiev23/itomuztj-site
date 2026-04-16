@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LessonsModulesClient } from "@/components/LessonsModulesClient";
-import { coursesCatalog, isCourseId } from "@/data/lessons";
+import { coursesCatalog, isCourseId, type CourseId } from "@/data/lessons";
 import { SITE_TITLE } from "@/lib/site";
 
 type Props = { params: { courseId: string } };
@@ -12,7 +12,8 @@ export function generateStaticParams() {
 }
 
 export function generateMetadata({ params }: Props): Metadata {
-  const c = coursesCatalog.find((x) => x.id === params.courseId);
+  const raw = (params.courseId ?? "").trim().toLowerCase();
+  const c = coursesCatalog.find((x) => x.id === raw);
   if (!c) return { title: SITE_TITLE };
   return {
     title: SITE_TITLE,
@@ -21,8 +22,10 @@ export function generateMetadata({ params }: Props): Metadata {
 }
 
 export default function CourseLessonsPage({ params }: Props) {
-  if (!isCourseId(params.courseId)) notFound();
-  const course = coursesCatalog.find((c) => c.id === params.courseId)!;
+  const raw = (params.courseId ?? "").trim().toLowerCase();
+  if (!isCourseId(raw)) notFound();
+  const courseId = raw as CourseId;
+  const course = coursesCatalog.find((c) => c.id === courseId)!;
   const isKotlin = course.id === "kotlin";
 
   return (
@@ -59,7 +62,7 @@ export default function CourseLessonsPage({ params }: Props) {
           <p className="mx-auto mt-4 max-w-xl text-pretty text-base text-foreground-secondary sm:text-lg">{course.description}</p>
         </header>
 
-        <LessonsModulesClient courseId={course.id} accent={course.accent} />
+        <LessonsModulesClient courseId={courseId} accent={course.accent} />
       </div>
     </main>
   );

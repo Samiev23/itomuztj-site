@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { BrandLogo } from "@/components/BrandLogo";
@@ -13,8 +14,13 @@ const navLinks = [
 ];
 
 export function Navbar() {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const { data: session, status } = useSession();
+
+  if (pathname.startsWith("/admin")) {
+    return null;
+  }
 
   const authDesktop =
     status === "loading" ? (

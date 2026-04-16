@@ -13,6 +13,7 @@ import {
 } from "@/data/lessons";
 import {
   fetchCompletedLessonIds,
+  getCompletedLessonIdsSync,
   isLessonCompleted,
   isLessonUnlockedByProgress,
 } from "@/lib/lessonProgress";
@@ -96,7 +97,7 @@ export function LessonsModulesClient({ courseId, accent }: Props) {
       {courseId === "kotlin" ? <KotlinCourseCertificateBanner completedIds={completedIds} /> : null}
 
       <div className="mt-14 space-y-14">
-        {modules.map((mod) => (
+        {modules.filter(Boolean).map((mod) => (
           <section key={mod.id} aria-labelledby={`module-${mod.id}-title`}>
             <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
               <div>
@@ -120,11 +121,11 @@ export function LessonsModulesClient({ courseId, accent }: Props) {
               )}
               </div>
             </div>
-            {mod.lessons.length === 0 ? (
+            {(mod.lessons ?? []).length === 0 ? (
               <p className="text-sm text-foreground-muted">Дарсҳо ба зудӣ илова мешаванд.</p>
             ) : (
               <ul className="space-y-4">
-                {mod.lessons.map((lesson) => (
+                {(mod.lessons ?? []).map((lesson) => (
                   <li key={lesson.id}>
                     <LessonCard
                       courseId={courseId}
